@@ -9,8 +9,13 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@vueuse/rxjs": "^8.6.0",
+    "dexie": "^3.2.2",
+    "idb": "^7.0.1",
     "pinia": "^2.0.13",
+    "rxjs": "^7.5.5",
     "vue": "^3.2.31",
+    "vue-i18n": "^9.1.10",
     "vue-router": "^4.0.14"
   },
   "devDependencies": {

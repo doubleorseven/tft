@@ -1,0 +1,15 @@
+{
+    "menu": {
+      "home": "Home",
+      "tasks": "Tasks",
+      "supplies": "Supplies",
+      "settings": "Settings"
+    },
+    "areas": {
+      "tasks": {
+        "no-tasks": "There's nothing here...",
+        "created-tasks-appers-here": "Created tasks will appear here, try creating one!",
+        "create-a-task": "Create a Task"
+      }
+    }
+  }
