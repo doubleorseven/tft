@@ -2,5 +2,5 @@
 <Breadcrumbs :crumbs="['home','tasks']"></Breadcrumbs>
 </template>
 <script setup lang="ts">
-import Breadcrumbs from './breadcrumbs.vue';
+import Breadcrumbs from '@/components/shared/Breadcrumbs.vue';
 </script>

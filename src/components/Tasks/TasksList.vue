@@ -36,21 +36,23 @@
   </button>
 </div>
       </div>
-      <Modal 
-        :submit-text="'Create'" 
-        :submit-action="createTask" 
-        :header="'Create new Task'"
-        :isModalOpen="isModalOpen" 
+      <FormModal 
+        :button-text="`Create Task`" 
+        :submit="createTask" 
+        :header-text="'Create new Task'"
+        :isModalOpen="isModalOpen"
+        :model="{}"
+        :component-name="createTaskForm"
         @close="isModalOpen = false">
-       <CreateTask></CreateTask>
-      </Modal>
+      </FormModal>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref,defineAsyncComponent } from "vue";
 import TaskCardVue from './TaskCard.vue';
 import  {useTasksManager} from '@/lib/useTasksManager';
-import Modal from '@/components/shared/Modal.vue';
+import FormModal from '@/components/shared/FormModal.vue';
 import CreateTask from '@/components/Tasks/CreateTask.vue';
 const { createTask, tasks } = useTasksManager();
 const isModalOpen = ref(false);
+const createTaskForm = defineAsyncComponent(() => import("./CreateTask.vue"));
 </script>
