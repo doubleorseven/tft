@@ -47,12 +47,19 @@
       </FormModal>
 </template>
 <script setup lang="ts">
-import { ref,defineAsyncComponent } from "vue";
+import { ref,defineAsyncComponent,onMounted,onUnmounted } from "vue";
 import TaskCardVue from './TaskCard.vue';
 import  {useTasksManager} from '@/lib/useTasksManager';
-import FormModal from '@/components/shared/FormModal.vue';
+import FormModal from '@/components/shared/Forms/FormModal.vue';
 import CreateTask from '@/components/Tasks/CreateTask.vue';
-const { createTask, tasks } = useTasksManager();
+import { useRouter } from 'vue-router'
+const { createTask, tasks,subscribeToDB,unsubscribeToDB } = useTasksManager();
+const router = useRouter();
 const isModalOpen = ref(false);
 const createTaskForm = defineAsyncComponent(() => import("./CreateTask.vue"));
+const goToTask = (id: string) => {
+  router.push({ name: 'myRoute',params: { uid: 'id' } })
+};
+onMounted(subscribeToDB)
+onUnmounted(unsubscribeToDB)
 </script>

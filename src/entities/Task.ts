@@ -2,11 +2,11 @@
 import {simpleHash, createUUID} from '@/lib/functions';
 
 class Task {
-    id: string;
-    hid?: string;
-    title: string;
-    howHard: HowHard;
-    howLong: number;
+    public id: string;
+    public hid?: string;
+    public title: string;
+    public howHard: HowHard;
+    public howLong: number;
     constructor(
         title: string,
         howHard: HowHard,

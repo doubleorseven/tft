@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Subscription } from "dexie";
 import Task, { type CreateTaskModelData, type HowHard } from '@/entities/Task';
@@ -6,11 +6,16 @@ import Task, { type CreateTaskModelData, type HowHard } from '@/entities/Task';
 export function useTasksManager() {
     const tasks = ref<Task[]>([]);
     let tasksObservable: Subscription;
-    const createTask = async (formData: CreateTaskModelData) => {
-      const newTask = new Task(formData.title,formData.howHard as unknown as HowHard,formData.howLong)
+    const createTask = async (formData: CreateTaskModelData)  => {
+      debugger;
+      const newTask = new Task(formData.title,formData.howHard as HowHard,Number(formData.howLong))
       db.tasks.add(newTask)
+      return newTask;
+    } ;
+    const getTaskByUID = async (uidVal: string) => {
+      debugger;
+      return await db.tasks.where({uid: uidVal}).first();
     };
-    
     const subscribeToDB = async () => {
       tasksObservable = 
         liveQuery(() => db.tasks.toArray())
@@ -25,10 +30,11 @@ export function useTasksManager() {
       }
     }
 
-  onMounted(subscribeToDB);
-  onUnmounted(unsubscribeToDB)
     return {
       createTask,
+      getTaskByUID,
       tasks,
+      subscribeToDB,
+      unsubscribeToDB
     };
   }
