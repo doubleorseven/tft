@@ -3,7 +3,7 @@ import {simpleHash, createUUID} from '@/lib/functions';
 
 class Task {
     public id: string;
-    public hid?: string;
+    public uid?: string;
     public title: string;
     public howHard: HowHard;
     public howLong: number;
@@ -16,7 +16,7 @@ class Task {
         this.howHard = howHard;
         this.howLong = howLong;
         this.id = createUUID();
-        this.hid = simpleHash(this.id);
+        this.uid = simpleHash(this.id);
     }
 }
 export enum HowHard {

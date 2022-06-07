@@ -2,7 +2,10 @@
 <div class="flex flex-wrap -m-2">
   <ul>
     <li v-for="task in tasks">
-      {{task.title}}
+    <router-link :to="{ name: 'task', params: { uid: task.uid }}">
+       {{task.title}}
+    </router-link>
+     
       <!-- <TaskCardVue></TaskCardVue> -->
     </li>
   </ul>

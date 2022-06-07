@@ -8,7 +8,7 @@ export class TFTDixie extends Dexie {
   constructor() {
     super('tft-database');
     this.version(1).stores({
-      tasks: 'id, title, hid'
+      tasks: 'id, title, uid'
     });
   }
 }
