@@ -7,6 +7,7 @@ class Task {
     public title: string;
     public howHard: HowHard;
     public howLong: number;
+    private _dateCreated : number;
     constructor(
         title: string,
         howHard: HowHard,
@@ -17,6 +18,13 @@ class Task {
         this.howLong = howLong;
         this.id = createUUID();
         this.uid = simpleHash(this.id);
+        this._dateCreated = new Date().getTime();
+    }
+    public get DateCreatedFormatted() {
+        return new Date(this._dateCreated).toLocaleDateString();
+    }
+    public get DateCreated() {
+        return this._dateCreated;
     }
 }
 export enum HowHard {
