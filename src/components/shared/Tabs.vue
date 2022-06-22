@@ -4,7 +4,7 @@
       <div class="flex flex-col h-full bg-gray-50">
         <header class="flex items-center justify-between h-16 pl-6">
           <span class="text-sm font-medium tracking-widest uppercase">
-            Menu
+            TFT
           </span>
 
           <button aria-label="Close menu" class="w-16 h-16 " type="button">

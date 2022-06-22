@@ -1,13 +1,23 @@
 
-import {simpleHash, createUUID} from '@/lib/functions';
+import { simpleHash, createUUID } from '@/lib/functions';
 
-class Task {
+
+export interface ITask {
+    id: string;
+    uid?: string;
+    title: string;
+    howHard: HowHard;
+    howLong: number;
+    dateCreated: number;
+}
+
+class Task implements ITask {
     public id: string;
     public uid?: string;
     public title: string;
     public howHard: HowHard;
     public howLong: number;
-    private _dateCreated : number;
+    public dateCreated: number;
     constructor(
         title: string,
         howHard: HowHard,
@@ -18,13 +28,10 @@ class Task {
         this.howLong = howLong;
         this.id = createUUID();
         this.uid = simpleHash(this.id);
-        this._dateCreated = new Date().getTime();
+        this.dateCreated = new Date().getTime();
     }
     public get DateCreatedFormatted() {
-        return new Date(this._dateCreated).toLocaleDateString();
-    }
-    public get DateCreated() {
-        return this._dateCreated;
+        return new Date(this.dateCreated).toLocaleDateString();
     }
 }
 export enum HowHard {
@@ -37,6 +44,6 @@ export type CreateTaskModelData = {
     title: string,
     howHard: string,
     howLong: number,
-}  
+}
 
 export default Task;

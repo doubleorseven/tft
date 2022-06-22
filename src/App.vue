@@ -14,7 +14,7 @@ import AppHeader from './components/shared/AppHeader.vue'
     <header>
       <AppHeader />
     </header>
-    <main class="flex flex-wrap flex-col h-full">
+    <main class="flex shrink-0 max-w-full min-w-0 mx-auto pt-10 w-11/12 flex-col h-full">
       <RouterView />
     </main>
   </div>

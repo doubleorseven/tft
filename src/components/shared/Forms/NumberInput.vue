@@ -4,7 +4,7 @@
     <input type="number" :id="`number-input-${randomId}`" :value="modelValue" :placeholder="placeholder || ''"
       :min="min" :max="max" :step="step" :list="suggestionsId"
       class="w-full p-3 text-sm border-2 border-gray-200 rounded-lg"
-      @change="$emit('update:modelValue', $event.target?.value)" />
+      @change="$emit('update:modelValue', Number($event.target?.value))" />
 
 
     <datalist v-if="suggestions" :id="suggestionsId">

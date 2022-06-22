@@ -14,6 +14,9 @@ export function useTasksManager() {
   const deleteTask = async (id: string) => {
     await db.tasks.delete(id);
   };
+  const updateTask = async (task: Task) => {
+    await db.tasks.put(task, task.id);
+  }
   const getTaskByUID = async (uidVal: string) => {
     return await db.tasks.where({ uid: uidVal }).first();
   };
@@ -35,6 +38,7 @@ export function useTasksManager() {
   return {
     createTask,
     deleteTask,
+    updateTask,
     getTaskByUID,
     tasks,
     subscribeToDB,
