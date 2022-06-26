@@ -26,8 +26,8 @@
         </div>
         <div>
             <h4>how long does this task takes? {{ HowLongFullText }}</h4>
-            <NumberInput :placeholder="`15 (minutes)`" v-model="model.howLong" :modelValue="5" :min="5" :max="600"
-                :step="5" :suggestions="[5, 10, 20, 30, 60]" />
+            <NumberInput :placeholder="`15 (minutes)`" v-model="model.howLong" :modelValue="5" :min="1"
+                :suggestions="[5, 10, 20, 30, 60]" />
             <FormError v-if="props.errors.howLong" :text="props.errors.howLong" />
         </div>
     </div>

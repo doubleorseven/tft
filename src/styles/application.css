@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.box {
+    @apply text-center p-2 mt-2 border rounded;
+}
+
+.notification-success {
+    @apply box text-green-700 border-green-900/10 bg-green-50;
+}
+
+.notification-warning {
+    @apply box text-amber-700 bg-amber-50 border-amber-900/10;
+}
+
+.notification-error {
+    @apply box text-red-700 border-red-900/10 bg-red-50;
+}
+
+.notification-info {
+    @apply box text-sky-700 bg-sky-50 border-sky-900/10;
+}
+
+button {
+    @apply text-center p-2 mt-2 rounded border-2 hover:border-gray-400 hover:underline;
+}
+input {
+    @apply outline-none;
+}

@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { ref, defineAsyncComponent, onMounted, onUnmounted } from "vue";
 import TasksTable from '@/components/Tasks/TasksTable.vue';
-import { useTasksManager } from '@/lib/useTasksManager';
+import { useTasksManager } from '@/composables/useTasksManager';
 import FormModal from '@/components/shared/Forms/FormModal.vue';
 import CreateTask from '@/components/Tasks/CreateTask.vue';
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';

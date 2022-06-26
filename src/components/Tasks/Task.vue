@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { reactive, watch, onMounted, toRaw, } from 'vue'
-import { useTasksManager } from '@/lib/useTasksManager';
+import { useTasksManager } from '@/composables/useTasksManager';
 import type ITask from '@/entities/Task';
 import CreateButton from '../shared/Actions/CreateButton.vue';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';

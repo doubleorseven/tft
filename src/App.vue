@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { provide, reactive, readonly } from 'vue';
 import Tabs from './components/shared/Tabs.vue'
 import AppHeader from './components/shared/AppHeader.vue'
+import ApplicationSettings from '@/entities/ApplicationSettings';
+import { loadApplicationSettings } from '@/composables/useApplicationSettings';
+loadApplicationSettings();
 </script>
 
 <template>
-  <div class="items-center content-center justify-center w-32 flex-none">
-    <aside>
-      <Tabs />
-    </aside>
+  <div class="items-center content-center justify-center flex-none">
+
+    <Tabs />
+
   </div>
   <div class="flex-grow items-center content-center justify-center p-2">
     <header>
@@ -17,5 +21,6 @@ import AppHeader from './components/shared/AppHeader.vue'
     <main class="flex shrink-0 max-w-full min-w-0 mx-auto pt-10 w-11/12 flex-col h-full">
       <RouterView />
     </main>
+    <notifications position="top center" duration="1000" clickToClose="false" />
   </div>
 </template>

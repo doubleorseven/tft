@@ -1,31 +1,39 @@
 <template>
-  <section class="inset-y-0 left-0 flex">
-    <div class="w-screen max-w-sm h-screen">
-      <div class="flex flex-col h-full bg-gray-50">
-        <header class="flex items-center justify-between h-16 pl-6">
+  <aside :class="classObject">
+    <section class="flex h-screen justify-between bg-gray-100 text-gray-700 border-b border-gray-200 ">
+      <div class="">
+        <div class="flex items-center justify-between h-14 pl-6 w-32">
           <span class="text-sm font-medium tracking-widest uppercase">
             TFT
           </span>
-
-          <button aria-label="Close menu" class="w-16 h-16 " type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <div v-show="IsDrawerOpen" aria-label="Open Menu" class="mr-2 w-3 h-3 cursor-pointer"
+            @click.prevent="() => changeDrawerState()">
+            <svg viewPort="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <line x1="1" y1="11" x2="11" y2="1" stroke="black" stroke-width="2" />
+              <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="2" />
             </svg>
-          </button>
-        </header>
+          </div>
+        </div>
 
         <nav class="flex flex-col text-sm font-medium text-gray-500 ">
-          <!-- <RouterLink to="/" class="px-6 py-3"> {{$t("menu.home")}} </RouterLink> -->
+          <RouterLink to="/" class="px-6 py-3"> {{ $t("menu.home") }} </RouterLink>
           <RouterLink to="/tasks" class="px-6 py-3"> {{ $t("menu.tasks") }} </RouterLink>
           <!-- <RouterLink to="/supplies" class="px-6 py-3"> {{$t("menu.supplies")}} </RouterLink> -->
           <!-- <RouterLink to="/settings" class="px-6 py-3 "> {{$t("menu.settings")}} </RouterLink> -->
         </nav>
       </div>
-    </div>
-  </section>
+    </section>
+  </aside>
 </template>
 
 <script setup lang="ts">
 
+import { computed } from 'vue';
+import { useApplicationSettings } from '@/composables/useApplicationSettings';
+const { IsDrawerOpen, changeDrawerState } = useApplicationSettings()
+const classObject = computed(() => ({
+  'transform top-0 left-0 bg-white h-full overflow-auto ease-in-out transition-all duration-350': true,
+  'translate-x-0 w-32': IsDrawerOpen.value,
+  '-translate-x-full w-0': !IsDrawerOpen.value
+}))
 </script>
