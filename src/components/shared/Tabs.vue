@@ -34,6 +34,6 @@ const { IsDrawerOpen, changeDrawerState } = useApplicationSettings();
 const classObject = computed(() => ({
   'transform top-0 left-0 bg-white h-full overflow-auto ease-in-out transition-all duration-350': true,
   'translate-x-0 w-32': IsDrawerOpen.value,
-  '-translate-x-full w-0': !IsDrawerOpen.value
+  '-translate-x-full w-0': !IsDrawerOpen.value,
 }))
 </script>

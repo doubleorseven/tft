@@ -32,7 +32,7 @@ const updateTitle = (e: Event) => {
 
 
 <template>
-        <form>
+        <form class="flex  flex-col items-center justify-center">
                 <div contenteditable="true" @input="updateTitle" @paste.prevent @keydown.enter.prevent
                         class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
                         {{ task.title }}

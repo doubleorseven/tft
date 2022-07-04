@@ -4,7 +4,7 @@ import { simpleHash, createUUID } from '@/lib/functions';
 
 export interface ITask {
     id: string;
-    uid?: string;
+    uid: string;
     title: string;
     howHard: HowHard;
     howLong: number;
@@ -13,7 +13,7 @@ export interface ITask {
 
 class Task implements ITask {
     public id: string;
-    public uid?: string;
+    public uid: string;
     public title: string;
     public howHard: HowHard;
     public howLong: number;

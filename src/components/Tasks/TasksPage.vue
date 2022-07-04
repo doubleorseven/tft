@@ -5,7 +5,6 @@
       <CreateButton @clicked="isModalOpen = true">
         {{ $t('areas.tasks.create-a-task') }}
       </CreateButton>
-
       <TasksTable v-if="tasks.length > 0" :tasks="tasks" :delete-task="deleteTask"> </TasksTable>
     </div>
   </template>
