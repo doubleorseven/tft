@@ -18,7 +18,7 @@
         <nav class="flex flex-col text-sm font-medium text-gray-500 ">
           <RouterLink to="/" class="px-6 py-3"> {{ $t("menu.home") }} </RouterLink>
           <RouterLink to="/tasks" class="px-6 py-3"> {{ $t("menu.tasks") }} </RouterLink>
-          <!-- <RouterLink to="/supplies" class="px-6 py-3"> {{$t("menu.supplies")}} </RouterLink> -->
+          <RouterLink to="/materials-lists" class="px-6 py-3"> {{ $t("menu.materialsLists") }} </RouterLink>
           <!-- <RouterLink to="/settings" class="px-6 py-3 "> {{$t("menu.settings")}} </RouterLink> -->
         </nav>
       </div>

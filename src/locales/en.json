@@ -1,15 +1,20 @@
 {
-    "menu": {
-      "home": "Home",
-      "tasks": "Tasks",
-      "supplies": "Supplies",
-      "settings": "Settings"
+  "menu": {
+    "home": "Home",
+    "tasks": "Tasks",
+    "materialsLists": "Materials Lists",
+    "settings": "Settings"
+  },
+  "areas": {
+    "tasks": {
+      "no-tasks": "There's nothing here...",
+      "created-tasks-appers-here": "Created tasks will appear here, try creating one!",
+      "create-a-task": "Create a Task"
     },
-    "areas": {
-      "tasks": {
-        "no-tasks": "There's nothing here...",
-        "created-tasks-appers-here": "Created tasks will appear here, try creating one!",
-        "create-a-task": "Create a Task"
-      }
+    "materialsLists": {
+      "no-materialsLists": "There's nothing here...",
+      "created-materialsLists-appers-here": "Created materials lists will appear here, try creating one!",
+      "create-a-materialsList": "Create a Materials List"
     }
   }
+}

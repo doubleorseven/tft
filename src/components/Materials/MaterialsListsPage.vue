@@ -6,7 +6,7 @@
         {{ $t('areas.materialsLists.create-a-materialsList') }}
       </CreateButton>
       <MaterialsListsTable v-if="materialsLists.length > 0" :materialsLists="materialsLists"
-        :delete-material="deleteMaterialsList">
+        :delete-materials-list="deleteMaterialsList">
       </MaterialsListsTable>
     </div>
   </template>
@@ -28,7 +28,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted, onUnmounted } from "vue";
-import MaterialsListsTable from '@/components/materialsLists/MaterialsListsTable.vue';
+import MaterialsListsTable from '@/components/Materials/MaterialsListsTable.vue';
 import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import type MaterialsList from "@/entities/MaterialsList";

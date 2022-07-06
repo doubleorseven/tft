@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import TasksPage from '@/components/Tasks/TasksPage.vue'
 import Task from '@/components/Tasks/Task.vue';
+import MaterialsListsPage from '@/components/Materials/MaterialsListsPage.vue';
+import MaterialsList from '@/components/Materials/MaterialsList.vue';
 import Home from '@/components/Home.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +21,16 @@ const router = createRouter({
       path: '/task/:uid',
       name: 'task',
       component: Task
+    },
+    {
+      path: '/materials-lists',
+      name: 'materials-lists',
+      component: MaterialsListsPage
+    },
+    {
+      path: '/materials-list/:uid',
+      name: 'materials-list',
+      component: MaterialsList
     }
     // {
     //   path: '/about',
