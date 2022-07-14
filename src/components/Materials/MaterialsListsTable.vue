@@ -1,11 +1,11 @@
 
 <template>
-  <ul v-if="$isMobile">
-    <!-- <li v-for="task in props.tasks">
+  <!-- <ul v-if="$isMobile">
+    <li v-for="task in props.tasks">
       <TaskCard :task="task" :delete-task="deleteTask"></TaskCard>
-    </li> -->
-  </ul>
-  <div v-else class="overflow-x-auto">
+    </li> 
+  </ul> -->
+  <div class="overflow-x-auto">
     <table class="min-w-full text-sm divide-y-2 divide-gray-200">
       <thead>
         <tr>
@@ -35,7 +35,9 @@
               </router-link>
             </td>
             <td class="px-4 py-2 text-gray-700 whitespace-nowrap">{{ ml.DateCreatedFormatted }}</td>
-            <td class="px-4 py-2 text-gray-700 whitespace-nowrap">{{ (ml.taskId) ? ml.taskId : '' }}</td>
+            <td class="px-4 py-2 text-gray-700 whitespace-nowrap">{{ (ml.taskId) ? getTaskByID(ml.taskId).then(t =>
+                t?.title) : ''
+            }}</td>
             <td class="px-4 py-2 text-gray-700 whitespace-nowrap">
               <div class="cursor-pointer w-fit" @click.prevent="() => deleteMaterialsList(ml.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
@@ -61,6 +63,10 @@
 <script setup lang="ts">
 import type MaterialsList from '@/entities/MaterialsList';
 import type { PropType } from 'vue';
+
+
+import { useTasksManager } from '@/composables/useTasksManager';
+
 // import TaskCard from './TaskCard.vue';
 const props = defineProps({
   materialsLists: { type: null as unknown as PropType<MaterialsList[]>, required: true },
@@ -69,4 +75,5 @@ const props = defineProps({
 const deleteMaterialsList = (id: string) => {
   props.deleteMaterialsList(id);
 };
+const { getTaskByID } = useTasksManager();
 </script>

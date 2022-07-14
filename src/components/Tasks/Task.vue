@@ -2,8 +2,9 @@
 import { useRoute } from 'vue-router'
 import { reactive, watch, onMounted, toRaw, } from 'vue'
 import { useTasksManager } from '@/composables/useTasksManager';
+import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
 import type ITask from '@/entities/Task';
-import CreateButton from '../shared/Actions/CreateButton.vue';
+import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
 import NumberInput from '@/components/shared/Forms/NumberInput.vue';
 
@@ -11,6 +12,7 @@ import { HowHard } from '@/entities/Task';
 const route = useRoute()
 const task = reactive({} as ITask);
 const { getTaskByUID, updateTask } = useTasksManager();
+const { createMaterialsList } = useMaterialsListsManager();
 onMounted(() =>
         watch(
                 () => route.params.uid as string,
@@ -26,6 +28,11 @@ onMounted(() =>
 const updateTitle = (e: Event) => {
         var element = e.target as HTMLHeadElement;
         task.title = element.innerHTML;
+}
+const updateMaterialsList = async (taskId: string) => {
+        const ml = await createMaterialsList(taskId);
+        task.materialsListId = ml.id;
+        updateTask(toRaw(task));
 }
 
 </script>
@@ -65,7 +72,12 @@ const updateTitle = (e: Event) => {
                         <NumberInput :placeholder="`15 (minutes)`" v-model="task.howLong" :modelValue="5" :min="5"
                                 :max="600" :step="5" :suggestions="[5, 10, 20, 30, 60]" />
                 </div>
-
+                <div v-if="task.materialsListId">
+                        {{ task.materialsListId }}
+                </div>
+                <CreateButton v-else @clicked="updateMaterialsList(task.id)">
+                        Add Materials List
+                </CreateButton>
                 <CreateButton @clicked="updateTask(toRaw(task))">
                         Save task!
                 </CreateButton>

@@ -17,7 +17,7 @@ export default class MaterialsList {
 
         this.id = createUUID();
         this.uid = simpleHash(this.id);
-        this.title = title || `New materials list - ${this.uid}`;
+        this.title = `${title} - materials list ` || `materials list - ${this.uid}`;
         this.dateCreated = new Date().getTime();
     }
     public get DateCreatedFormatted() {

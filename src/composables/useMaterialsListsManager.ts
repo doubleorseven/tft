@@ -2,12 +2,22 @@ import { ref } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Subscription } from "dexie";
 import MaterialsList from '@/entities/MaterialsList';
+import { useTasksManager } from '@/composables/useTasksManager';
 import { notify } from "@kyvg/vue3-notification";
 export function useMaterialsListsManager() {
     const materialsLists = ref<MaterialsList[]>([]);
+    const { getTaskByID } = useTasksManager();
     let materialListsObservable: Subscription;
-    const createMaterialsList = async () => {
-        const newMaterialList = new MaterialsList('')
+    const createMaterialsList = async (taskId?: string) => {
+        let newMaterialList: MaterialsList;
+        if (taskId) {
+
+            const task = await getTaskByID(taskId);
+            newMaterialList = new MaterialsList(task?.id, task?.title);
+        }
+        else {
+            newMaterialList = new MaterialsList('', '');
+        }
         db.materialsLists.add(newMaterialList)
         notify({
             type: "notification-success",
@@ -32,6 +42,9 @@ export function useMaterialsListsManager() {
     const getMeterialsListByUID = async (uidVal: string) => {
         return await db.materialsLists.where({ uid: uidVal }).first();
     };
+    const getMeterialsListByID = async (idVal: string) => {
+        return await db.materialsLists.where({ id: idVal }).first();
+    };
     const subscribeToDB = async () => {
 
         materialListsObservable =
@@ -52,6 +65,7 @@ export function useMaterialsListsManager() {
         deleteMaterialsList,
         updateMeterialsList,
         getMeterialsListByUID,
+        getMeterialsListByID,
         materialsLists,
         subscribeToDB,
         unsubscribeToDB

@@ -17,6 +17,7 @@ class Task implements ITask {
     public title: string;
     public howHard: HowHard;
     public howLong: number;
+    public materialsListId?: string;
     public dateCreated: number;
     constructor(
         title: string,

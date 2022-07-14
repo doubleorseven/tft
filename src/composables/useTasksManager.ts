@@ -29,8 +29,11 @@ export function useTasksManager() {
       title: `task updated!`,
     });
   }
-  const getTaskByUID = async (uidVal: string) => {
+  const getTaskByUID = async (uidVal: string): Promise<Task | undefined> => {
     return await db.tasks.where({ uid: uidVal }).first();
+  };
+  const getTaskByID = async (idVal: string): Promise<Task | undefined> => {
+    return await db.tasks.where({ id: idVal }).first();
   };
   const subscribeToDB = async () => {
 
@@ -51,6 +54,7 @@ export function useTasksManager() {
     createTask,
     deleteTask,
     updateTask,
+    getTaskByID,
     getTaskByUID,
     tasks,
     subscribeToDB,

@@ -30,7 +30,8 @@ const router = createRouter({
     {
       path: '/materials-list/:uid',
       name: 'materials-list',
-      component: MaterialsList
+      component: MaterialsList,
+      props: true
     }
     // {
     //   path: '/about',
