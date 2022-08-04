@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { stringifyQuery, useRoute } from 'vue-router'
-import { reactive, watch, onMounted, toRaw, } from 'vue'
+import { reactive, ref, watch, onMounted, toRaw, } from 'vue'
 import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
 import { useTasksManager } from '@/composables/useTasksManager';
 import type MaterialsList from '@/entities/MaterialsList';
@@ -17,6 +17,7 @@ const { getMeterialsListByUID, updateMeterialsList } = useMaterialsListsManager(
 const props = defineProps({
         uid: String
 })
+let items = ref<Array<IListItem>>([]);
 onMounted(() =>
         watch(
                 () => props.uid as string,
@@ -24,6 +25,7 @@ onMounted(() =>
                         var dbML = await getMeterialsListByUID(newId);
                         if (dbML) {
                                 Object.assign(ml, dbML);
+                                items.value = ml.items;
                         }
 
                 }, { immediate: true })
@@ -33,7 +35,13 @@ const updateTitle = (e: Event) => {
         var element = e.target as HTMLHeadElement;
         ml.title = element.innerHTML;
 }
-const items: Array<IListItem> = [{ title: 'first', done: false }, { title: 'second', done: true }, { title: 'third', done: false }]
+const updatedList = (list: Array<IListItem>) => {
+        items.value = list;
+}
+const beforeUpdate = () => {
+        ml.items = JSON.parse(JSON.stringify(items.value));
+        updateMeterialsList(toRaw(ml));
+}
 </script>
 
 
@@ -43,9 +51,9 @@ const items: Array<IListItem> = [{ title: 'first', done: false }, { title: 'seco
                         class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
                         {{ ml.title }}
                 </div>
-                <ItemsList :items="items"></ItemsList>
+                <ItemsList :items="items" @updated-list="updatedList"></ItemsList>
 
-                <CreateButton @clicked="updateMeterialsList(toRaw(ml))">
+                <CreateButton @clicked="beforeUpdate">
                         Save Materials List!
                 </CreateButton>
         </form>

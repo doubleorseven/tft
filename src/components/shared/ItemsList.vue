@@ -1,23 +1,26 @@
 <template>
     <ul class="w-10/12 flex flex-col">
-        <li v-for="(item, idx) in data" class="flex row group" :key="idx">
+        <li v-for="(item, idx) in items" class="flex row group" :key="idx">
             <div class="flex row">
                 <div class="hover:opacity-90 hover:bg-slate-200 rounded-full cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#000"
-                        class="invisible group-hover:visible">
+                    <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#000"
+                        class="invisible group-hover:visible" @click="() => { deleteItem(idx) }">
                         <path
                             d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
                     </svg>
                 </div>
-                <div><input id="toy" type="checkbox" v-model="item.done" name="type[toy]"
-                        class="w-5 h-5 border-gray-300 rounded" />
+                <div><input id="toy" type="checkbox" @click="() => { updateItemState(idx) }" v-model="item.done"
+                        name="type[toy]" class="w-5 h-5 border-gray-300 rounded mr-2" />
                 </div>
             </div>
             <div>
-                <p v-if="idx === data.length - 1" id="newItemAdded" @keyup.enter="enterPressed" :data-index="idx"
-                    @input="updateItem" contenteditable class="outline-0">{{ item.title }}
+                <p v-if="idx === items.length - 1" id="newItemAdded" @keyup.enter.prevent="enterPressed"
+                    :data-index="idx" @input="updateItem" :class="{ 'line-through': item.done }" contenteditable
+                    class="outline-0">{{
+                            item.title
+                    }}
                 </p>
-                <p v-else :class="{ 'line-through': item.done }" :data-index="idx" @keyup.enter="enterPressed"
+                <p v-else :data-index="idx" @keyup.enter="enterPressed" :class="{ 'line-through': item.done }"
                     @input="updateItem" contenteditable class="outline-0">
                     {{ item.title }}</p>
             </div>
@@ -35,30 +38,46 @@
 </template>
 <script setup lang="ts">
 import type IListItem from '@/entities/interfaces/IListItem';
-import { defineProps, nextTick, onUpdated, ref, type PropType } from 'vue';
+import { defineProps, nextTick, onUpdated, ref, toRaw, type PropType } from 'vue';
+let focusNewItem = false;
 const props = defineProps({
     items: { type: Array as PropType<IListItem[]>, required: true }
 })
-const data = ref(props.items);
+const emits = defineEmits(['updatedList']);
 const newItem = (e: KeyboardEvent) => {
-    data.value.push({ title: e.key, done: false });
+    emitUpdatedList(props.items.concat([{ title: e.key, done: false }]));
     e.target.innerHTML = '';
+    focusNewItem = true;
 };
+const updateItemState = (idx: number) => {
+    props.items[Number(idx)].done = !props.items[Number(idx)].done;
+    emitUpdatedList(props.items);
+}
 const updateItem = (e: any) => {
     const element = e.target as HTMLParagraphElement;
     const idx = element.getAttribute('data-index');
     if (idx) {
-        data.value[Number(idx)].title = element.innerText;
+        props.items[Number(idx)].title = element.innerText;
+        emitUpdatedList(props.items);
     }
 
 }
 const enterPressed = (e: any) => {
-    data.value.push({ title: '', done: false });
+    emitUpdatedList(props.items.concat([{ title: e.key, done: false }]));
+    focusNewItem = true;
+}
+const deleteItem = (idx: number) => {
+    props.items.splice(idx, 1);
+    emitUpdatedList(props.items);
+}
+const emitUpdatedList = (list: IListItem[]) => {
+    emits('updatedList', [...list]);
 }
 onUpdated(() => {
     nextTick();
     const div = document.getElementById('newItemAdded');
-    if (div) {
+    if (div && focusNewItem) {
+        focusNewItem = false;
         setTimeout(function () {
             div.focus();
             var range, selection;
