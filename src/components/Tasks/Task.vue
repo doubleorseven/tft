@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { reactive, watch, onMounted, toRaw, } from 'vue'
+import { reactive, watch, onMounted, toRaw, ref } from 'vue'
 import { useTasksManager } from '@/composables/useTasksManager';
 import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
 import type ITask from '@/entities/Task';
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
 import NumberInput from '@/components/shared/Forms/NumberInput.vue';
+import ItemsList from '@/components/shared/ItemsList.vue';
 
 import { HowHard } from '@/entities/Task';
+import type MaterialsList from '@/entities/MaterialsList.js';
+import type IListItem from '@/entities/interfaces/IListItem.js';
 const route = useRoute()
 const task = reactive({} as ITask);
+const ml = reactive({} as MaterialsList);
+const materialsListItems = ref<Array<IListItem>>([]);
 const { getTaskByUID, updateTask } = useTasksManager();
-const { createMaterialsList } = useMaterialsListsManager();
+const { createMaterialsList, getMeterialsListByID, updateMeterialsList } = useMaterialsListsManager();
 onMounted(() =>
         watch(
                 () => route.params.uid as string,
@@ -20,6 +25,13 @@ onMounted(() =>
                         var dbTask = await getTaskByUID(newId);
                         if (dbTask) {
                                 Object.assign(task, dbTask);
+                                if (dbTask.materialsListId) {
+                                        const localMl = await getMeterialsListByID(dbTask.materialsListId);
+                                        if (ml) {
+                                                Object.assign(ml, localMl);
+                                                materialsListItems.value = ml.items;
+                                        }
+                                }
                         }
 
                 }, { immediate: true })
@@ -30,11 +42,22 @@ const updateTitle = (e: Event) => {
         task.title = element.innerHTML;
 }
 const updateMaterialsList = async (taskId: string) => {
-        const ml = await createMaterialsList(taskId);
+        Object.assign(ml, await createMaterialsList(taskId));
         task.materialsListId = ml.id;
+        materialsListItems.value = ml.items;
         updateTask(toRaw(task));
 }
+const updatedList = (list: Array<IListItem>) => {
+        materialsListItems.value = list;
+}
+const beforeSave = () => {
+        if (task.materialsListId) {
+                ml.items = JSON.parse(JSON.stringify(materialsListItems.value));
+                updateMeterialsList(toRaw(ml));
+        }
+        updateTask(toRaw(task));
 
+}
 </script>
 
 
@@ -72,13 +95,14 @@ const updateMaterialsList = async (taskId: string) => {
                         <NumberInput :placeholder="`15 (minutes)`" v-model="task.howLong" :modelValue="5" :min="5"
                                 :max="600" :step="5" :suggestions="[5, 10, 20, 30, 60]" />
                 </div>
-                <div v-if="task.materialsListId">
-                        {{ task.materialsListId }}
+                <div v-if="task.materialsListId" class="w-9/12 mt-5 sm:w-4/12">
+                        <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">materials</h4>
+                        <ItemsList :items="materialsListItems" @updated-list="updatedList"></ItemsList>
                 </div>
                 <CreateButton v-else @clicked="updateMaterialsList(task.id)">
                         Add Materials List
                 </CreateButton>
-                <CreateButton @clicked="updateTask(toRaw(task))">
+                <CreateButton @clicked="beforeSave">
                         Save task!
                 </CreateButton>
         </form>

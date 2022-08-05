@@ -15,23 +15,24 @@
             </div>
             <div>
                 <p v-if="idx === items.length - 1" id="newItemAdded" @keyup.enter.prevent="enterPressed"
-                    :data-index="idx" @input="updateItem" :class="{ 'line-through': item.done }" contenteditable
+                    :data-index="idx" @input.prevent="updateItem" :class="{ 'line-through': item.done }" contenteditable
                     class="outline-0">{{
                             item.title
                     }}
                 </p>
-                <p v-else :data-index="idx" @keyup.enter="enterPressed" :class="{ 'line-through': item.done }"
+                <p v-else :data-index="idx" @keyup.enter.prevent="enterPressed" :class="{ 'line-through': item.done }"
                     @input="updateItem" contenteditable class="outline-0">
                     {{ item.title }}</p>
             </div>
         </li>
-        <li class="relative lw-full  inline-block">
-            <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 0 48 48" fill="#000">
+        <li class="relative lw-full  inline-block pl-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="inline" height="18px" width="18px" viewBox="0 0 48 48"
+                fill="#000">
                 <path d="m38 26h-12v12h-4v-12h-12v-4h12v-12h4v12h12v4z" />
                 <path d="m0 0h48v48h-48z" fill="none" />
             </svg>
-            <div class="absolute lw-full  pointer-events-none text-gray-500">List Item</div>
-            <div contenteditable @keyup="newItem" class="outline-0" spellcheck="false">
+            <div class="absolute inline  lw-full  pointer-events-none text-gray-500 left-[52px]">List Item</div>
+            <div contenteditable @keyup="newItem" class="outline-0 absolute inline w-16 left-[52px]" spellcheck="false">
             </div>
         </li>
     </ul>
@@ -45,6 +46,7 @@ const props = defineProps({
 })
 const emits = defineEmits(['updatedList']);
 const newItem = (e: KeyboardEvent) => {
+    if (e.key.length > 1) return;
     emitUpdatedList(props.items.concat([{ title: e.key, done: false }]));
     e.target.innerHTML = '';
     focusNewItem = true;
@@ -63,7 +65,7 @@ const updateItem = (e: any) => {
 
 }
 const enterPressed = (e: any) => {
-    emitUpdatedList(props.items.concat([{ title: e.key, done: false }]));
+    emitUpdatedList(props.items.concat([{ title: '', done: false }]));
     focusNewItem = true;
 }
 const deleteItem = (idx: number) => {
