@@ -1,11 +1,12 @@
 <template>
     <ul class="w-10/12 flex flex-col">
         <li v-for="(item, idx) in items" class="flex row group focus-within:border-y focus-within:border-y-zinc-300"
-            :key="idx">
+            :key="idx" @click.self="focusOnItem">
             <div class="flex row">
                 <div class="active:opacity-90 active:bg-slate-200 rounded-full cursor-pointer">
                     <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#000"
-                        class="invisible group-focus-within:visible" @clicked="() => { deleteItem(idx) }">
+                        class="invisible group-focus-within:visible group-hover:visible"
+                        @click="() => { deleteItem(idx) }">
                         <path
                             d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
                     </svg>
@@ -14,7 +15,7 @@
                         name="type[toy]" class="w-5 h-5 border-gray-300 rounded mr-2" />
                 </div>
             </div>
-            <div>
+            <div class="">
                 <p v-if="idx === items.length - 1" id="newItemAdded" :data-index="idx" @input.prevent="updateItem"
                     :class="{ 'line-through': item.done }" contenteditable class="outline-0">{{
                             item.title
@@ -25,7 +26,7 @@
                     {{ item.title }}</p>
             </div>
         </li>
-        <li class="relative lw-full  inline-block pl-6">
+        <li class="relative lw-full  inline-block pl-6 focus-within:border-y focus-within:border-y-zinc-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="inline" height="18px" width="18px" viewBox="0 0 48 48"
                 fill="#000">
                 <path d="m38 26h-12v12h-4v-12h-12v-4h12v-12h4v12h12v4z" />
@@ -56,6 +57,13 @@ const newItem = (e: InputEvent) => {
 
 
 };
+const focusOnItem = (event: Event) => {
+    const li = event.target as HTMLLIElement;
+    const p = li.querySelector('p');
+    if (p) {
+        p.focus();
+    }
+}
 const updateItemState = (idx: number) => {
     props.items[Number(idx)].done = !props.items[Number(idx)].done;
     emitUpdatedList(props.items);
@@ -63,24 +71,28 @@ const updateItemState = (idx: number) => {
 const updateItem = (e: InputEvent) => {
     const element = e.target as HTMLParagraphElement;
     const idx = Number(element.getAttribute('data-index'));
-    if (e.inputType === 'insertParagraph') {
-        const values = element.innerText.split('\n');
-        element.innerText = values[0];
-        let newItem = { title: values[1], done: false };
+    if (e.inputType === 'insertParagraph' || e.inputType === 'insertText' && !e.data) {
+        const values = element.innerText.split('\n').filter(x => x);
+        let newItem: IListItem;
+        if (values.length === 0) {
+            newItem = { title: '', done: false };
+        } else {
+            props.items[idx].title = values[0];
+            newItem = { title: values[1] || '', done: false };
+        }
         if (idx + 1 === props.items.length) {
             props.items.push(newItem);
+            focusNewItem = true;
         } else {
-            props.items.splice(idx, 1, newItem);
+            props.items.splice(idx + 1, 0, newItem);
         }
         emitUpdatedList(props.items);
+    } else {
+        if (idx) {
+            props.items[idx].title = element.innerText;
+            emitUpdatedList(props.items);
+        }
     }
-
-
-    if (idx) {
-        props.items[idx].title = element.innerText;
-        emitUpdatedList(props.items);
-    }
-
 }
 
 const deleteItem = (idx: number) => {
