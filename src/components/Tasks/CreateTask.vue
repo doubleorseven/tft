@@ -25,9 +25,8 @@
 
         </div>
         <div>
-            <h4>how long does this task takes? {{ HowLongFullText }}</h4>
-            <NumberInput :placeholder="`15 (minutes)`" v-model="model.howLong" :modelValue="5" :min="1"
-                :suggestions="[5, 10, 20, 30, 60]" />
+            <h4>how long does this task takes?</h4>
+            <FormSlider :modelValue="model.howLong" :label="HowLongFullText" />
             <FormError v-if="props.errors.howLong" :text="props.errors.howLong" />
         </div>
     </div>
@@ -37,8 +36,8 @@
 import { HowHard } from '@/entities/Task';
 import { watch, reactive, computed } from 'vue';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
+import FormSlider from '../shared/Forms/FormSlider.vue';
 import TextInput from '@/components/shared/Forms/TextInput.vue';
-import NumberInput from '@/components/shared/Forms/NumberInput.vue';
 import FormError from '@/components/shared/Forms/FormError.vue';
 import type ICreateTaskFormModalError from '@/entities/interfaces/ICreateTaskFormModalError';
 const props = defineProps({
