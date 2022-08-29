@@ -46,5 +46,9 @@ export type CreateTaskModelData = {
     howHard: string,
     howLong: number,
 }
+export type ChooseTaskStarterkModelData = {
+    howHard: string,
+    howLong: number,
+}
 
 export default Task;

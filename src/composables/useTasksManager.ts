@@ -6,6 +6,9 @@ import { notify } from "@kyvg/vue3-notification";
 export function useTasksManager() {
   const tasks = ref<Task[]>([]);
   let tasksObservable: Subscription;
+  const hasTasks = (): Boolean => {
+    return tasks.value.length > 0;
+  }
   const createTask = async (formData: CreateTaskModelData) => {
     const newTask = new Task(formData.title, formData.howHard as HowHard, Number(formData.howLong))
     db.tasks.add(newTask)
@@ -51,6 +54,7 @@ export function useTasksManager() {
   }
 
   return {
+    hasTasks,
     createTask,
     deleteTask,
     updateTask,

@@ -1,4 +1,4 @@
-export default interface CreateTaskFormModalError {
+export default interface ICreateTaskFormModalError {
     title: string,
     howHard: string,
     howLong: string

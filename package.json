@@ -13,7 +13,8 @@
     "dexie": "^3.2.2",
     "vue": "^3.2.31",
     "vue-i18n": "^9.1.10",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue3-slider": "^1.8.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

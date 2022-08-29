@@ -1,0 +1,19 @@
+<script setup lang="ts">
+import slider from "vue3-slider";
+
+defineProps({
+    modelValue: Number,
+    label: String,
+});
+const fireChange = (val: Number) => {
+    console.log(val);
+    $emit('update:modelValue', val);
+}
+</script>
+<template>
+    <div class="flex  flex-col justify-center items-center mt-2">
+        <slider v-model="modelValue" orientation="circular" color="#2563EB" width="50%" :height="15" :max="600"
+            :step="5" track-color="#a1a1a1" @change="fireChange" />
+        <h5 class="mt-1">{{  label  }}</h5>
+    </div>
+</template>

@@ -61,7 +61,7 @@ const focusOnItem = (event: Event) => {
     const li = event.target as HTMLLIElement;
     const p = li.querySelector('p');
     if (p) {
-        p.focus();
+        moveCursorToEndOfLine(p);
     }
 }
 const updateItemState = (idx: number) => {
@@ -102,21 +102,24 @@ const deleteItem = (idx: number) => {
 const emitUpdatedList = (list: IListItem[]) => {
     emits('updatedList', [...list]);
 }
+const moveCursorToEndOfLine = (p: HTMLParagraphElement) => {
+    p.focus();
+    let range, selection;
+    range = document.createRange();//Create a range (a range is a like the selection but invisible)
+    range.selectNodeContents(p);//Select the entire contents of the element with the range
+    range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+    selection = window.getSelection();//get the selection object (allows you to change selection)
+    if (selection) {
+        selection.removeAllRanges();//remove any selections already made
+        selection.addRange(range);//make the range you have just created the visible selection
+    }
+}
 onUpdated(() => {
     nextTick();
-    const div = document.getElementById('newItemAdded');
-    if (div && focusNewItem) {
+    const p = document.getElementById('newItemAdded') as HTMLParagraphElement;
+    if (p && focusNewItem) {
         focusNewItem = false;
-        setTimeout(function () {
-            div.focus();
-            var range, selection;
-            range = document.createRange();//Create a range (a range is a like the selection but invisible)
-            range.selectNodeContents(div);//Select the entire contents of the element with the range
-            range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-            selection = window.getSelection();//get the selection object (allows you to change selection)
-            selection.removeAllRanges();//remove any selections already made
-            selection.addRange(range);//make the range you have just created the visible selection
-        }, 0);
+        setTimeout(() => moveCursorToEndOfLine(p), 0);
     }
 })
 </script>

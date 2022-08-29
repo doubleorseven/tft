@@ -8,6 +8,7 @@ import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
 import NumberInput from '@/components/shared/Forms/NumberInput.vue';
 import ItemsList from '@/components/shared/ItemsList.vue';
+import FormSlider from '../shared/Forms/FormSlider.vue';
 
 import { HowHard } from '@/entities/Task';
 import type MaterialsList from '@/entities/MaterialsList.js';
@@ -65,7 +66,7 @@ const beforeSave = () => {
         <form class="flex  flex-col items-center justify-center">
                 <div contenteditable="true" @input="updateTitle" @paste.prevent @keydown.enter.prevent
                         class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
-                        {{ task.title }}
+                        {{  task.title  }}
                 </div>
                 <div class="w-9/12 mt-5 sm:w-4/12">
                         <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">how hard is this
@@ -92,8 +93,9 @@ const beforeSave = () => {
                         <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">how
                                 long does this
                                 task takes?</h4>
-                        <NumberInput :placeholder="`15 (minutes)`" v-model="task.howLong" :modelValue="5" :min="5"
-                                :max="600" :step="5" :suggestions="[5, 10, 20, 30, 60]" />
+                        <FormSlider :modelValue="task.howLong" v-model="task.howLong"
+                                :label="`${task.howLong} minutes`" />
+
                 </div>
                 <div v-if="task.materialsListId" class="w-9/12 mt-5 sm:w-4/12">
                         <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">materials</h4>
