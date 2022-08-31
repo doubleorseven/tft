@@ -11,7 +11,7 @@ export class TFTDixie extends Dexie {
   constructor() {
     super('tft-database');
     this.version(APP_DB_VERSION).stores({
-      tasks: 'id, title, uid',
+      tasks: 'id, title, uid, howHard',
       appSettings: '',
       materialsLists: 'id,uid',
     });

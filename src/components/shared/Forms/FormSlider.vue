@@ -5,9 +5,11 @@ defineProps({
     modelValue: Number,
     label: String,
 });
+const emits = defineEmits(['update:modelValue']);
+
 const fireChange = (val: Number) => {
     console.log(val);
-    $emit('update:modelValue', val);
+    emits('update:modelValue', val);
 }
 </script>
 <template>

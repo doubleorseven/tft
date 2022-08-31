@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Subscription } from "dexie";
-import Task, { type CreateTaskModelData, type HowHard } from '@/entities/Task';
+import Task, { type ChooseTaskStarterkModelData, type CreateTaskModelData, type HowHard } from '@/entities/Task';
 import { notify } from "@kyvg/vue3-notification";
 export function useTasksManager() {
   const tasks = ref<Task[]>([]);
@@ -18,6 +18,9 @@ export function useTasksManager() {
     });
     return newTask;
   };
+  const tasksCountByQuery = async (formData: ChooseTaskStarterkModelData): Promise<number> => {
+    return db.tasks.where('howHard').equals(formData.howHard).and(x => x.howLong <= formData.howLong).count();
+  }
   const deleteTask = async (id: string) => {
     await db.tasks.delete(id);
     notify({
@@ -55,6 +58,7 @@ export function useTasksManager() {
 
   return {
     hasTasks,
+    tasksCountByQuery,
     createTask,
     deleteTask,
     updateTask,

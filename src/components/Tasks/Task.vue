@@ -93,8 +93,7 @@ const beforeSave = () => {
                         <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">how
                                 long does this
                                 task takes?</h4>
-                        <FormSlider :modelValue="task.howLong" v-model="task.howLong"
-                                :label="`${task.howLong} minutes`" />
+                        <FormSlider v-model="task.howLong" :label="`${task.howLong} minutes`" />
 
                 </div>
                 <div v-if="task.materialsListId" class="w-9/12 mt-5 sm:w-4/12">

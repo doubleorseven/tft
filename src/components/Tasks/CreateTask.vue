@@ -26,7 +26,7 @@
         </div>
         <div>
             <h4>how long does this task takes?</h4>
-            <FormSlider :modelValue="model.howLong" :label="HowLongFullText" />
+            <FormSlider v-model="model.howLong" :label="HowLongFullText" />
             <FormError v-if="props.errors.howLong" :text="props.errors.howLong" />
         </div>
     </div>

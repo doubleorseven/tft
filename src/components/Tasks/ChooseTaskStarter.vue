@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
-import { HowHard } from '@/entities/Task';
+import { reactive, computed, ref, watch } from 'vue';
+import { useTasksManager } from '@/composables/useTasksManager';
+import { HowHard, type ChooseTaskStarterkModelData } from '@/entities/Task';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
 import FormSlider from '../shared/Forms/FormSlider.vue';
 import slider from "vue3-slider";
@@ -10,8 +11,16 @@ const props = defineProps({
 
 });
 const model = reactive(props.vmodel);
-let HowLongFullText = computed(() => {
+const { tasksCountByQuery } = useTasksManager();
+const HowLongFullText = computed(() => {
     return model.howLong ? `${model.howLong} minutes` : '';
+});
+const tasksCount = ref('');
+watch(model, async (newValue) => {
+    debugger;
+    let count = await tasksCountByQuery(newValue as ChooseTaskStarterkModelData);
+
+    tasksCount.value = count > 0 ? `${count} tasks awaits you` : '';
 });
 </script>
 
@@ -38,8 +47,9 @@ let HowLongFullText = computed(() => {
         </div>
         <div>
             <h4>how much time do you have?</h4>
-            <FormSlider :modelValue="model.howLong" :label="HowLongFullText" />
+            <FormSlider v-model="model.howLong" :label="HowLongFullText" />
             <FormError v-if="props.errors.howLong" :text="props.errors.howLong" />
         </div>
+        <h4>{{  tasksCount  }}</h4>
     </div>
 </template>
