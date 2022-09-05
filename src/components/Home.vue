@@ -37,8 +37,8 @@ const validateChooseTaskStarter =
     (form: ChooseTaskStarterkModelData) => {
         let noErrors = true;
         clearErrors();
-        if (!form.howHard) {
-            chooseErrors.value.howHard = 'please choose level of difficulty';
+        if (!form.howMuchEnergy) {
+            chooseErrors.value.howMuchEnergy = 'please choose level of difficulty';
             noErrors = false;
         }
         if (!form.howLong) {

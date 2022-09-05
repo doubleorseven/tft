@@ -42,14 +42,7 @@ const { createTask, deleteTask, tasks, subscribeToDB, unsubscribeToDB } = useTas
 const isModalOpen = ref(false);
 const createTaskForm = defineAsyncComponent(() => import("./CreateTask.vue"));
 const createErrors = ref({} as ICreateTaskFormModalError);
-const createNewTask = async (form: CreateTaskModelData) => {
-  createErrors
-  const task: Task = await createTask(form);
-  if (task.id) {
-    // goto task
-  }
 
-}
 const createNewTaskModalClosed = () => {
   isModalOpen.value = false;
   clearErrors();

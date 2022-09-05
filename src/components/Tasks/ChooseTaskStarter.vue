@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, computed, ref, watch } from 'vue';
 import { useTasksManager } from '@/composables/useTasksManager';
-import { HowHard, type ChooseTaskStarterkModelData } from '@/entities/Task';
+import { HowMuchEnergy, type ChooseTaskStarterkModelData } from '@/entities/Task';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
 import FormSlider from '../shared/Forms/FormSlider.vue';
 import slider from "vue3-slider";
@@ -30,19 +30,22 @@ watch(model, async (newValue) => {
             <h4>how much enargy do you have?</h4>
             <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
                 <div>
-                    <RadioButton :id="'HowHard.Easy'" :modelValue="HowHard.Easy" v-model="model.howHard"
-                        :name="'difficulty'"></RadioButton>
+                    <RadioButton :id="'HowMuchEnergy.Low'" :modelValue="HowMuchEnergy.Low" v-model="model.howMuchEnergy"
+                        :name="'difficulty'">
+                    </RadioButton>
                 </div>
                 <div>
-                    <RadioButton :id="'HowHard.Medium'" :modelValue="HowHard.Medium" v-model="model.howHard"
-                        :name="'difficulty'"></RadioButton>
+                    <RadioButton :id="'HowMuchEnergy.Medium'" :modelValue="HowMuchEnergy.Medium"
+                        v-model="model.howMuchEnergy" :name="'difficulty'">
+                    </RadioButton>
                 </div>
                 <div>
-                    <RadioButton :id="'HowHard.Hard'" :modelValue="HowHard.Hard" v-model="model.howHard"
-                        :name="'difficulty'"></RadioButton>
+                    <RadioButton :id="'HowMuchEnergy.High'" :modelValue="HowMuchEnergy.High"
+                        v-model="model.howMuchEnergy" :name="'difficulty'">
+                    </RadioButton>
                 </div>
             </div>
-            <FormError v-if="props.errors.howHard" :text="props.errors.howHard" />
+            <FormError v-if="props.errors.howMuchEnergy" :text="props.errors.howMuchEnergy" />
 
         </div>
         <div>
@@ -50,6 +53,8 @@ watch(model, async (newValue) => {
             <FormSlider v-model="model.howLong" :label="HowLongFullText" />
             <FormError v-if="props.errors.howLong" :text="props.errors.howLong" />
         </div>
-        <h4>{{  tasksCount  }}</h4>
+        <div class="flex  flex-col justify-center items-center mt-2">
+            <h4>{{ tasksCount }}</h4>
+        </div>
     </div>
 </template>

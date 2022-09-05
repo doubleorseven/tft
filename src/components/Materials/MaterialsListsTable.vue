@@ -1,11 +1,11 @@
 
 <template>
-  <!-- <ul v-if="$isMobile">
-    <li v-for="task in props.tasks">
-      <TaskCard :task="task" :delete-task="deleteTask"></TaskCard>
-    </li> 
-  </ul> -->
-  <div class="overflow-x-auto">
+  <ul v-if="$isMobile">
+    <li v-for="ml in props.materialsLists">
+      <MaterialsCard :materials-list="ml" :delete-materials-list="deleteMaterialsList" />
+    </li>
+  </ul>
+  <div v-else class="overflow-x-auto">
     <table class="min-w-full text-sm divide-y-2 divide-gray-200">
       <thead>
         <tr>
@@ -35,9 +35,9 @@
               </router-link>
             </td>
             <td class="px-4 py-2 text-gray-700 whitespace-nowrap">{{ ml.DateCreatedFormatted }}</td>
-            <td class="px-4 py-2 text-gray-700 whitespace-nowrap">{{ (ml.taskId) ? getTaskByID(ml.taskId).then(t =>
-                t?.title) : ''
-            }}</td>
+            <td class="px-4 py-2 text-gray-700 whitespace-nowrap">
+              <Link :data="belongsToTaskText(ml.taskId)" v-if="ml.taskId" />
+            </td>
             <td class="px-4 py-2 text-gray-700 whitespace-nowrap">
               <div class="cursor-pointer w-fit" @click.prevent="() => deleteMaterialsList(ml.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
@@ -62,18 +62,50 @@
 
 <script setup lang="ts">
 import type MaterialsList from '@/entities/MaterialsList';
-import type { PropType } from 'vue';
-
-
+import MaterialsCard from '@/components/Materials/MaterialsCard.vue';
+import {defineAsyncComponent, onBeforeMount, reactive, ref, type PropType } from 'vue';
 import { useTasksManager } from '@/composables/useTasksManager';
+import type Task from '@/entities/Task';
+import Link from '@/components/shared/Actions/Link.vue';
 
 // import TaskCard from './TaskCard.vue';
 const props = defineProps({
   materialsLists: { type: null as unknown as PropType<MaterialsList[]>, required: true },
   deleteMaterialsList: { type: Function, required: true }
 });
+
+const tasksNames = ref([]  as Task[]);
 const deleteMaterialsList = (id: string) => {
-  props.deleteMaterialsList(id);
+  let ml = props.materialsLists.find(x => x.id == id);
+  if (ml) {
+    if (ml.taskId) {
+      removeTaskMaterialsList(ml.taskId);
+    }
+    props.deleteMaterialsList(id);
+  }
+  
+
 };
-const { getTaskByID } = useTasksManager();
+const { getTaskByID,removeTaskMaterialsList } = useTasksManager();
+onBeforeMount(() => {
+  props.materialsLists.forEach(async (e) => {
+    if (e.taskId) {
+    const task = await getTaskByID(e.taskId);
+    if (task) {
+      tasksNames.value.push(task);
+    }
+  }})
+})
+const belongsToTaskText = (taskId : string | undefined) =>  {
+  if (taskId) {
+    const task = tasksNames.value.find(x => x.id == taskId);
+    if (task) {
+      return {
+        namedPath: 'task',
+        title : task.title, 
+        params: {uid: task.uid}};
+  }
+  return {};
+}
+}
 </script>

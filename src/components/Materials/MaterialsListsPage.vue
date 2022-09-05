@@ -2,7 +2,7 @@
 
   <template v-if="materialsLists.length > 0">
     <div class="flex flex-wrap flex-col">
-      <CreateButton @clicked="createMaterialsList">
+      <CreateButton @clicked="createNewMaterial">
         {{ $t('areas.materialsLists.create-a-materialsList') }}
       </CreateButton>
       <MaterialsListsTable v-if="materialsLists.length > 0" :materialsLists="materialsLists"
@@ -32,11 +32,13 @@ import MaterialsListsTable from '@/components/Materials/MaterialsListsTable.vue'
 import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import type MaterialsList from "@/entities/MaterialsList";
+import { useRouter } from "vue-router";
 const { createMaterialsList, deleteMaterialsList, materialsLists, subscribeToDB, unsubscribeToDB } = useMaterialsListsManager();
+const router = useRouter();
 const createNewMaterial = async () => {
   const materialsList: MaterialsList = await createMaterialsList();
   if (materialsList.id) {
-    // goto materialsList
+    router.push({ name: 'materials-list', params: { uid: materialsList.uid } })
   }
 
 }

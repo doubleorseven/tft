@@ -40,14 +40,18 @@ export enum HowHard {
     Medium = "Medium",
     Hard = "Hard"
 }
-
+export enum HowMuchEnergy {
+    Low = "Low",
+    Medium = "Medium",
+    High = "High",
+}
 export type CreateTaskModelData = {
     title: string,
     howHard: string,
     howLong: number,
 }
 export type ChooseTaskStarterkModelData = {
-    howHard: string,
+    howMuchEnergy: string,
     howLong: number,
 }
 

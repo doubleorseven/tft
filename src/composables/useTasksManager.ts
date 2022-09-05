@@ -28,12 +28,18 @@ export function useTasksManager() {
       title: `task deleted!`,
     });
   };
-  const updateTask = async (task: Task) => {
-    await db.tasks.put(task, task.id);
-    notify({
-      type: "notification-success",
-      title: `task updated!`,
+  const removeTaskMaterialsList = async (id: string) => {
+    db.tasks.update(id, {
+      "materialsListId": undefined
     });
+  }
+  const updateTask = async (task: Task, silent: boolean = false) => {
+    await db.tasks.put(task, task.id);
+    if (silent == false)
+      notify({
+        type: "notification-success",
+        title: `task updated!`,
+      });
   }
   const getTaskByUID = async (uidVal: string): Promise<Task | undefined> => {
     return await db.tasks.where({ uid: uidVal }).first();
@@ -62,6 +68,7 @@ export function useTasksManager() {
     createTask,
     deleteTask,
     updateTask,
+    removeTaskMaterialsList,
     getTaskByID,
     getTaskByUID,
     tasks,

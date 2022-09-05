@@ -32,12 +32,16 @@ export function useMaterialsListsManager() {
             title: `Meterial list deleted!`,
         });
     };
-    const updateMeterialsList = async (materialsList: MaterialsList) => {
+    const updateMeterialsList = async (materialsList: MaterialsList, silent: boolean = false) => {
         await db.materialsLists.put(materialsList, materialsList.id);
-        notify({
-            type: "notification-success",
-            title: `Meterial list updated!`,
-        });
+        if (silent == false) {
+            notify({
+
+                type: "notification-success",
+                title: `Meterial list updated!`,
+            });
+        }
+
     }
     const getMeterialsListByUID = async (uidVal: string) => {
         return await db.materialsLists.where({ uid: uidVal }).first();

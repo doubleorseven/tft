@@ -1,4 +1,4 @@
 export default interface IChooseTaskFormModalError {
-    howHard: string,
+    howMuchEnergy: string,
     howLong: string
 }

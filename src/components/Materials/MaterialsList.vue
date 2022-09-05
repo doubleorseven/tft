@@ -34,13 +34,15 @@ onMounted(() =>
 const updateTitle = (e: Event) => {
         var element = e.target as HTMLHeadElement;
         ml.title = element.innerHTML;
+        beforeUpdate(true);
 }
 const updatedList = (list: Array<IListItem>) => {
         items.value = list;
+        beforeUpdate(true);
 }
-const beforeUpdate = () => {
+const beforeUpdate = (silent : boolean = false) => {
         ml.items = JSON.parse(JSON.stringify(items.value));
-        updateMeterialsList(toRaw(ml));
+        updateMeterialsList(toRaw(ml),silent);
 }
 </script>
 
@@ -53,9 +55,7 @@ const beforeUpdate = () => {
                 </div>
                 <ItemsList :items="items" @updated-list="updatedList"></ItemsList>
 
-                <CreateButton @clicked="beforeUpdate">
-                        Save Materials List!
-                </CreateButton>
+
         </form>
 </template>
 <style scoped>

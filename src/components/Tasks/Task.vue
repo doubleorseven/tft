@@ -42,23 +42,24 @@ const updateTitle = (e: Event) => {
         var element = e.target as HTMLHeadElement;
         task.title = element.innerHTML;
 }
-const updateMaterialsList = async (taskId: string) => {
+const addMaterialsList = async (taskId: string) => {
         Object.assign(ml, await createMaterialsList(taskId));
         task.materialsListId = ml.id;
         materialsListItems.value = ml.items;
-        updateTask(toRaw(task));
 }
 const updatedList = (list: Array<IListItem>) => {
         materialsListItems.value = list;
+        beforeSave();
 }
 const beforeSave = () => {
         if (task.materialsListId) {
                 ml.items = JSON.parse(JSON.stringify(materialsListItems.value));
-                updateMeterialsList(toRaw(ml));
+                updateMeterialsList(toRaw(ml),true);
         }
-        updateTask(toRaw(task));
+        updateTask(toRaw(task),true);
 
 }
+watch(task,beforeSave);
 </script>
 
 
@@ -66,7 +67,7 @@ const beforeSave = () => {
         <form class="flex  flex-col items-center justify-center">
                 <div contenteditable="true" @input="updateTitle" @paste.prevent @keydown.enter.prevent
                         class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
-                        {{  task.title  }}
+                        {{ task.title }}
                 </div>
                 <div class="w-9/12 mt-5 sm:w-4/12">
                         <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">how hard is this
@@ -100,12 +101,10 @@ const beforeSave = () => {
                         <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">materials</h4>
                         <ItemsList :items="materialsListItems" @updated-list="updatedList"></ItemsList>
                 </div>
-                <CreateButton v-else @clicked="updateMaterialsList(task.id)">
+                <CreateButton v-else @clicked="addMaterialsList(task.id)">
                         Add Materials List
                 </CreateButton>
-                <CreateButton @clicked="beforeSave">
-                        Save task!
-                </CreateButton>
+
         </form>
 </template>
 <style scoped>

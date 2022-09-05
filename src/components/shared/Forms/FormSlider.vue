@@ -5,7 +5,7 @@ defineProps({
     modelValue: Number,
     label: String,
 });
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:modelValue','drag-end']);
 
 const fireChange = (val: Number) => {
     console.log(val);
@@ -15,7 +15,7 @@ const fireChange = (val: Number) => {
 <template>
     <div class="flex  flex-col justify-center items-center mt-2">
         <slider v-model="modelValue" orientation="circular" color="#2563EB" width="50%" :height="15" :max="600"
-            :step="5" track-color="#a1a1a1" @change="fireChange" />
-        <h5 class="mt-1">{{  label  }}</h5>
+            :step="5" track-color="#a1a1a1" @change="fireChange" @drag-end="$emit('drag-end')" />
+        <h5 class="mt-1">{{ label }}</h5>
     </div>
 </template>
