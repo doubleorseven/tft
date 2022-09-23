@@ -17,24 +17,26 @@
 <script setup lang="ts">
 import { useTasksManager } from '@/composables/useTasksManager';
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
-import { ref, defineAsyncComponent, onMounted, onUnmounted } from "vue";
+import { ref, defineAsyncComponent, onMounted, onUnmounted, watch } from "vue";
 import type IChooseTaskFormModalError from "@/entities/interfaces/IChooseTaskFormModalError";
-import type { ChooseTaskStarterkModelData } from "@/entities/Task";
+import type { ChooseTaskStarterModelData } from "@/entities/Task";
 import FormModal from '@/components/shared/Forms/FormModal.vue';
-
-const { hasTasks, subscribeToDB, unsubscribeToDB } = useTasksManager();
+import { useGamificationManager } from '@/composables/useGamificationManager';
+const { startGame, GAME } = useGamificationManager();
+const { hasTasks, subscribeToDB, unsubscribeToDB, getTasksIdsFromQuery } = useTasksManager();
 const chooseTaskStarterForm = defineAsyncComponent(() => import("./Tasks/ChooseTaskStarter.vue"));
 const isModalOpen = ref(false);
 const chooseErrors = ref({} as IChooseTaskFormModalError);
 onMounted(subscribeToDB)
 onUnmounted(unsubscribeToDB)
-const startTaskSelector = (form: ChooseTaskStarterkModelData) => {
-    console.log(form);
+const startTaskSelector = async (form: ChooseTaskStarterModelData) => {
+    var tasksIds = await getTasksIdsFromQuery(form);
+    startGame(tasksIds, form);
     isModalOpen.value = false;
     clearErrors();
 }
 const validateChooseTaskStarter =
-    (form: ChooseTaskStarterkModelData) => {
+    (form: ChooseTaskStarterModelData) => {
         let noErrors = true;
         clearErrors();
         if (!form.howMuchEnergy) {
@@ -53,6 +55,10 @@ const chooseTaskStarterModalClosed = () => {
 }
 const clearErrors = () => {
     chooseErrors.value.howLong = '';
-    chooseErrors.value.howHard = '';
+    chooseErrors.value.howMuchEnergy = '';
 }
+watch(GAME, async (newVal) => {
+    debugger;
+    console.log(newVal);
+});
 </script>

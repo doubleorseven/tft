@@ -8,8 +8,10 @@ import { loadApplicationSettings } from '@/composables/useApplicationSettings';
 import { isMobile } from '@/lib/functions';
 loadApplicationSettings()
     .then((as) => {
-        const app = createApp(App)
-        app.config.globalProperties.$isMobile = isMobile();
+        const app = createApp(App);
+        const im = isMobile()
+        app.config.globalProperties.$isMobile = im;
+        app.provide('$isMobile', im);
         const i18n = createI18n()
         app.use(router)
         app.use(i18n)

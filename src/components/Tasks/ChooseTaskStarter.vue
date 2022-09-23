@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, computed, ref, watch } from 'vue';
 import { useTasksManager } from '@/composables/useTasksManager';
-import { HowMuchEnergy, type ChooseTaskStarterkModelData } from '@/entities/Task';
+import { HowMuchEnergy, type ChooseTaskStarterModelData } from '@/entities/Task';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
 import FormSlider from '../shared/Forms/FormSlider.vue';
 import slider from "vue3-slider";
@@ -17,8 +17,7 @@ const HowLongFullText = computed(() => {
 });
 const tasksCount = ref('');
 watch(model, async (newValue) => {
-    debugger;
-    let count = await tasksCountByQuery(newValue as ChooseTaskStarterkModelData);
+    let count = await tasksCountByQuery(newValue as ChooseTaskStarterModelData);
 
     tasksCount.value = count > 0 ? `${count} tasks awaits you` : '';
 });

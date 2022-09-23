@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { db } from '@/lib/db';
-import { liveQuery, type Subscription } from "dexie";
-import Task, { type ChooseTaskStarterkModelData, type CreateTaskModelData, type HowHard } from '@/entities/Task';
+import { liveQuery, type Collection, type Subscription } from "dexie";
+import Task, { HowMuchEnergyArray, HowHardArray, type ChooseTaskStarterModelData, type CreateTaskModelData, type HowHard } from '@/entities/Task';
 import { notify } from "@kyvg/vue3-notification";
 export function useTasksManager() {
   const tasks = ref<Task[]>([]);
@@ -18,8 +18,17 @@ export function useTasksManager() {
     });
     return newTask;
   };
-  const tasksCountByQuery = async (formData: ChooseTaskStarterkModelData): Promise<number> => {
-    return db.tasks.where('howHard').equals(formData.howHard).and(x => x.howLong <= formData.howLong).count();
+  const tasksCountByQuery = async (formData: ChooseTaskStarterModelData): Promise<number> => {
+    const queryResults = await tasksForGameByQuery(formData);
+    return queryResults.count();
+  }
+  const tasksForGameByQuery = async (formData: ChooseTaskStarterModelData): Promise<Collection<Task, string>> => {
+    const range = HowHardArray.slice(0, HowMuchEnergyArray.indexOf(formData.howMuchEnergy) + 1);
+    return db.tasks.where('howHard').startsWithAnyOf(range).and(x => x.howLong <= formData.howLong);
+  }
+  const getTasksIdsFromQuery = async (formData: ChooseTaskStarterModelData): Promise<string[]> => {
+    const queryResults = await tasksForGameByQuery(formData);
+    return queryResults.primaryKeys();
   }
   const deleteTask = async (id: string) => {
     await db.tasks.delete(id);
@@ -65,6 +74,7 @@ export function useTasksManager() {
   return {
     hasTasks,
     tasksCountByQuery,
+    getTasksIdsFromQuery,
     createTask,
     deleteTask,
     updateTask,
