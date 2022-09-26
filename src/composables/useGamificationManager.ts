@@ -17,14 +17,24 @@ export function useGamificationManager() {
     const endGame = () => {
         db.GAME.clear();
     }
+    const loadNextTask = () => {
+        GAME.value?.loadNextTask();
+        db.GAME.put(GAME.value as Game, GAME.value?.id);
+    }
     const subscribeToDB = async () => {
 
         gameObservable =
             liveQuery(() => db.table('GAME').toArray())
                 .subscribe(items => {
                     if (items.length == 1) {
-                        GAME.value = items[0]
-                    };
+                        const dbGAME = items[0] as Game;
+                        if (GAME.value == undefined || dbGAME.id != GAME.value.id) {
+                            GAME.value = items[0]
+                        }
+                    }
+                    else if (items.length == 0) {
+                        GAME.value = undefined;
+                    }
                 });
     };
     const unsubscribeFromDB = async () => {
@@ -39,6 +49,8 @@ export function useGamificationManager() {
 
     return {
         GAME,
+        endGame,
+        loadNextTask,
         isGameActive,
         startGame,
         subscribeToDB,
