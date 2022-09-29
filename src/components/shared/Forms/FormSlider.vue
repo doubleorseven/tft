@@ -8,7 +8,6 @@ defineProps({
 const emits = defineEmits(['update:modelValue', 'drag-end']);
 
 const fireChange = (val: Number) => {
-    console.log(val);
     emits('update:modelValue', val);
 }
 </script>

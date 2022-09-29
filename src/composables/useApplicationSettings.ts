@@ -1,6 +1,6 @@
 import type IApplicationSettings from "@/entities/interfaces/IApplicationSettings"
 import { computed } from "@vue/reactivity";
-import { inject, provide, readonly, reactive, type ComputedRef, toRaw } from "vue";
+import { inject, provide, reactive, type ComputedRef, toRaw } from "vue";
 import { db } from '@/lib/db';
 import { APP_SETTINGS_KEY } from '@/lib/constants';
 
@@ -16,7 +16,7 @@ export const loadApplicationSettings = async (): Promise<IApplicationSettings> =
     appSettings = as;
     return as;
 }
-export const initApplicationSettings = () => {
+export const initApplicationSettings = (): IUseApplicationSettings => {
     appSettings = reactive<IApplicationSettings>(appSettings);
     const getIsDrawerOpen = computed(() => appSettings.isDrawerOpen);
     const changeDrawerState = () => {
@@ -25,6 +25,7 @@ export const initApplicationSettings = () => {
     }
     provide(SETTINGS_IS_DRAWER_OPEN, getIsDrawerOpen);
     provide(SETTINGS_CHANGE_DRAWER_STATE, changeDrawerState);
+    return useApplicationSettings();
 }
 
 export const useApplicationSettings = () => {

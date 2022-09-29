@@ -1,28 +1,43 @@
-import { ref } from 'vue';
+import { ref, toRaw } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Subscription } from "dexie";
 import type ChooseTaskStarterkModelData from '@/entities/Task';
 import Game from '@/entities/Game';
+import type Task from '@/entities/Task';
+import { useTasksManager } from './useTasksManager';
+const { getTaskByID } = useTasksManager();
+
 export function useGamificationManager() {
     let gameObservable: Subscription;
     const GAME = ref<Game>();
-    const startGame = (tasks: string[], data: ChooseTaskStarterkModelData) => {
+    const TASK = ref<Task>();
+    const startGame = (tasks: string[], data: ChooseTaskStarterkModelData): string => {
         if (tasks.length > 0) {
             endGame();
             const game = new Game(tasks, data);
+            game.loadNextTask();
             db.GAME.add(game);
             GAME.value = game;
+            return game.getCurrentTask();
         }
+        return '';
     };
-    const endGame = () => {
+    const endGame = (): void => {
         db.GAME.clear();
     }
-    const loadNextTask = () => {
-        GAME.value?.loadNextTask();
-        db.GAME.put(GAME.value as Game, GAME.value?.id);
+    const loadNextTask = async (): Promise<void> => {
+        const taskId = (GAME.value as Game).loadNextTask();
+        TASK.value = await getTaskByID(taskId);
+        updateGame();
     }
-    const subscribeToDB = async () => {
-
+    const getCurrentTask = (): Task => {
+        return TASK.value as Task;
+    }
+    const updateGame = async (): Promise<void> => {
+        const g = toRaw(GAME.value as Game);
+        db.GAME.put(g, g.id)
+    }
+    const subscribeToDB = async (): Promise<void> => {
         gameObservable =
             liveQuery(() => db.table('GAME').toArray())
                 .subscribe(items => {
@@ -37,20 +52,23 @@ export function useGamificationManager() {
                     }
                 });
     };
-    const unsubscribeFromDB = async () => {
+    const unsubscribeFromDB = async (): Promise<void> => {
         if (gameObservable
             && gameObservable.closed == false) {
             gameObservable.unsubscribe();
         }
     }
-    const isGameActive = () => {
-        return (GAME.value?.gameActive);
+    const isGameActive = (): boolean => {
+        if (GAME.value) {
+            return GAME.value.gameActive;
+        }
+        return false;
     }
 
     return {
-        GAME,
         endGame,
         loadNextTask,
+        getCurrentTask,
         isGameActive,
         startGame,
         subscribeToDB,

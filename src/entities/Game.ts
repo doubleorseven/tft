@@ -16,8 +16,8 @@ export default class Game extends BaseClass {
         this.data = data;
     }
     loadNextTask(): string {
-        if (this.cursor + 1 === this.tasksIds.length) {
-            this.cursor == 0;
+        if (++this.cursor >= this.tasksIds.length) {
+            this.cursor = 0;
         }
         return this.getCurrentTask();
     }
