@@ -20,6 +20,7 @@
 </template>
 <script setup lang="ts">
 import Task from '@/entities/Task';
+import DeleteButton from '@/components/shared/Actions/DeleteButton.vue'
 const props = defineProps({
   task: { type: Task, required: true },
   deleteTask: { type: Function, required: true }

@@ -14,9 +14,10 @@
         <p class="text-gray-500">Created at {{ materialsList.DateCreatedFormatted }}</p>
         <div class="flex flex-row justify-end">
 
-          <p class="underline cursor-pointer ml-4" @click.prevent="() => { deleteMaterialsList(materialsList.id) }">
-            Delete
-          </p>
+          <DeleteButton @fire="() => deleteMaterialsList(materialsList.id)">
+            <p class="underline cursor-pointer ml-4">Delete</p>
+          </DeleteButton>
+
         </div>
       </div>
     </div>
@@ -24,6 +25,7 @@
 </template>
 <script setup lang="ts">
 import MaterialsList from '@/entities/MaterialsList';
+import DeleteButton from '@/components/shared/Actions/DeleteButton.vue'
 const props = defineProps({
   materialsList: { type: MaterialsList, required: true },
   deleteMaterialsList: { type: Function, required: true }

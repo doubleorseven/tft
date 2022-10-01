@@ -1,7 +1,7 @@
 <template>
   <div
     class="inline-flex items-center cursor-pointer px-5 py-3 mt-8 font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500 w-fit"
-    @click.prevent="buttonClicked">
+    @click.prevent="() => $emit('clicked')">
     <slot></slot>
 
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -11,11 +11,5 @@
   </div>
 </template>
 <script setup lang="ts">
-defineProps({
-  Do: Function
-})
-const emits = defineEmits(['clicked']);
-const buttonClicked = () => {
-  emits('clicked');
-}
+defineEmits(['clicked']);
 </script>
