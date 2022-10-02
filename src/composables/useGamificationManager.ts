@@ -10,7 +10,7 @@ const { getTaskByID } = useTasksManager();
 export function useGamificationManager() {
     let gameObservable: Subscription;
     const GAME = ref<Game>();
-    const TASK = ref<Task>();
+    const GAMETask = ref<Task>();
     const startGame = (tasks: string[], data: ChooseTaskStarterkModelData): string => {
         if (tasks.length > 0) {
             endGame();
@@ -27,11 +27,8 @@ export function useGamificationManager() {
     }
     const loadNextTask = async (): Promise<void> => {
         const taskId = (GAME.value as Game).loadNextTask();
-        TASK.value = await getTaskByID(taskId);
+        GAMETask.value = await getTaskByID(taskId);
         updateGame();
-    }
-    const getCurrentTask = (): Task => {
-        return TASK.value as Task;
     }
     const updateGame = async (): Promise<void> => {
         const g = toRaw(GAME.value as Game);
@@ -68,10 +65,10 @@ export function useGamificationManager() {
     return {
         endGame,
         loadNextTask,
-        getCurrentTask,
+        GAMETask,
         isGameActive,
         startGame,
         subscribeToDB,
-        unsubscribeFromDB
+        unsubscribeFromDB,
     };
 }
