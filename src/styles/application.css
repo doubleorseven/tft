@@ -29,3 +29,6 @@ button {
 input {
     @apply outline-none;
 }
+h4,tbody,tr,td{
+    @apply select-none;
+}

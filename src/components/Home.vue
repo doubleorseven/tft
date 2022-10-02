@@ -10,13 +10,11 @@
         <template v-else>
 
         </template>
-        <FormModal :button-text="`Select Task`" :submit="startTaskSelector" :validate="validateChooseTaskStarter"
+        <FormModal :button-text="`Start Game`" :submit="startTaskSelector" :validate="validateChooseTaskStarter"
             header-text="Let's set our goals" :isModalOpen="isTaskStarterModalOpen" :model="{}" :errors="chooseErrors"
             :component-name="chooseTaskStarterForm" @close="chooseTaskStarterModalClosed">
         </FormModal>
-        <GAMEModal v-if="checkIfGameIsActive" :isModalOpen="checkIfGameIsActive" :task="getTaskForGame" @end="endGame"
-            @next="loadNextTask">
-
+        <GAMEModal :isModalOpen="checkIfGameIsActive" :task="getTaskForGame" @end="endGame" @next="loadNextTask">
         </GAMEModal>
     </div>
 </template>
@@ -31,11 +29,11 @@ import FormModal from '@/components/shared/Forms/FormModal.vue';
 import { useGamificationManager } from '@/composables/useGamificationManager';
 import GAMEModal from './GAME/GAMEModal.vue';
 import type Task from '@/entities/Task';
-const { startGame, endGame, loadNextTask, getCurrentTask, isGameActive, subscribeToDB: subscribeToGAMEDB, unsubscribeFromDB: unsubscribeToGAMEDB } = useGamificationManager();
-const { hasTasks, subscribeToDB: subscribeToTasksDB, unsubscribeToDB: unsubscribeToTasksDB, getTasksIdsFromQuery, getTaskByID } = useTasksManager();
+import { notify } from '@kyvg/vue3-notification';
+const { startGame, endGame, getGameId, loadNextTask, GAMETask, isGameActive, subscribeToDB: subscribeToGAMEDB, unsubscribeFromDB: unsubscribeToGAMEDB } = useGamificationManager();
+const { hasTasks, subscribeToDB: subscribeToTasksDB, unsubscribeToDB: unsubscribeToTasksDB, getTasksIdsFromQuery } = useTasksManager();
 const chooseTaskStarterForm = defineAsyncComponent(() => import("./Tasks/ChooseTaskStarter.vue"));
 const isTaskStarterModalOpen = ref(false);
-const GAMETask = ref({} as Task | undefined);
 const chooseErrors = ref({} as IChooseTaskFormModalError);
 onMounted(() => {
     subscribeToTasksDB();
@@ -46,17 +44,19 @@ onUnmounted(() => {
     unsubscribeToGAMEDB();
 })
 const checkIfGameIsActive = computed(isGameActive);
-const getTaskForGame = computed(() => {
-    if (isGameActive()) {
-        return getCurrentTask();
-    } else {
-        return undefined;
-    }
-});
+const getTaskForGame = computed(() => GAMETask.value);
 const startTaskSelector = async (form: ChooseTaskStarterModelData) => {
     const tasksIds = await getTasksIdsFromQuery(form);
-    startGame(tasksIds, form);
-    isTaskStarterModalOpen.value = false;
+    if (tasksIds.length > 0) {
+        startGame(tasksIds, form);
+        isTaskStarterModalOpen.value = false;
+    } else {
+        notify({
+            type: "notification-warning",
+            title: `no tasks following your current state`,
+        });
+    }
+
     clearErrors();
 }
 const validateChooseTaskStarter =
@@ -64,7 +64,7 @@ const validateChooseTaskStarter =
         let noErrors = true;
         clearErrors();
         if (!form.howMuchEnergy) {
-            chooseErrors.value.howMuchEnergy = 'please choose level of difficulty';
+            chooseErrors.value.howMuchEnergy = 'please choose level of energy';
             noErrors = false;
         }
         if (!form.howLong) {

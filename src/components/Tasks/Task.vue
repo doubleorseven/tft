@@ -54,12 +54,12 @@ const updatedList = (list: Array<IListItem>) => {
 const beforeSave = () => {
         if (task.materialsListId) {
                 ml.items = JSON.parse(JSON.stringify(materialsListItems.value));
-                updateMeterialsList(toRaw(ml),true);
+                updateMeterialsList(toRaw(ml), true);
         }
-        updateTask(toRaw(task),true);
+        updateTask(toRaw(task), true);
 
 }
-watch(task,beforeSave);
+watch(task, beforeSave);
 </script>
 
 
@@ -94,10 +94,10 @@ watch(task,beforeSave);
                         <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">how
                                 long does this
                                 task takes?</h4>
-                        <FormSlider v-model="task.howLong" :label="`${task.howLong} minutes`" />
+                        <FormSlider v-model="task.howLong" :label="task.howLong || 0" />
 
                 </div>
-                <div v-if="task.materialsListId" class="w-9/12 mt-5 sm:w-4/12">
+                <div v-if="task.materialsListId" class="w-9/12 mt-5 mb-5 sm:w-4/12">
                         <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">materials</h4>
                         <ItemsList :items="materialsListItems" @updated-list="updatedList"></ItemsList>
                 </div>

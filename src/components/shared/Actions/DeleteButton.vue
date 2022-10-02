@@ -1,5 +1,5 @@
 <template>
-    <div class="cursor-pointer w-fit" v-longpress="() => $emit('fire')" @click="showHelp">
+    <div class="cursor-pointer w-fit select-none" v-longpress="() => $emit('fire')" @click="showHelp">
         <slot></slot>
     </div>
 </template>

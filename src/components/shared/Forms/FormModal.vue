@@ -7,7 +7,7 @@
       <div v-if="isModalOpen" style="inset: 0;" class="fixed z-10 flex items-center justify-center"
         @keyup.esc="$emit('close')">
         <div class="w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8" role="dialog">
-          <header class="mb-8 text-3xl">{{ props.headerText }}</header>
+          <header class="mb-8 text-3xl select-none">{{ props.headerText }}</header>
           <main>
             <form class="space-y-4" @submit.prevent="submitForm">
               <component :is="props.componentName" :vmodel="props.model" :errors="errors" />
@@ -24,6 +24,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
+
 const emits = defineEmits(['close']);
 const props = defineProps({
   isModalOpen: Boolean,
@@ -33,7 +36,7 @@ const props = defineProps({
   model: { type: Object, required: true },
   submit: { type: Function, required: true },
   validate: { type: Function, required: false },
-  errors: { type: Object, required: false }
+  errors: { type: Object, required: false },
 });
 
 const submitForm = () => {

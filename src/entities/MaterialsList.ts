@@ -15,10 +15,11 @@ export default class MaterialsList extends BaseClass {
         }
 
 
-        this.title = `${title} - materials list ` || `materials list - ${this.uid}`;
+        this.title = (title) ? `${title} - materials list ` : `new materials list`;
         this.items = [];
     }
     public get DateCreatedFormatted() {
         return new Date(this.dateCreated).toLocaleDateString();
     }
 }
+.7

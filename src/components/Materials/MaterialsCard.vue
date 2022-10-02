@@ -13,9 +13,8 @@
         <p v-else class="text-gray-500">no items in this list</p>
         <p class="text-gray-500">Created at {{ materialsList.DateCreatedFormatted }}</p>
         <div class="flex flex-row justify-end">
-
           <DeleteButton @fire="() => deleteMaterialsList(materialsList.id)">
-            <p class="underline cursor-pointer ml-4">Delete</p>
+            <TrashBinSvg></TrashBinSvg>
           </DeleteButton>
 
         </div>
@@ -26,7 +25,8 @@
 <script setup lang="ts">
 import MaterialsList from '@/entities/MaterialsList';
 import DeleteButton from '@/components/shared/Actions/DeleteButton.vue'
-const props = defineProps({
+import TrashBinSvg from '@/components/shared/SVG/TrashBinSvg.vue';
+defineProps({
   materialsList: { type: MaterialsList, required: true },
   deleteMaterialsList: { type: Function, required: true }
 });

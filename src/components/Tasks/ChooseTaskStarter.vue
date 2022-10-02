@@ -3,7 +3,8 @@ import { reactive, computed, ref, watch } from 'vue';
 import { useTasksManager } from '@/composables/useTasksManager';
 import { HowMuchEnergy, type ChooseTaskStarterModelData } from '@/entities/Task';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
-import FormSlider from '../shared/Forms/FormSlider.vue';
+import FormSlider from '@/components/shared/Forms/FormSlider.vue';
+import FormError from '@/components/shared/Forms/FormError.vue'
 import slider from "vue3-slider";
 const props = defineProps({
     errors: { type: Object, required: true },
@@ -13,20 +14,20 @@ const props = defineProps({
 const model = reactive(props.vmodel);
 const { tasksCountByQuery } = useTasksManager();
 const HowLongFullText = computed(() => {
-    return model.howLong ? `${model.howLong} minutes` : '';
+    return model.howLong || 0;
 });
-const tasksCount = ref('');
+const tasksCount = ref('Searching for tasks....');
 watch(model, async (newValue) => {
     let count = await tasksCountByQuery(newValue as ChooseTaskStarterModelData);
-
-    tasksCount.value = count > 0 ? `${count} tasks awaits you` : '';
+    const noText = (newValue.howLong && newValue.howMuchEnergy) ? 'no tasks found following your current state' : 'Searching for tasks....';
+    tasksCount.value = count > 0 ? `${count} tasks awaits you` : noText;
 });
 </script>
 
 <template>
     <div>
         <div>
-            <h4>how much enargy do you have?</h4>
+            <h4 class="select-none">how much enargy do you have?</h4>
             <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
                 <div>
                     <RadioButton :id="'HowMuchEnergy.Low'" :modelValue="HowMuchEnergy.Low" v-model="model.howMuchEnergy"
@@ -48,12 +49,12 @@ watch(model, async (newValue) => {
 
         </div>
         <div>
-            <h4>how much time do you have?</h4>
+            <h4 class="select-none">how much time do you have?</h4>
             <FormSlider v-model="model.howLong" :label="HowLongFullText" />
             <FormError v-if="props.errors.howLong" :text="props.errors.howLong" />
         </div>
         <div class="flex  flex-col justify-center items-center mt-2">
-            <h4>{{ tasksCount }}</h4>
+            <h4 class="select-none">{{ tasksCount }}</h4>
         </div>
     </div>
 </template>

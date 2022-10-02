@@ -48,6 +48,6 @@ const props = defineProps({
 const model = reactive(props.vmodel);
 
 let HowLongFullText = computed(() => {
-    return model.howLong ? `${model.howLong} minutes` : '';
+    return model.howLong || 0;
 });
 </script>

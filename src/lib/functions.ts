@@ -36,3 +36,22 @@ export const isMobile = () => {
   })(navigator.userAgent || navigator.vendor);
   return check;
 }
+
+export const numberToHumanClockText = (num: number | undefined) => {
+  if (num) {
+    let text = '';
+    const remainder = num % 60;
+    const hours = (num - remainder) / 60;
+    if (hours > 0) {
+      text = `${hours} hour${hours > 1 ? 's' : ''}`;
+      if (remainder > 0) {
+        text += ' and ';
+      }
+    }
+    if (remainder > 0) {
+      text += `${remainder} minute${remainder > 1 ? 's' : ''}`;
+    }
+    return text;
+  }
+  return '0 minutes';
+}

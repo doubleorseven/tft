@@ -3,8 +3,8 @@
     <section class="overflow-hidden flex h-screen justify-between bg-gray-100 text-gray-700 border-b border-gray-200 ">
       <div class="overflow-hidden">
         <div class="flex items-center justify-between h-14 pl-6 w-32">
-          <span class="text-sm font-medium tracking-widest uppercase">
-            TFT
+          <span class="text-sm font-medium tracking-widest uppercase select-none">
+            menu
           </span>
           <div v-show="IsDrawerOpen" aria-label="Open Menu" class="mr-2 w-3 h-3 cursor-pointer"
             @click.prevent="() => changeDrawerState()">
