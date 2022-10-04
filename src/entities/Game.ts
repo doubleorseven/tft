@@ -1,4 +1,3 @@
-import { setTransitionHooks } from "vue";
 import BaseClass from "./BaseClass";
 import type { ChooseTaskStarterModelData } from "./Task";
 
@@ -18,6 +17,12 @@ export default class Game extends BaseClass {
     loadNextTask(): string {
         if (++this.cursor >= this.tasksIds.length) {
             this.cursor = 0;
+        }
+        return this.getCurrentTask();
+    }
+    loadPreviousTask(): string {
+        if (--this.cursor < 0) {
+            this.cursor = this.tasksIds.length - 1;
         }
         return this.getCurrentTask();
     }

@@ -14,14 +14,15 @@
             header-text="Let's set our goals" :isModalOpen="isTaskStarterModalOpen" :model="{}" :errors="chooseErrors"
             :component-name="chooseTaskStarterForm" @close="chooseTaskStarterModalClosed">
         </FormModal>
-        <GAMEModal :isModalOpen="checkIfGameIsActive" :task="getTaskForGame" @end="endGame" @next="loadNextTask">
+        <GAMEModal :isModalOpen="checkIfGameIsActive" :task="getTaskForGame" @end="endGame" @next="loadNextTask"
+            @select="selectTaskFromGame" @previous="loadPreviousTask">
         </GAMEModal>
     </div>
 </template>
 <script setup lang="ts">
 import { useTasksManager } from '@/composables/useTasksManager';
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
-import { ref, defineAsyncComponent, onMounted, onUnmounted, watch, computed } from "vue";
+import { ref, defineAsyncComponent, onMounted, onUnmounted, computed, nextTick } from "vue";
 import type IChooseTaskFormModalError from "@/entities/interfaces/IChooseTaskFormModalError";
 import type { ChooseTaskStarterModelData } from "@/entities/Task";
 import Game from '@/entities/Game';
@@ -30,7 +31,7 @@ import { useGamificationManager } from '@/composables/useGamificationManager';
 import GAMEModal from './GAME/GAMEModal.vue';
 import type Task from '@/entities/Task';
 import { notify } from '@kyvg/vue3-notification';
-const { startGame, endGame, getGameId, loadNextTask, GAMETask, isGameActive, subscribeToDB: subscribeToGAMEDB, unsubscribeFromDB: unsubscribeToGAMEDB } = useGamificationManager();
+const { startGame, endGame, loadNextTask, loadPreviousTask, GAMETask, isGameActive, subscribeToDB: subscribeToGAMEDB, unsubscribeFromDB: unsubscribeToGAMEDB } = useGamificationManager();
 const { hasTasks, subscribeToDB: subscribeToTasksDB, unsubscribeToDB: unsubscribeToTasksDB, getTasksIdsFromQuery } = useTasksManager();
 const chooseTaskStarterForm = defineAsyncComponent(() => import("./Tasks/ChooseTaskStarter.vue"));
 const isTaskStarterModalOpen = ref(false);
@@ -43,8 +44,12 @@ onUnmounted(() => {
     unsubscribeToTasksDB();
     unsubscribeToGAMEDB();
 })
+
 const checkIfGameIsActive = computed(isGameActive);
-const getTaskForGame = computed(() => GAMETask.value);
+const getTaskForGame = computed(() => {
+    nextTick();
+    return GAMETask.value;
+});
 const startTaskSelector = async (form: ChooseTaskStarterModelData) => {
     const tasksIds = await getTasksIdsFromQuery(form);
     if (tasksIds.length > 0) {
@@ -58,6 +63,9 @@ const startTaskSelector = async (form: ChooseTaskStarterModelData) => {
     }
 
     clearErrors();
+}
+const selectTaskFromGame = () => {
+    debugger;
 }
 const validateChooseTaskStarter =
     (form: ChooseTaskStarterModelData) => {

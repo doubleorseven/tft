@@ -1,6 +1,7 @@
 
 import BaseClass from './BaseClass';
 import type IListItem from './interfaces/IListItem';
+import type MaterialsListStats from './interfaces/MaterialsListStats';
 export default class MaterialsList extends BaseClass {
     public taskId?: string;
     public title: string;
@@ -21,5 +22,10 @@ export default class MaterialsList extends BaseClass {
     public get DateCreatedFormatted() {
         return new Date(this.dateCreated).toLocaleDateString();
     }
+    public get Stats(): MaterialsListStats {
+        return {
+            markedAsDone: this.items.filter(x => x.done).length,
+            totalItems: this.items.length,
+        } as MaterialsListStats;
+    }
 }
-.7

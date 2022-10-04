@@ -7,6 +7,7 @@ import '@/styles/application.css'
 import { loadApplicationSettings } from '@/composables/useApplicationSettings';
 import { isMobile } from '@/lib/functions';
 import vLongpress from '@/directives/vLongpress'
+import vSwipe from './directives/vSwipe'
 loadApplicationSettings()
     .then((as) => {
         const app = createApp(App);
@@ -18,5 +19,6 @@ loadApplicationSettings()
         app.use(i18n)
         app.use(Notifications)
         app.directive('longpress', vLongpress);
+        app.directive('swipe', vSwipe);
         app.mount('#app')
     });

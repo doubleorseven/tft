@@ -5,7 +5,7 @@ import type ChooseTaskStarterkModelData from '@/entities/Task';
 import Game from '@/entities/Game';
 import type Task from '@/entities/Task';
 import { useTasksManager } from './useTasksManager';
-const { getTaskByID } = useTasksManager();
+const { getTaskForGame } = useTasksManager();
 
 export function useGamificationManager() {
     let gameObservable: Subscription;
@@ -26,8 +26,13 @@ export function useGamificationManager() {
         db.GAME.clear();
     }
     const loadNextTask = async (): Promise<void> => {
-        const taskId = (GAME.value as Game).loadNextTask();
-        GAMETask.value = await getTaskByID(taskId);
+        updateCurrentTask((GAME.value as Game).loadNextTask());
+    }
+    const loadPreviousTask = async (): Promise<void> => {
+        updateCurrentTask((GAME.value as Game).loadPreviousTask());
+    }
+    const updateCurrentTask = async (taskId: string): Promise<void> => {
+        GAMETask.value = await getTaskForGame(taskId);
         updateGame();
     }
     const updateGame = async (): Promise<void> => {
@@ -65,6 +70,7 @@ export function useGamificationManager() {
     return {
         endGame,
         loadNextTask,
+        loadPreviousTask,
         GAMETask,
         isGameActive,
         startGame,

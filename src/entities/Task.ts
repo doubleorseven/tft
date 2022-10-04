@@ -1,6 +1,6 @@
 
-import { simpleHash, createUUID } from '@/lib/functions';
 import BaseClass from './BaseClass';
+import type MaterialsListStats from './interfaces/MaterialsListStats';
 
 
 export interface ITask {
@@ -14,6 +14,7 @@ export default class Task extends BaseClass implements ITask {
     public howHard: HowHard;
     public howLong: number;
     public materialsListId?: string;
+    public materialsListStats?: MaterialsListStats;
     constructor(
         title: string,
         howHard: HowHard,

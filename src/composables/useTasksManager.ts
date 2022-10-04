@@ -2,6 +2,7 @@ import { ref } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Collection, type Subscription } from "dexie";
 import Task, { HowMuchEnergyArray, HowHardArray, type ChooseTaskStarterModelData, type CreateTaskModelData, type HowHard } from '@/entities/Task';
+import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
 import { notify } from "@kyvg/vue3-notification";
 export function useTasksManager() {
   const tasks = ref<Task[]>([]);
@@ -56,6 +57,17 @@ export function useTasksManager() {
   const getTaskByID = async (idVal: string): Promise<Task | undefined> => {
     return await db.tasks.where({ id: idVal }).first();
   };
+  const getTaskForGame = async (idVal: string): Promise<Task | undefined> => {
+    const task = await getTaskByID(idVal);
+    if (task) {
+      if (task.materialsListId) {
+        const { getMeterialsListStats } = useMaterialsListsManager();
+        task.materialsListStats = await getMeterialsListStats(task.materialsListId);
+      }
+      return task;
+    }
+    return undefined;
+  }
   const subscribeToDB = async () => {
 
     tasksObservable =
@@ -81,6 +93,7 @@ export function useTasksManager() {
     removeTaskMaterialsList,
     getTaskByID,
     getTaskByUID,
+    getTaskForGame,
     tasks,
     subscribeToDB,
     unsubscribeToDB
