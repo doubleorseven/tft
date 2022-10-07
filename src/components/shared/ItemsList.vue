@@ -3,7 +3,7 @@
         <li v-for="(item, idx) in items" class="flex row group focus-within:border-y focus-within:border-y-zinc-300"
             :key="idx" @click.self="focusOnItem">
             <div class="flex row">
-                <div class="active:opacity-90 active:bg-slate-200 rounded-full cursor-pointer">
+                <div v-if="!disabled" class="active:opacity-90 active:bg-slate-200 rounded-full cursor-pointer">
                     <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#000"
                         class="invisible group-focus-within:visible group-hover:visible"
                         @click="() => { deleteItem(idx) }">
@@ -12,21 +12,23 @@
                     </svg>
                 </div>
                 <div><input id="toy" type="checkbox" @click="() => { updateItemState(idx) }" v-model="item.done"
-                        name="type[toy]" class="w-5 h-5 border-gray-300 rounded mr-2" />
+                        name="type[toy]" class="w-5 h-5 border-gray-300 rounded mr-2" :disabled="disabled" />
                 </div>
             </div>
             <div class="">
-                <p v-if="idx === items.length - 1" id="newItemAdded" :data-index="idx" @input.prevent="updateItem"
-                    :class="{ 'line-through': item.done }" contenteditable class="outline-0">{{
-                            item.title
+                <p v-if="!disabled && idx === items.length - 1" id="newItemAdded" :data-index="idx"
+                    @input.prevent="updateItem" :class="{ 'line-through': item.done }" contenteditable
+                    class="outline-0">{{
+                    item.title
                     }}
                 </p>
-                <p v-else :data-index="idx" :class="{ 'line-through': item.done }" @input.prevent="updateItem"
-                    contenteditable class="outline-0">
+                <p v-else :data-index="idx" :class="{ 'line-through': item.done  && !disabled }"
+                    @input.prevent="updateItem" :contenteditable="!disabled" class="outline-0">
                     {{ item.title }}</p>
             </div>
         </li>
-        <li class="relative lw-full  inline-block pl-6 focus-within:border-y focus-within:border-y-zinc-300">
+        <li v-if="!disabled"
+            class="relative lw-full  inline-block pl-6 focus-within:border-y focus-within:border-y-zinc-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="inline" height="18px" width="18px" viewBox="0 0 48 48"
                 fill="#000">
                 <path d="m38 26h-12v12h-4v-12h-12v-4h12v-12h4v12h12v4z" />
@@ -40,10 +42,11 @@
 </template>
 <script setup lang="ts">
 import type IListItem from '@/entities/interfaces/IListItem';
-import { defineProps, nextTick, onUpdated, ref, toRaw, type PropType } from 'vue';
+import { defineProps, nextTick, onUpdated, type PropType } from 'vue';
 let focusNewItem = false;
 const props = defineProps({
-    items: { type: Array as PropType<IListItem[]>, required: true }
+    items: { type: Array as PropType<IListItem[]>, required: true },
+    disabled: Boolean,
 })
 const emits = defineEmits(['updatedList']);
 const newItem = (e: InputEvent) => {
@@ -58,6 +61,7 @@ const newItem = (e: InputEvent) => {
 
 };
 const focusOnItem = (event: Event) => {
+    if (props.disbaled) return;
     const li = event.target as HTMLLIElement;
     const p = li.querySelector('p');
     if (p) {

@@ -4,7 +4,7 @@ import type { ChooseTaskStarterModelData } from "./Task";
 export default class Game extends BaseClass {
     public choosenTaskId?: string;
     public gameActive: boolean = true;
-    public gameStarted: boolean = false;
+    public taskStarted: boolean = false;
     public estimatedEndDate?: number;
     private tasksIds: string[];
     private cursor: number = 0;
@@ -31,5 +31,11 @@ export default class Game extends BaseClass {
     }
     getTaskLocation() {
         return [this.cursor + 1, this.tasksIds.length] as const;
+    }
+    startTask(estimatedEndDate: number) {
+        this.estimatedEndDate = estimatedEndDate;
+        this.choosenTaskId = this.getCurrentTask();
+        this.taskStarted = true;
+        this.gameActive = false;
     }
 }

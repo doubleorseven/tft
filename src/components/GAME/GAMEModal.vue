@@ -5,12 +5,12 @@
     </transition>
     <transition name="slide-fade">
       <div v-if="isModalOpen" class="inset-0 fixed z-10 flex items-center justify-center">
-        <div class="w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8" role="dialog">
+        <div class="w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8 " role="dialog">
           <header class="mb-8 text-3xl flex flex-col items-center uppercase">choose a task</header>
-          <main>
-            <div class="space-y-4" v-swipe="handleMove">
-              <transition v-if="task" name="switch-fade" mode="out-in" appear>
-                <GAMECard :key="task.id || '123'" :task="task"></GAMECard>
+          <main class="">
+            <div class="space-y-4 min-h-[305px]" v-swipe="handleMove">
+              <transition name="switch-fade" mode="out-in" v-if="task">
+                <GAMECard :key="task?.id || '123'" :task="task"></GAMECard>
               </transition>
               <div class="flex items-center justify-between gap-4">
                 <button @click.prevent="$emit('previous')">Previous</button>
@@ -32,11 +32,12 @@
   
 <script setup lang="ts">
 import ITask from '@/entities/Task';
+import { onMounted } from 'vue';
 import GAMECard from './GAMECard.vue';
 const emits = defineEmits(['end', 'previous', 'next', 'select']);
-defineProps({
+const props = defineProps({
   isModalOpen: Boolean,
-  task: { type: ITask }
+  task: null,
 });
 const vFocus = {
   mounted: (el: HTMLButtonElement) => el.focus()
@@ -58,6 +59,11 @@ const handleMove = (direction: string): void => {
     emits('previous');
   }
 }
+onMounted(() => {
+  if (!props.task) {
+    emits('next');
+  }
+})
 
 </script>
   

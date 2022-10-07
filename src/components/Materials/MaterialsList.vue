@@ -2,16 +2,9 @@
 import { stringifyQuery, useRoute } from 'vue-router'
 import { reactive, ref, watch, onMounted, toRaw, } from 'vue'
 import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
-import { useTasksManager } from '@/composables/useTasksManager';
 import type MaterialsList from '@/entities/MaterialsList';
-import CreateButton from '../shared/Actions/CreateButton.vue';
-import RadioButton from '@/components/shared/Forms/RadioButton.vue';
-import NumberInput from '@/components/shared/Forms/NumberInput.vue';
-
-import { HowHard } from '@/entities/Task';
-import ItemsList from '../shared/ItemsList.vue';
+import ItemsList from '@/components/shared/ItemsList.vue';
 import type IListItem from '@/entities/interfaces/IListItem';
-const route = useRoute()
 const ml = reactive({} as MaterialsList);
 const { getMeterialsListByUID, updateMeterialsList } = useMaterialsListsManager();
 const props = defineProps({
@@ -40,9 +33,9 @@ const updatedList = (list: Array<IListItem>) => {
         items.value = list;
         beforeUpdate(true);
 }
-const beforeUpdate = (silent : boolean = false) => {
+const beforeUpdate = (silent: boolean = false) => {
         ml.items = JSON.parse(JSON.stringify(items.value));
-        updateMeterialsList(toRaw(ml),silent);
+        updateMeterialsList(toRaw(ml), silent);
 }
 </script>
 

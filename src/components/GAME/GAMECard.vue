@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center gap-4 select-none">
+    <div v-if="task" class="flex flex-col items-center gap-4 select-none h-[170px]">
         <h4 class="text-bold"> {{task.title}}</h4>
         <p>Should take: <span class="bold">{{numberToHumanClockText(task.howLong)}}.</span></p>
         <p>Should be an <span class="bold">{{task.howHard}} task.</span></p>
@@ -15,6 +15,6 @@ import ITask from '@/entities/Task';
 import { numberToHumanClockText } from "@/lib/functions";
 defineProps({
     key: String,
-    task: { type: ITask, required: true },
+    task: null,
 })
 </script>

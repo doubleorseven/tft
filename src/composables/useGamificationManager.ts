@@ -5,6 +5,7 @@ import type ChooseTaskStarterkModelData from '@/entities/Task';
 import Game from '@/entities/Game';
 import type Task from '@/entities/Task';
 import { useTasksManager } from './useTasksManager';
+import _default from '@kyvg/vue3-notification';
 const { getTaskForGame } = useTasksManager();
 
 export function useGamificationManager() {
@@ -30,6 +31,12 @@ export function useGamificationManager() {
     }
     const loadPreviousTask = async (): Promise<void> => {
         updateCurrentTask((GAME.value as Game).loadPreviousTask());
+    }
+    const selectTask = async (): Promise<void> => {
+        const estimatedEndDate = Date.now() + (GAMETask.value?.howLong as number * 60000); // minutes to miliseconds
+        GAME.value?.startTask(estimatedEndDate);
+        updateGame();
+
     }
     const updateCurrentTask = async (taskId: string): Promise<void> => {
         GAMETask.value = await getTaskForGame(taskId);
@@ -66,6 +73,12 @@ export function useGamificationManager() {
         }
         return false;
     }
+    const isTaskStarted = (): boolean => {
+        if (GAME.value) {
+            return GAME.value.taskStarted;
+        }
+        return false;
+    }
 
     return {
         endGame,
@@ -73,6 +86,8 @@ export function useGamificationManager() {
         loadPreviousTask,
         GAMETask,
         isGameActive,
+        isTaskStarted,
+        selectTask,
         startGame,
         subscribeToDB,
         unsubscribeFromDB,

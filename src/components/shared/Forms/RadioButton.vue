@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, type PropType } from 'vue';
+import { type PropType } from 'vue';
 var props = defineProps({
   id: { type: String, required: true },
   modelValue: { type: null as unknown as PropType<unknown>, required: true },
