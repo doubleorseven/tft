@@ -7,6 +7,7 @@ export interface ITask {
     title: string;
     howHard: HowHard;
     howLong: number;
+    statistics: TaskStatistics;
 }
 
 export default class Task extends BaseClass implements ITask {
@@ -15,6 +16,7 @@ export default class Task extends BaseClass implements ITask {
     public howLong: number;
     public materialsListId?: string;
     public materialsListStats?: MaterialsListStats;
+    public statistics: TaskStatistics;
     constructor(
         title: string,
         howHard: HowHard,
@@ -24,8 +26,21 @@ export default class Task extends BaseClass implements ITask {
         this.title = title;
         this.howHard = howHard;
         this.howLong = howLong;
+        this.statistics = new TaskStatistics();
     }
 }
+export class TaskStatistics {
+    public succeed: number = 0;
+    public failed: number = 0;
+    public skipped: number = 0;
+    public get views(): number {
+        return this.started + this.skipped;
+    }
+    public get started(): number {
+        return this.failed + this.succeed;
+    }
+}
+
 export enum HowHard {
     Easy = "Easy",
     Medium = "Medium",

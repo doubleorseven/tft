@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-wrap flex-col h-full items-center ">
         <template v-if="isTaskStarted() && getTaskForGame">
-            <GAMETaskView :task="getTaskForGame"></GAMETaskView>
+            <GAMETaskView :task="getTaskForGame" @end="endGame"></GAMETaskView>
         </template>
         <template v-else-if="hasTasks()  && isTaskStarted() == false">
             <p>looks like you've got some tasks to do.</p>
@@ -34,6 +34,7 @@ import { notify } from '@kyvg/vue3-notification';
 import GAMETaskView from '@/components/GAME/GAMETaskView.vue';
 const { startGame,
     endGame,
+    endSelectedTask,
     selectTask,
     isTaskStarted,
     loadNextTask,

@@ -1,18 +1,17 @@
 import { ref, toRaw } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Subscription } from "dexie";
-import type ChooseTaskStarterkModelData from '@/entities/Task';
+import type { ChooseTaskStarterModelData, ITask } from '@/entities/Task';
 import Game from '@/entities/Game';
-import type Task from '@/entities/Task';
 import { useTasksManager } from './useTasksManager';
 import _default from '@kyvg/vue3-notification';
-const { getTaskForGame } = useTasksManager();
+const { getTaskForGame, updateTask } = useTasksManager();
 
 export function useGamificationManager() {
     let gameObservable: Subscription;
     const GAME = ref<Game>();
-    const GAMETask = ref<Task>();
-    const startGame = (tasks: string[], data: ChooseTaskStarterkModelData): string => {
+    const GAMETask = ref<ITask>();
+    const startGame = (tasks: string[], data: ChooseTaskStarterModelData): string => {
         if (tasks.length > 0) {
             endGame();
             const game = new Game(tasks, data);
@@ -23,7 +22,15 @@ export function useGamificationManager() {
         }
         return '';
     };
-    const endGame = (): void => {
+    const endGame = async (result: Boolean = false): Promise<void> => {
+        if (GAMETask.value?.title) {
+            if (result) {
+                (GAMETask.value as ITask).statistics.succeed++;
+            } else {
+                (GAMETask.value as ITask).statistics.failed++;
+            }
+
+        }
         db.GAME.clear();
     }
     const loadNextTask = async (): Promise<void> => {
@@ -35,29 +42,43 @@ export function useGamificationManager() {
     const selectTask = async (): Promise<void> => {
         const estimatedEndDate = Date.now() + (GAMETask.value?.howLong as number * 60000); // minutes to miliseconds
         GAME.value?.startTask(estimatedEndDate);
-        updateGame();
+        saveGame();
 
     }
     const updateCurrentTask = async (taskId: string): Promise<void> => {
+        if (GAMETask.value?.title) {
+            (GAMETask.value as ITask).statistics.skipped++;
+            await saveGameTask();
+        }
         GAMETask.value = await getTaskForGame(taskId);
-        updateGame();
+        saveGame();
     }
-    const updateGame = async (): Promise<void> => {
+    const saveGameTask = async (): Promise<void> => {
+        await updateTask(toRaw(GAMETask.value as ITask), true);
+    }
+    const saveGame = async (): Promise<void> => {
         const g = toRaw(GAME.value as Game);
         db.GAME.put(g, g.id)
     }
     const subscribeToDB = async (): Promise<void> => {
         gameObservable =
             liveQuery(() => db.table('GAME').toArray())
-                .subscribe(items => {
+                .subscribe(async (items) => {
                     if (items.length == 1) {
                         const dbGAME = items[0] as Game;
                         if (GAME.value == undefined || dbGAME.id != GAME.value.id) {
-                            GAME.value = items[0]
+                            GAME.value = items[0];
+                            if (GAME.value?.taskStarted) {
+                                const dbgt = await getTaskForGame(GAME.value.choosenTaskId as string);
+                                if (dbgt) {
+                                    GAMETask.value = dbgt;
+                                }
+                            }
                         }
                     }
                     else if (items.length == 0) {
                         GAME.value = undefined;
+                        GAMETask.value = undefined;
                     }
                 });
     };

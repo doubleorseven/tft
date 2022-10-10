@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Collection, type Subscription } from "dexie";
-import Task, { HowMuchEnergyArray, HowHardArray, type ChooseTaskStarterModelData, type CreateTaskModelData, type HowHard } from '@/entities/Task';
+import Task, { HowMuchEnergyArray, HowHardArray, type ChooseTaskStarterModelData, type CreateTaskModelData, type HowHard, type ITask } from '@/entities/Task';
 import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
 import { notify } from "@kyvg/vue3-notification";
 export function useTasksManager() {
@@ -43,8 +43,8 @@ export function useTasksManager() {
       "materialsListId": undefined
     });
   }
-  const updateTask = async (task: Task, silent: boolean = false) => {
-    await db.tasks.put(task, task.id);
+  const updateTask = async (task: ITask, silent: boolean = false) => {
+    await db.tasks.put(task as Task, (task as Task).id);
     if (silent == false)
       notify({
         type: "notification-success",
