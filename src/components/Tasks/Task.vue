@@ -23,16 +23,19 @@ onMounted(() =>
         watch(
                 () => route.params.uid as string,
                 async newId => {
-                        var dbTask = await getTaskByUID(newId);
-                        if (dbTask) {
-                                Object.assign(task, dbTask);
-                                if (dbTask.materialsListId) {
-                                        const localMl = await getMeterialsListByID(dbTask.materialsListId);
-                                        if (ml) {
-                                                Object.assign(ml, localMl);
-                                                materialsListItems.value = ml.items;
+                        if (newId) {
+                                var dbTask = await getTaskByUID(newId);
+                                if (dbTask) {
+                                        Object.assign(task, dbTask);
+                                        if (dbTask.materialsListId) {
+                                                const localMl = await getMeterialsListByID(dbTask.materialsListId);
+                                                if (ml) {
+                                                        Object.assign(ml, localMl);
+                                                        materialsListItems.value = ml.items;
+                                                }
                                         }
                                 }
+
                         }
 
                 }, { immediate: true })

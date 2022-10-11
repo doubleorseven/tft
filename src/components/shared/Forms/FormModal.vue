@@ -6,7 +6,8 @@
     <transition name="slide-fade">
       <div v-if="isModalOpen" style="inset: 0;" class="fixed z-10 flex items-center justify-center"
         @keyup.esc="$emit('close')">
-        <div class="w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8" role="dialog">
+        <div :class="{'w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8': true,'absolute top-8':$isMobile}"
+          role="dialog">
           <header class="mb-8 text-3xl select-none">{{ props.headerText }}</header>
           <main>
             <form class="space-y-4" @submit.prevent="submitForm">

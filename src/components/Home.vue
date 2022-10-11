@@ -34,7 +34,6 @@ import { notify } from '@kyvg/vue3-notification';
 import GAMETaskView from '@/components/GAME/GAMETaskView.vue';
 const { startGame,
     endGame,
-    endSelectedTask,
     selectTask,
     isTaskStarted,
     loadNextTask,

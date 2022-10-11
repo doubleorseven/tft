@@ -15,12 +15,13 @@ onMounted(() =>
         watch(
                 () => props.uid as string,
                 async newId => {
-                        var dbML = await getMeterialsListByUID(newId);
-                        if (dbML) {
-                                Object.assign(ml, dbML);
-                                items.value = ml.items;
+                        if (newId) {
+                                var dbML = await getMeterialsListByUID(newId);
+                                if (dbML) {
+                                        Object.assign(ml, dbML);
+                                        items.value = ml.items;
+                                }
                         }
-
                 }, { immediate: true })
 );
 

@@ -16,7 +16,7 @@ export const loadApplicationSettings = async (): Promise<IApplicationSettings> =
     appSettings = as;
     return as;
 }
-export const initApplicationSettings = (): IUseApplicationSettings => {
+export const initApplicationSettings = (): void => {
     appSettings = reactive<IApplicationSettings>(appSettings);
     const getIsDrawerOpen = computed(() => appSettings.isDrawerOpen);
     const changeDrawerState = () => {
@@ -25,7 +25,6 @@ export const initApplicationSettings = (): IUseApplicationSettings => {
     }
     provide(SETTINGS_IS_DRAWER_OPEN, getIsDrawerOpen);
     provide(SETTINGS_CHANGE_DRAWER_STATE, changeDrawerState);
-    return useApplicationSettings();
 }
 
 export const useApplicationSettings = () => {
