@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <TextInput :modelValue="''" v-model="model.title" :placeholder="'Title'" :label="'Title'" :required="true">
+            <TextInput v-model="model.title" :placeholder="'Title'" :label="'Title'" :required="true">
             </TextInput>
             <FormError v-if="props.errors.title" :text="props.errors.title" />
         </div>

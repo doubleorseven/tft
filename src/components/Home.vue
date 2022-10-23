@@ -1,5 +1,6 @@
 <template>
-    <div class="flex flex-wrap flex-col h-full items-center ">
+    <div class="flex flex-wrap flex-col h-full" :class="{'place-items-center': $isMobile}">
+        <h2>Hey!</h2>
         <template v-if="isTaskStarted() && getTaskForGame">
             <GAMETaskView :task="getTaskForGame" @end="endGame"></GAMETaskView>
         </template>
@@ -10,8 +11,17 @@
             </CreateButton>
         </template>
         <template v-else>
-            <h1>Welcome!</h1>
+            <p>it seems you have'nt created any task yet.</p>
+            <p>let's go to the <RouterLink @click.native="$isMobile ? changeDrawerState : undefined" to="/tasks"
+                    class="underline">tasks page</RouterLink>
+            </p>
 
+            <p class="mt-6">just want to see how it goes?</p>
+            <p>
+                <CreateButton @clicked="importDB">
+                    Populate me with some data
+                </CreateButton>
+            </p>
         </template>
         <FormModal :button-text="`Start Game`" :submit="startTaskSelector" :validate="validateChooseTaskStarter"
             header-text="Let's set our goals" :isModalOpen="isTaskStarterModalOpen" :model="{}" :errors="chooseErrors"
@@ -24,6 +34,8 @@
 </template>
 <script setup lang="ts">
 import { useTasksManager } from '@/composables/useTasksManager';
+import { useApplicationSettings } from '@/composables/useApplicationSettings';
+const { changeDrawerState } = useApplicationSettings();
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import { ref, defineAsyncComponent, onMounted, onUnmounted, computed, nextTick } from "vue";
 import type IChooseTaskFormModalError from "@/entities/interfaces/IChooseTaskFormModalError";
@@ -32,6 +44,8 @@ import FormModal from '@/components/shared/Forms/FormModal.vue';
 import { useGamificationManager } from '@/composables/useGamificationManager';
 import { notify } from '@kyvg/vue3-notification';
 import GAMETaskView from '@/components/GAME/GAMETaskView.vue';
+import { useDBManager } from '@/composables/useDBManager';
+const { importDB } = useDBManager();
 const { startGame,
     endGame,
     selectTask,

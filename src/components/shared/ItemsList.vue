@@ -42,7 +42,7 @@
 </template>
 <script setup lang="ts">
 import type IListItem from '@/entities/interfaces/IListItem';
-import { defineProps, nextTick, onUpdated, type PropType } from 'vue';
+import { nextTick, onUpdated, type PropType } from 'vue';
 let focusNewItem = false;
 const props = defineProps({
     items: { type: Array as PropType<IListItem[]>, required: true },

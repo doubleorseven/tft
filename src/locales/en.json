@@ -15,6 +15,16 @@
       "no-materialsLists": "There's nothing here...",
       "created-materialsLists-appers-here": "Created materials lists will appear here, try creating one!",
       "create-a-materialsList": "Create a Materials List"
+    },
+    "settings": {
+      "general-settings": "General Settings",
+      "dark-mode": "Dark Mode:",
+      "my-name": "Set your display name",
+      "db-actions": "Database Actions",
+      "export-db": "Download the DB",
+      "download": "Download",
+      "clear-db": "Reset the DB",
+      "reset": "Reset"
     }
   }
 }

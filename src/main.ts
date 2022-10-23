@@ -10,7 +10,6 @@ import vLongpress from '@/directives/vLongpress'
 import vSwipe from './directives/vSwipe'
 loadApplicationSettings()
     .then((as) => {
-        console.log(as.isDrawerOpen);
         const app = createApp(App, { IsDrawerOpen: as.isDrawerOpen });
         const im = isMobile()
         app.config.globalProperties.$isMobile = im;

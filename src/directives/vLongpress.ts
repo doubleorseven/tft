@@ -1,3 +1,5 @@
+import { notify } from '@kyvg/vue3-notification';
+
 const vLongpress = (el: any, binding: any) => {
 
     let pressTimer: number = 0;
@@ -19,6 +21,10 @@ const vLongpress = (el: any, binding: any) => {
         if (pressTimer !== null) {
             clearTimeout(pressTimer);
             pressTimer = 0;
+            notify({
+                type: "notification-warning",
+                title: `long press to delete`,
+            });
         }
 
     }
@@ -31,7 +37,7 @@ const vLongpress = (el: any, binding: any) => {
             el.addEventListener(e, start, { passive: true })
         });
 
-    ;['click', 'mouseout', 'touchend', 'touchcancel'].forEach(e => {
+    ;['click', 'touchend', 'touchcancel'].forEach(e => {
         el.addEventListener(e, cancel, { passive: true })
     });
 

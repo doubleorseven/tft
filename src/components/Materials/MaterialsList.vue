@@ -1,3 +1,22 @@
+
+
+<template>
+        <form class="flex flex-col justify-center" :class="{'items-center': $isMobile}">
+                <div contenteditable="true" @input="updateTitle" @paste.prevent @keydown.enter.prevent
+                        class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
+                        {{ ml.title }}
+                </div>
+                <ItemsList :items="items" @updated-list="updatedList"></ItemsList>
+
+
+        </form>
+</template>
+<style scoped>
+[contenteditable] {
+        -webkit-tap-highlight-color: transparent;
+        outline: 0px solid transparent;
+}
+</style>
 <script setup lang="ts">
 import { stringifyQuery, useRoute } from 'vue-router'
 import { reactive, ref, watch, onMounted, toRaw, } from 'vue'
@@ -39,22 +58,3 @@ const beforeUpdate = (silent: boolean = false) => {
         updateMeterialsList(toRaw(ml), silent);
 }
 </script>
-
-
-<template>
-        <form class="flex  flex-col items-center justify-center">
-                <div contenteditable="true" @input="updateTitle" @paste.prevent @keydown.enter.prevent
-                        class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
-                        {{ ml.title }}
-                </div>
-                <ItemsList :items="items" @updated-list="updatedList"></ItemsList>
-
-
-        </form>
-</template>
-<style scoped>
-[contenteditable] {
-        -webkit-tap-highlight-color: transparent;
-        outline: 0px solid transparent;
-}
-</style>
