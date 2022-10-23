@@ -1,10 +1,10 @@
 <template>
-    <div class="flex flex-wrap flex-col h-full" :class="{'place-items-center': $isMobile}">
+    <div class="flex flex-wrap flex-col h-full" :class="{ 'place-items-center': $isMobile }">
         <h2>Hey!</h2>
         <template v-if="isTaskStarted() && getTaskForGame">
             <GAMETaskView :task="getTaskForGame" @end="endGame"></GAMETaskView>
         </template>
-        <template v-else-if="hasTasks()  && isTaskStarted() == false">
+        <template v-else-if="hasTasks() && isTaskStarted() == false">
             <p>looks like you've got some tasks to do.</p>
             <CreateButton @clicked="isTaskStarterModalOpen = true">
                 Select a Task
@@ -35,7 +35,6 @@
 <script setup lang="ts">
 import { useTasksManager } from '@/composables/useTasksManager';
 import { useApplicationSettings } from '@/composables/useApplicationSettings';
-const { changeDrawerState } = useApplicationSettings();
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import { ref, defineAsyncComponent, onMounted, onUnmounted, computed, nextTick } from "vue";
 import type IChooseTaskFormModalError from "@/entities/interfaces/IChooseTaskFormModalError";
@@ -45,6 +44,7 @@ import { useGamificationManager } from '@/composables/useGamificationManager';
 import { notify } from '@kyvg/vue3-notification';
 import GAMETaskView from '@/components/GAME/GAMETaskView.vue';
 import { useDBManager } from '@/composables/useDBManager';
+const { changeDrawerState } = useApplicationSettings();
 const { importDB } = useDBManager();
 const { startGame,
     endGame,

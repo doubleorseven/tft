@@ -19,10 +19,10 @@
                 <p v-if="!disabled && idx === items.length - 1" id="newItemAdded" :data-index="idx"
                     @input.prevent="updateItem" :class="{ 'line-through': item.done }" contenteditable
                     class="outline-0">{{
-                    item.title
+                            item.title
                     }}
                 </p>
-                <p v-else :data-index="idx" :class="{ 'line-through': item.done  && !disabled }"
+                <p v-else :data-index="idx" :class="{ 'line-through': item.done && !disabled }"
                     @input.prevent="updateItem" :contenteditable="!disabled" class="outline-0">
                     {{ item.title }}</p>
             </div>
@@ -49,9 +49,10 @@ const props = defineProps({
     disabled: Boolean,
 })
 const emits = defineEmits(['updatedList']);
-const newItem = (e: InputEvent) => {
-    if (e.data) {
-        emitUpdatedList(props.items.concat([{ title: e.data, done: false }]));
+const newItem = (e: Event) => {
+    const ie = e as InputEvent;
+    if (ie.data) {
+        emitUpdatedList(props.items.concat([{ title: ie.data, done: false }]));
         focusNewItem = true;
     }
     if (e.target) {
@@ -61,7 +62,7 @@ const newItem = (e: InputEvent) => {
 
 };
 const focusOnItem = (event: Event) => {
-    if (props.disbaled) return;
+    if (props.disabled) return;
     const li = event.target as HTMLLIElement;
     const p = li.querySelector('p');
     if (p) {
@@ -72,10 +73,11 @@ const updateItemState = (idx: number) => {
     props.items[Number(idx)].done = !props.items[Number(idx)].done;
     emitUpdatedList(props.items);
 }
-const updateItem = (e: InputEvent) => {
+const updateItem = (e: Event) => {
     const element = e.target as HTMLParagraphElement;
+    const ie = e as InputEvent;
     const idx = Number(element.getAttribute('data-index'));
-    if (e.inputType === 'insertParagraph' || e.inputType === 'insertText' && !e.data) {
+    if (ie.inputType === 'insertParagraph' || ie.inputType === 'insertText' && !ie.data) {
         const values = element.innerText.split('\n').filter(x => x);
         let newItem: IListItem;
         if (values.length === 0) {

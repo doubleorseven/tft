@@ -23,7 +23,6 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
-import path from 'path';
 interface RouteSlice {
   name: string,
   route: object,

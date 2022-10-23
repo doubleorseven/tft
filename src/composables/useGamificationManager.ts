@@ -1,16 +1,17 @@
 import { ref, toRaw } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Subscription } from "dexie";
-import type { ChooseTaskStarterModelData, ITask } from '@/entities/Task';
+import type { ChooseTaskStarterModelData } from '@/entities/Task';
 import Game from '@/entities/Game';
 import { useTasksManager } from './useTasksManager';
 import _default from '@kyvg/vue3-notification';
+import type Task from '@/entities/Task';
 const { getTaskForGame, updateTask } = useTasksManager();
 
 export function useGamificationManager() {
     let gameObservable: Subscription;
     const GAME = ref<Game>();
-    const GAMETask = ref<ITask>();
+    const GAMETask = ref<Task>();
     const startGame = (tasks: string[], data: ChooseTaskStarterModelData): string => {
         if (tasks.length > 0) {
             endGame();
@@ -25,9 +26,9 @@ export function useGamificationManager() {
     const endGame = async (result: Boolean = false): Promise<void> => {
         if (GAMETask.value?.title) {
             if (result) {
-                (GAMETask.value as ITask).statistics.succeed++;
+                (GAMETask.value as Task).statistics.succeed++;
             } else {
-                (GAMETask.value as ITask).statistics.failed++;
+                (GAMETask.value as Task).statistics.failed++;
             }
 
         }
@@ -47,14 +48,14 @@ export function useGamificationManager() {
     }
     const updateCurrentTask = async (taskId: string): Promise<void> => {
         if (GAMETask.value?.title) {
-            (GAMETask.value as ITask).statistics.skipped++;
+            (GAMETask.value as Task).statistics.skipped++;
             await saveGameTask();
         }
         GAMETask.value = await getTaskForGame(taskId);
         saveGame();
     }
     const saveGameTask = async (): Promise<void> => {
-        await updateTask(toRaw(GAMETask.value as ITask), true);
+        await updateTask(toRaw(GAMETask.value as Task), true);
     }
     const saveGame = async (): Promise<void> => {
         const g = toRaw(GAME.value as Game);

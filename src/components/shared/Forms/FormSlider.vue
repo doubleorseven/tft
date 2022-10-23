@@ -9,8 +9,8 @@ const props = defineProps({
 });
 const emits = defineEmits(['update:modelValue', 'drag-end']);
 
-const fireChange = (val: Number) => {
-    emits('update:modelValue', val);
+const fireChange = (payload: Event) => {
+    emits('update:modelValue', payload);
 }
 var sliderText = computed(() => numberToHumanClockText(props.label))
 </script>

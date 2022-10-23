@@ -1,7 +1,7 @@
 <template>
   <p>
     <input class="sr-only peer select-none" :id="id" :value="modelValue" type="radio" tabindex="-1" :name="name"
-      @change="$emit('update:modelValue', $event.target?.value)" :checked="checked" />
+      @change="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" :checked="checked" />
     <label :for="id"
       class="block w-full select-none	cursor-pointer p-3 border border-gray-200 rounded-lg peer-checked:bg-gray-600 hover:bg-gray-500 hover:text-white  peer-checked:text-white transition duration-200"
       tabindex="0">
@@ -11,7 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { type PropType } from 'vue';
+import type { PropType } from 'vue';
+
 var props = defineProps({
   id: { type: String, required: true },
   modelValue: { type: null as unknown as PropType<unknown>, required: true },

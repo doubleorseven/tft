@@ -3,7 +3,7 @@
     <label class="sr-only" for="title">{{ label }}</label>
     <input class="w-full p-3 text-sm border-2 border-gray-200 rounded-lg focus-visible:border-gray-600"
       :placeholder="placeholder || ''" type="text" :value="modelValue" :id="`text-input-${randomId}`"
-      @change="$emit('update:modelValue', $event.target?.value)" @focus.prevent="" />
+      @change="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" @focus.prevent="" />
   </p>
 </template>
 <script setup lang="ts">
