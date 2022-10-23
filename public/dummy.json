@@ -1,0 +1,91 @@
+{
+    "formatName": "dexie",
+    "formatVersion": 1,
+    "data": {
+        "databaseName": "tft-database",
+        "databaseVersion": 1,
+        "tables": [
+            {
+                "name": "tasks",
+                "schema": "id,title,uid,howHard",
+                "rowCount": 1
+            },
+            {
+                "name": "appSettings",
+                "schema": "",
+                "rowCount": 1
+            },
+            {
+                "name": "materialsLists",
+                "schema": "id,uid",
+                "rowCount": 1
+            },
+            {
+                "name": "GAME",
+                "schema": "id",
+                "rowCount": 0
+            }
+        ],
+        "data": [
+            {
+                "tableName": "tasks",
+                "inbound": true,
+                "rows": [
+                    {
+                        "dateCreated": 1666514216371,
+                        "id": "c862b366-43af-4e80-9543-f8dbe597c9f4",
+                        "uid": "1ndgmm",
+                        "title": "zdsczxc",
+                        "howHard": "Hard",
+                        "howLong": 125,
+                        "materialsListId": "3b7af3dd-fdf5-4c28-b96e-0aa20f147482",
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0
+                        },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListStats": "undef"
+                        }
+                    }
+                ]
+            },
+            {
+                "tableName": "appSettings",
+                "inbound": false,
+                "rows": [
+                    [
+                        "APP_SETTINGS",
+                        {
+                            "isDrawerOpen": true
+                        }
+                    ]
+                ]
+            },
+            {
+                "tableName": "materialsLists",
+                "inbound": true,
+                "rows": [
+                    {
+                        "items": [],
+                        "dateCreated": 1666514221964,
+                        "id": "3b7af3dd-fdf5-4c28-b96e-0aa20f147482",
+                        "uid": "kxsn5m",
+                        "taskId": "c862b366-43af-4e80-9543-f8dbe597c9f4",
+                        "title": "zdsczxc - materials list ",
+                        "$types": {
+                            "": "userObject"
+                        }
+                    }
+                ]
+            },
+            {
+                "tableName": "GAME",
+                "inbound": true,
+                "rows": []
+            }
+        ]
+    }
+}

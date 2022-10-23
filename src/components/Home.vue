@@ -13,7 +13,7 @@
         <template v-else>
             <p>it seems you have'nt created any task yet.</p>
             <p>let's go to the <RouterLink @click.native="$isMobile ? changeDrawerState : undefined" to="/tasks"
-                    class="underline">tasks page</RouterLink>
+                    class="underline font-semibold">tasks page</RouterLink>.
             </p>
 
             <p class="mt-6">just want to see how it goes?</p>
