@@ -3,14 +3,27 @@ import "dexie-export-import";
 import { notify } from "@kyvg/vue3-notification";
 export function useDBManager() {
 
-    const importDB = () => {
-
+    const importDB = async () => {
+        const f = '/dummy.json';
+        await fetch(f)
+            .then((response) => response.blob())
+            .then(async (blob) => {
+                await db.tasks.clear();
+                await db.GAME.clear();
+                await db.materialsLists.clear();
+                await db.appSettings.clear();
+                await db.import(blob);
+                notify({
+                    type: "notification-success",
+                    title: `Database loaded successfully!`,
+                });
+            });
     }
     const clearDB = () => {
         db.delete().then(() => {
             notify({
                 type: "notification-success",
-                title: `Database deleted successfuly!`,
+                title: `Database deleted successfully!`,
             });
             setTimeout(() => {
                 window.location.href = '/';
