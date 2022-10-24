@@ -4,16 +4,16 @@
       <div v-if="props.isModalOpen" class="bg-stone-900/[.3] fixed " style="inset: 0;"></div>
     </transition>
     <transition name="slide-fade">
-      <div v-if="isModalOpen" style="inset: 0;" class="fixed z-10 flex items-center justify-center"
+      <div v-if="isModalOpen" style="inset: 0;" class="fixed z-10 flex items-center justify-center overflow-auto"
         @keyup.esc="$emit('close')">
-        <div :class="{'w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8': true,'absolute top-8':$isMobile}"
+        <div :class="{ 'w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8': true, 'absolute top-8': $isMobile }"
           role="dialog">
-          <header class="mb-8 text-3xl select-none">{{ props.headerText }}</header>
+          <h1 class="mb-8 text-3xl select-none">{{ props.headerText }}</h1>
           <main>
             <form class="space-y-4" @submit.prevent="submitForm">
               <component :is="props.componentName" :vmodel="props.model" :errors="errors" />
               <div class="flex items-center justify-end gap-4">
-                <button @click.prevent="$emit('close')">Cancel</button>
+                <button @click.prevent="$emit('close')" class="abort">Cancel</button>
                 <button type="submit">{{ props.buttonText }}</button>
               </div>
             </form>

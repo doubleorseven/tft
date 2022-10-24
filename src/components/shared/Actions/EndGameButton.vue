@@ -9,8 +9,8 @@ const props = defineProps({
   yes: Boolean
 })
 const classObject = {
-  'select-none inline-flex items-center cursor-pointer px-5 py-3 mt-8 font-medium text-white rounded-lg w-fit': true,
-  'bg-blue-600 hover:bg-blue-500': props.yes,
-  'bg-red-600 hover:bg-red-500': !props.yes,
+  'select-none inline-flex items-center cursor-pointer border-2 px-5 py-3 mt-8 font-medium rounded-lg w-fit': true,
+  'text-gray-400 hover:bg-gray-100 hover:text-gray-600  hover:border-gray-600 border-gray-400': props.yes,
+  'abort': !props.yes,
 }
 </script>

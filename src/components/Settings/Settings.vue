@@ -3,28 +3,28 @@
         <!-- <h1 class="marker:">{{$t('areas.settings.general-settings')}}</h1>
         <div class="flex flex-wrap flex-col h-full w-1/3  gap-4">
             <div class="settings-box">
-                <h4>{{$t('areas.settings.dark-mode')}}</h4>
+                <h5>{{$t('areas.settings.dark-mode')}}</h5>
                 <Checkbox :name="'dark-mode'" :state="(isDarkMode) ? true : false" @change=""></Checkbox>
             </div>
             <div class="settings-box">
-                <h4>{{$t('areas.settings.my-name')}}</h4>
+                <h5>{{$t('areas.settings.my-name')}}</h5>
                 <TextInput :modelValue="myNameValue || ''" :placeholder="'Enter name here'" :label="'Title'"
                     :required="true">
                 </TextInput>
             </div>
         </div> -->
-        <h1 class="marker:">{{$t('areas.settings.db-actions')}}</h1>
+        <h1 class="marker:">{{ $t('areas.settings.db-actions') }}</h1>
         <div class="flex flex-wrap flex-col h-full w-1/3  gap-4">
             <div class="settings-box">
-                <h4>{{$t('areas.settings.export-db')}}</h4>
+                <h5>{{ $t('areas.settings.export-db') }}</h5>
                 <CreateButton @clicked="exportDB">
-                    {{$t('areas.settings.download')}}
+                    {{ $t('areas.settings.download') }}
                 </CreateButton>
             </div>
             <div class="settings-box">
-                <h4>{{$t('areas.settings.clear-db')}}</h4>
+                <h5>{{ $t('areas.settings.clear-db') }}</h5>
                 <CreateButton v-longpress="clearDB">
-                    {{$t('areas.settings.reset')}}
+                    {{ $t('areas.settings.reset') }}
                 </CreateButton>
             </div>
         </div>

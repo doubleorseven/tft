@@ -3,7 +3,7 @@
     <input class="sr-only peer select-none" :id="id" :value="modelValue" type="radio" tabindex="-1" :name="name"
       @change="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" :checked="checked" />
     <label :for="id"
-      class="block w-full select-none	cursor-pointer p-3 border border-gray-200 rounded-lg peer-checked:bg-gray-600 hover:bg-gray-500 hover:text-white  peer-checked:text-white transition duration-200"
+      class="peer-checked:bg-gray-600 peer-checked:text-white select-none inline-flex items-center cursor-pointer px-5 py-3 font-medium text-gray-400 hover:bg-gray-100 hover:text-gray-600 border-2 hover:border-gray-600 border-gray-400 rounded-lg w-fit transition duration-300"
       tabindex="0">
       <span class="text-sm font-medium"> {{ text || modelValue }} </span>
     </label>

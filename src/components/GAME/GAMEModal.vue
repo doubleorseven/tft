@@ -12,14 +12,14 @@
               <transition name="switch-fade" mode="out-in" v-if="task">
                 <GAMECard :key="task?.id || '123'" :task="task"></GAMECard>
               </transition>
-              <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center justify-between gap-4 w-full">
                 <button @click.prevent="$emit('previous')">Previous</button>
-                <button @click.prevent="$emit('select')" v-focus @keyup.enter="$emit('select')">THIS YES!</button>
+                <button @click.prevent="$emit('select')" v-focus @keyup.enter="$emit('select')">YES!</button>
                 <button @click.prevent="$emit('next')">Next</button>
 
               </div>
               <div class="flex items-center justify-center gap-4">
-                <button class="flex-1" @click.prevent="$emit('end')">End Game</button>
+                <button class="flex-1 items-center justify-center abort" @click.prevent="$emit('end')">End Game</button>
               </div>
 
             </div>

@@ -5,7 +5,7 @@
             <GAMETaskView :task="getTaskForGame" @end="endGame"></GAMETaskView>
         </template>
         <template v-else-if="hasTasks() && isTaskStarted() == false">
-            <p>looks like you've got some tasks to do.</p>
+            <p class="mb-4">looks like you've got some tasks to do.</p>
             <CreateButton @clicked="isTaskStarterModalOpen = true">
                 Select a Task
             </CreateButton>

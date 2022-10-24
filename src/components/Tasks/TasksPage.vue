@@ -8,13 +8,13 @@
       <TasksTable v-if="tasks.length > 0" :tasks="tasks" :delete-task="deleteTask"> </TasksTable>
     </div>
   </template>
-  <div v-else class="flex flex-wrap flex-col h-full items-center justify-center">
+  <div v-else class="flex flex-wrap flex-col h-full" :class="{ 'items-start': !$isMobile, 'items-center': $isMobile }">
     <div class="relative p-8 text-center border border-gray-200 rounded-lg">
       <h2 class="text-2xl font-medium">
         {{ $t('areas.tasks.no-tasks') }}
       </h2>
 
-      <p class="mt-4 text-sm text-gray-500">
+      <p class="mt-4 mb-4 text-sm text-gray-500">
         {{ $t('areas.tasks.created-tasks-appers-here') }}
       </p>
       <CreateButton @clicked="isModalOpen = true">

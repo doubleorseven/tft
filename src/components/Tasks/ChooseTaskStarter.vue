@@ -1,3 +1,38 @@
+<template>
+    <div>
+        <div>
+            <h4 class="select-none">how much enargy do you have?</h4>
+            <div class=" grid gap-4 text-center grid-cols-3">
+                <div>
+                    <RadioButton :id="'HowMuchEnergy.Low'" :modelValue="HowMuchEnergy.Low" v-model="model.howMuchEnergy"
+                        :name="'difficulty'">
+                    </RadioButton>
+                </div>
+                <div>
+                    <RadioButton :id="'HowMuchEnergy.Medium'" :modelValue="HowMuchEnergy.Medium"
+                        v-model="model.howMuchEnergy" :name="'difficulty'">
+                    </RadioButton>
+                </div>
+                <div>
+                    <RadioButton :id="'HowMuchEnergy.High'" :modelValue="HowMuchEnergy.High"
+                        v-model="model.howMuchEnergy" :name="'difficulty'">
+                    </RadioButton>
+                </div>
+            </div>
+            <FormError v-if="props.errors.howMuchEnergy" :text="props.errors.howMuchEnergy" />
+
+        </div>
+        <div>
+            <h4 class="select-none">how much time do you have?</h4>
+            <FormSlider v-model="model.howLong" :label="HowLongFullText" />
+            <FormError v-if="props.errors.howLong" :text="props.errors.howLong" />
+        </div>
+        <div class="flex  flex-col justify-center items-center mt-2">
+            <h5 class="select-none">{{ tasksCount }}</h5>
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
 import { reactive, computed, ref, watch } from 'vue';
 import { useTasksManager } from '@/composables/useTasksManager';
@@ -24,37 +59,3 @@ watch(model, async (newValue) => {
 });
 </script>
 
-<template>
-    <div>
-        <div>
-            <h4 class="select-none">how much enargy do you have?</h4>
-            <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                <div>
-                    <RadioButton :id="'HowMuchEnergy.Low'" :modelValue="HowMuchEnergy.Low" v-model="model.howMuchEnergy"
-                        :name="'difficulty'">
-                    </RadioButton>
-                </div>
-                <div>
-                    <RadioButton :id="'HowMuchEnergy.Medium'" :modelValue="HowMuchEnergy.Medium"
-                        v-model="model.howMuchEnergy" :name="'difficulty'">
-                    </RadioButton>
-                </div>
-                <div>
-                    <RadioButton :id="'HowMuchEnergy.High'" :modelValue="HowMuchEnergy.High"
-                        v-model="model.howMuchEnergy" :name="'difficulty'">
-                    </RadioButton>
-                </div>
-            </div>
-            <FormError v-if="props.errors.howMuchEnergy" :text="props.errors.howMuchEnergy" />
-
-        </div>
-        <div>
-            <h4 class="select-none">how much time do you have?</h4>
-            <FormSlider v-model="model.howLong" :label="HowLongFullText" />
-            <FormError v-if="props.errors.howLong" :text="props.errors.howLong" />
-        </div>
-        <div class="flex  flex-col justify-center items-center mt-2">
-            <h4 class="select-none">{{ tasksCount }}</h4>
-        </div>
-    </div>
-</template>

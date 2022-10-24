@@ -27,8 +27,11 @@ html, body {
 .settings-box {
     @apply flex flex-row justify-between items-center align-middle;
 }
+.abort {
+    @apply text-white bg-gray-400 hover:bg-gray-100 hover:text-black hover:border-gray-400 border-gray-100;
+}
 button {
-    @apply text-center p-2 mt-2 rounded border-2 hover:border-gray-400 hover:underline;
+    @apply select-none inline-flex items-center cursor-pointer px-5 py-3 font-medium text-gray-400 hover:bg-gray-100 hover:text-gray-600 border-2 hover:border-gray-600 border-gray-400 rounded-lg w-fit
 }
 input {
     @apply outline-none;
@@ -37,7 +40,10 @@ h4,tbody,tr,td{
     @apply select-none text-base;
 }
 h1 {
-    @apply select-none text-xl underline;
+    @apply select-none text-xl underline uppercase;
+}
+h4 {
+    @apply my-2 font-semibold border-dotted border-b-2 w-fit;
 }
 [contenteditable] {
     -webkit-tap-highlight-color: transparent;

@@ -43,15 +43,15 @@ export const numberToHumanClockText = (num: number | undefined) => {
     const remainder = num % 60;
     const hours = (num - remainder) / 60;
     if (hours > 0) {
-      text = `${hours} hour${hours > 1 ? 's' : ''}`;
+      text = `<span class="font-bold">${hours}</span> hour${hours > 1 ? 's' : ''}`;
       if (remainder > 0) {
         text += ' and ';
       }
     }
     if (remainder > 0) {
-      text += `${remainder} minute${remainder > 1 ? 's' : ''}`;
+      text += `<span class="font-bold">${remainder}</span> minute${remainder > 1 ? 's' : ''}`;
     }
     return text;
   }
-  return '0 minutes';
+  return '<span class="font-bold">0</span> minutes';
 }

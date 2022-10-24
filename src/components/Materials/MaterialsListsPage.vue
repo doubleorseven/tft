@@ -10,13 +10,13 @@
       </MaterialsListsTable>
     </div>
   </template>
-  <div v-else class="flex flex-wrap flex-col h-full items-center justify-center">
-    <div class="relative p-8 text-center border border-gray-200 rounded-lg">
+  <div v-else class="flex flex-wrap flex-col h-full" :class="{ 'items-start': !$isMobile, 'items-center': $isMobile }">
+    <div class=" relative p-8 text-center border border-gray-200 rounded-lg">
       <h2 class="text-2xl font-medium">
         {{ $t('areas.materialsLists.no-materialsLists') }}
       </h2>
 
-      <p class="mt-4 text-sm text-gray-500">
+      <p class="my-4 text-sm text-gray-500">
         {{ $t('areas.materialsLists.created-materialsLists-appers-here') }}
       </p>
       <CreateButton @clicked="createMaterialsList">

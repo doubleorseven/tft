@@ -1,22 +1,24 @@
 <template>
-        <form class="flex  flex-col justify-center" :class="{'items-center': $isMobile}">
+        <form class="flex  flex-col justify-center" :class="{ 'items-center': $isMobile }">
                 <div contenteditable="true" @input="updateTitle" @paste.prevent @keydown.enter.prevent
                         class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
                         {{ task.title }}
                 </div>
-                <div class="w-9/12 mt-5 sm:w-4/12">
-                        <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">how hard is this
+                <div class="lg:w-3/12 mt-5 sm:w-9/12">
+                        <h4>how hard is this
                                 task?</h4>
-                        <div class=" grid grid-cols-1 gap-4 text-center sm:grid-cols-3 ">
+                        <div class=" grid gap-4 text-center grid-cols-3">
                                 <div>
                                         <RadioButton :id="'HowHard.Easy'" :modelValue="HowHard.Easy"
                                                 v-model="task.howHard" :name="'difficulty'"
-                                                :checked="HowHard[task.howHard] === HowHard.Easy"></RadioButton>
+                                                :checked="HowHard[task.howHard] === HowHard.Easy">
+                                        </RadioButton>
                                 </div>
                                 <div>
                                         <RadioButton :id="'HowHard.Medium'" :modelValue="HowHard.Medium"
                                                 v-model="task.howHard" :name="'difficulty'"
-                                                :checked="HowHard[task.howHard] === HowHard.Medium"></RadioButton>
+                                                :checked="HowHard[task.howHard] === HowHard.Medium">
+                                        </RadioButton>
                                 </div>
                                 <div>
                                         <RadioButton :id="'HowHard.Hard'" :modelValue="HowHard.Hard"
@@ -25,21 +27,21 @@
                                 </div>
                         </div>
                 </div>
-                <div class="w-9/12 mt-5 sm:w-4/12">
-                        <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">how
+                <div class="lg:w-3/12 mt-5 sm:w-9/12">
+                        <h4>how
                                 long does this
                                 task takes?</h4>
                         <FormSlider v-model="task.howLong" :label="task.howLong || 0" />
 
                 </div>
                 <div v-if="task.materialsListId" class="w-9/12 mt-5 mb-5 sm:w-4/12">
-                        <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">materials</h4>
+                        <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">
+                                materials</h4>
                         <ItemsList :items="materialsListItems" @updated-list="updatedList"></ItemsList>
                 </div>
                 <CreateButton v-else @clicked="addMaterialsList(task.id)">
                         Add Materials List
                 </CreateButton>
-
         </form>
 </template>
 <script setup lang="ts">
