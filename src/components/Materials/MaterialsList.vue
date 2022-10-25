@@ -1,9 +1,9 @@
 
 
 <template>
-        <form class="flex flex-col justify-center" :class="{'items-center': $isMobile}">
+        <form class="flex flex-col justify-center" :class="{ 'items-center': $isMobile }">
                 <div contenteditable="true" @input="updateTitle" @paste.prevent @keydown.enter.prevent
-                        class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
+                        class="font-bold text-4xl cursor-text px-1 py-0.5 border-none mb-10">
                         {{ ml.title }}
                 </div>
                 <ItemsList :items="items" @updated-list="updatedList"></ItemsList>

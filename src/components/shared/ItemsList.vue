@@ -16,9 +16,8 @@
                 </div>
             </div>
             <div class="">
-                <p v-if="!disabled && idx === items.length - 1" id="newItemAdded" :data-index="idx"
-                    @input.prevent="updateItem" :class="{ 'line-through': item.done }" contenteditable
-                    class="outline-0">{{
+                <p v-if="testIfNewItem(idx)" id="newItemAdded" :data-index="idx" @input.prevent="updateItem"
+                    :class="{ 'line-through': item.done }" contenteditable class="outline-0">{{
                             item.title
                     }}
                 </p>
@@ -43,7 +42,7 @@
 <script setup lang="ts">
 import type IListItem from '@/entities/interfaces/IListItem';
 import { nextTick, onUpdated, type PropType } from 'vue';
-let focusNewItem = false;
+let focusNewItem: number = -1;
 const props = defineProps({
     items: { type: Array as PropType<IListItem[]>, required: true },
     disabled: Boolean,
@@ -53,7 +52,7 @@ const newItem = (e: Event) => {
     const ie = e as InputEvent;
     if (ie.data) {
         emitUpdatedList(props.items.concat([{ title: ie.data, done: false }]));
-        focusNewItem = true;
+        focusNewItem = props.items.length;
     }
     if (e.target) {
         (e.target as HTMLDivElement).innerHTML = '';
@@ -61,13 +60,18 @@ const newItem = (e: Event) => {
 
 
 };
+const testIfNewItem = (idx: number): boolean => {
+    return !props.disabled && idx === focusNewItem;
+}
 const focusOnItem = (event: Event) => {
     if (props.disabled) return;
     const li = event.target as HTMLLIElement;
     const p = li.querySelector('p');
     if (p) {
+        focusNewItem = Number(p.getAttribute('data-index'));
         moveCursorToEndOfLine(p);
     }
+
 }
 const updateItemState = (idx: number) => {
     props.items[Number(idx)].done = !props.items[Number(idx)].done;
@@ -77,7 +81,12 @@ const updateItem = (e: Event) => {
     const element = e.target as HTMLParagraphElement;
     const ie = e as InputEvent;
     const idx = Number(element.getAttribute('data-index'));
-    if (ie.inputType === 'insertParagraph' || ie.inputType === 'insertText' && !ie.data) {
+    if (['insertParagraph', 'insertText'].includes(ie.inputType)
+        && !ie.data
+        || ['insertCompositionText', 'insertText'].includes(ie.inputType)
+        && (ie as any).path.length > 1
+        && ie.data?.includes('\n')) {
+        ie.preventDefault();
         const values = element.innerText.split('\n').filter(x => x);
         let newItem: IListItem;
         if (values.length === 0) {
@@ -88,10 +97,10 @@ const updateItem = (e: Event) => {
         }
         if (idx + 1 === props.items.length) {
             props.items.push(newItem);
-            focusNewItem = true;
         } else {
             props.items.splice(idx + 1, 0, newItem);
         }
+        focusNewItem = idx + 1;
         emitUpdatedList(props.items);
     } else {
         if (idx) {
@@ -123,8 +132,7 @@ const moveCursorToEndOfLine = (p: HTMLParagraphElement) => {
 onUpdated(() => {
     nextTick();
     const p = document.getElementById('newItemAdded') as HTMLParagraphElement;
-    if (p && focusNewItem) {
-        focusNewItem = false;
+    if (p && focusNewItem > -1) {
         setTimeout(() => moveCursorToEndOfLine(p), 0);
     }
 })
