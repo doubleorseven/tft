@@ -13,7 +13,7 @@
             <form class="space-y-4" @submit.prevent="submitForm">
               <component :is="props.componentName" :vmodel="props.model" :errors="errors" />
               <div class="flex items-center justify-end gap-4">
-                <button @click.prevent="$emit('close')" class="abort">Cancel</button>
+                <div @click.prevent="$emit('close')" class="abort">Cancel</div>
                 <button type="submit">{{ props.buttonText }}</button>
               </div>
             </form>

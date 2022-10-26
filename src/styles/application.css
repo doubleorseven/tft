@@ -28,7 +28,7 @@ html, body {
     @apply flex flex-row justify-between items-center align-middle;
 }
 .abort {
-    @apply text-white bg-gray-400 hover:bg-gray-100 hover:text-black hover:border-gray-400 border-gray-100;
+    @apply select-none inline-flex items-center cursor-pointer px-5 py-3 font-medium text-white bg-gray-400 border-gray-100 hover:text-black rounded-lg w-fit;
 }
 button {
     @apply select-none inline-flex items-center cursor-pointer px-5 py-3 font-medium text-gray-400 hover:bg-gray-100 hover:text-gray-600 border-2 hover:border-gray-600 border-gray-400 rounded-lg w-fit

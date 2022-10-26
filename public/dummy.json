@@ -8,7 +8,7 @@
             {
                 "name": "tasks",
                 "schema": "id,title,uid,howHard",
-                "rowCount": 1
+                "rowCount": 8
             },
             {
                 "name": "appSettings",
@@ -32,13 +32,13 @@
                 "inbound": true,
                 "rows": [
                     {
-                        "dateCreated": 1666514216371,
-                        "id": "c862b366-43af-4e80-9543-f8dbe597c9f4",
-                        "uid": "1ndgmm",
-                        "title": "zdsczxc",
-                        "howHard": "Hard",
-                        "howLong": 125,
-                        "materialsListId": "3b7af3dd-fdf5-4c28-b96e-0aa20f147482",
+                        "dateCreated": 1666816061784,
+                        "id": "0fd36402-c8be-4a36-a747-1a250c6d0180",
+                        "uid": "rci701",
+                        "title": "clean and replace vacuum's parts",
+                        "howHard": "Medium",
+                        "howLong": 20,
+                        "materialsListId": null,
                         "materialsListStats": null,
                         "statistics": {
                             "succeed": 0,
@@ -47,6 +47,146 @@
                         },
                         "$types": {
                             "": "userObject",
+                            "materialsListId": "undef",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1666816536936,
+                        "id": "69c2ca42-f10a-4379-9f04-be388cb12449",
+                        "uid": "ntlcdn",
+                        "title": "re-fold my closet and drawers",
+                        "howHard": "Medium",
+                        "howLong": 30,
+                        "materialsListId": null,
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0
+                        },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListId": "undef",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1666816122537,
+                        "id": "73370c84-e2d2-4164-96fd-d2bacda2c606",
+                        "uid": "1gmfm3w",
+                        "title": "repaint patio furniture",
+                        "howHard": "Hard",
+                        "howLong": 180,
+                        "materialsListId": "6aa3a2f9-8e48-4536-b6fa-2fad524b001b",
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0
+                        },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1666815903929,
+                        "id": "930e2a94-bd0a-41bb-b9cd-50999a0dc889",
+                        "uid": "1xys5fc",
+                        "title": "water indoor plants",
+                        "howHard": "Easy",
+                        "howLong": 5,
+                        "materialsListId": null,
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0
+                        },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListId": "undef",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1666816270016,
+                        "id": "9ba38a2f-fc87-4860-ab05-1e46b794b2ea",
+                        "uid": "1t06k9y",
+                        "title": "maintain and clean kids bikes",
+                        "howHard": "Medium",
+                        "howLong": 25,
+                        "materialsListId": null,
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0
+                        },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListId": "undef",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1666815851793,
+                        "id": "adfc6e06-ff7b-41ef-aca4-2465c340c2f1",
+                        "uid": "d5i9yy",
+                        "title": "clean the refrigerator",
+                        "howHard": "Medium",
+                        "howLong": 60,
+                        "materialsListId": null,
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0
+                        },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListId": "undef",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1666816406440,
+                        "id": "ca9f5075-d411-4b05-a2fe-6a6f00c4a965",
+                        "uid": "397mbe",
+                        "title": "format and re-install my computer",
+                        "howHard": "Easy",
+                        "howLong": 180,
+                        "materialsListId": null,
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0
+                        },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListId": "undef",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1666815754009,
+                        "id": "fffb44aa-a1de-4307-b194-261c31eacc30",
+                        "uid": "12cgt6c",
+                        "title": "water my garden",
+                        "howHard": "Easy",
+                        "howLong": 15,
+                        "materialsListId": null,
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0
+                        },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListId": "undef",
                             "materialsListStats": "undef"
                         }
                     }
@@ -69,12 +209,33 @@
                 "inbound": true,
                 "rows": [
                     {
-                        "items": [],
-                        "dateCreated": 1666514221964,
-                        "id": "3b7af3dd-fdf5-4c28-b96e-0aa20f147482",
-                        "uid": "kxsn5m",
-                        "taskId": "c862b366-43af-4e80-9543-f8dbe597c9f4",
-                        "title": "zdsczxc - materials list ",
+                        "dateCreated": 1666816787441,
+                        "id": "6aa3a2f9-8e48-4536-b6fa-2fad524b001b",
+                        "uid": "1k1yjlk",
+                        "taskId": "73370c84-e2d2-4164-96fd-d2bacda2c606",
+                        "title": "repaint patio furnitures",
+                        "items": [
+                            {
+                                "title": "sand paper",
+                                "done": false
+                            },
+                            {
+                                "title": "textrol",
+                                "done": false
+                            },
+                            {
+                                "title": "white oil and primer paint",
+                                "done": false
+                            },
+                            {
+                                "title": "protective mask",
+                                "done": false
+                            },
+                            {
+                                "title": "protective eyewear",
+                                "done": false
+                            }
+                        ],
                         "$types": {
                             "": "userObject"
                         }
