@@ -6,7 +6,7 @@
           {{ task.title }}
         </router-link>
         <p class="text-gray-500">Should be {{ task.howHard.toString() }}</p>
-        <p class="text-gray-500">Takes {{ numberToHumanClockText(task.howLong) }}</p>
+        <p class="text-gray-500">Takes <span v-html="numberToHumanClockText(task.howLong)"></span></p>
         <p class="text-gray-500">Created at {{ task.DateCreatedFormatted }}</p>
         <div class="flex flex-row justify-end">
           <DeleteButton @fire="() => deleteTask(task.id)">
