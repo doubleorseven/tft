@@ -27,7 +27,8 @@ const sidebarClass = computed(() => ({
       <main class="flex shrink-0 max-w-full min-w-0 mx-auto pt-10 w-11/12 flex-col h-full">
         <RouterView />
       </main>
-      <notifications :position="'top center'" :duration="1000" :clickToClose="false" :ignoreDuplicates="true" />
+      <notifications :position="'top center'" :duration="1000" :classes="'notification'" :clickToClose="false"
+        :ignoreDuplicates="true" />
     </div>
   </div>
 </template>
