@@ -13,7 +13,7 @@
                 </TextInput>
             </div>
         </div> -->
-        <h1 class="marker:">{{ $t('areas.settings.db-actions') }}</h1>
+        <h1 class="mb-4 md:mb-0">{{ $t('areas.settings.db-actions') }}</h1>
         <div class="flex flex-wrap flex-col h-full w-1/3  gap-4">
             <div class="settings-box">
                 <h5>{{ $t('areas.settings.export-db') }}</h5>
