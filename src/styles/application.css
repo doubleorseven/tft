@@ -25,7 +25,7 @@ html, body {
     @apply box text-sky-700 bg-sky-50 border-sky-900/10;
 }
 .settings-box {
-    @apply flex flex-row justify-between items-center align-middle;
+    @apply flex flex-row justify-between items-center align-middle flex-wrap;
 }
 .abort {
     @apply select-none inline-flex items-center cursor-pointer px-5 py-3 font-medium text-white bg-gray-400 border-gray-100 hover:text-black rounded-lg w-fit;

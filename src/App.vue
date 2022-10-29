@@ -5,9 +5,6 @@ import AppHeader from './components/shared/AppHeader.vue'
 import { initApplicationSettings } from '@/composables/useApplicationSettings';
 import { computed } from '@vue/reactivity';
 import { inject } from 'vue';
-defineProps({
-  IsDrawerOpen: Boolean
-})
 initApplicationSettings();
 const isMobile = inject("$isMobile") as boolean;
 const sidebarClass = computed(() => ({
@@ -20,8 +17,6 @@ const sidebarClass = computed(() => ({
 <template>
   <div class="flex overflow-hidden flex-row">
     <div :class="sidebarClass">
-      <div v-show="isMobile && IsDrawerOpen" class="fixed inset-0 w-full h-full z-30"
-        style="background-color: rgba(0,0,0,.4);"></div>
       <Tabs />
 
     </div>
@@ -32,7 +27,7 @@ const sidebarClass = computed(() => ({
       <main class="flex shrink-0 max-w-full min-w-0 mx-auto pt-10 w-11/12 flex-col h-full">
         <RouterView />
       </main>
-      <notifications :position="'top center'" :duration="1000" :clickToClose="false" />
+      <notifications :position="'top center'" :duration="1000" :clickToClose="false" :ignoreDuplicates="true" />
     </div>
   </div>
 </template>
