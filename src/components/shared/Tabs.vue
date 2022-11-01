@@ -1,13 +1,13 @@
 <template>
   <div>
     <div v-show="isMobile && isDrawerOpen" @click.prevent="() => changeDrawerState()"
-      class="fixed inset-0 w-full h-full" style="background-color: rgba(0,0,0,.4);"></div>
+      class="inset-0 w-full h-full min-h-screen fixed" style="background-color: rgba(0,0,0,.4);"></div>
 
     <aside :class="classObject">
       <section
-        class="overflow-hidden flex h-screen justify-between bg-gray-100 text-gray-700 border-b border-gray-200 ">
+        class="overflow-hidden flex h-screen justify-between bg-slate-50 text-gray-700 border-b border-gray-200 ">
         <div class="overflow-hidden fixed">
-          <div class="flex items-center justify-between h-14 pl-6 w-32 mt-3">
+          <div class="flex items-center justify-between h-14 pl-6 w-32">
             <span class="text-sm font-medium tracking-widest uppercase select-none">
               menu
             </span>

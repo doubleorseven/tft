@@ -8,23 +8,21 @@ import { inject } from 'vue';
 initApplicationSettings();
 const isMobile = inject("$isMobile") as boolean;
 const sidebarClass = computed(() => ({
-  'items-center content-center justify-center flex-none': true,
-  'z-50': isMobile,
-  'fixed': isMobile
+
 }))
 </script>
 
 <template>
-  <div class="flex overflow-hidden flex-row">
-    <div :class="sidebarClass">
+  <div class="flex flex-row ">
+    <div class="sticky top-0 h-screen" :class="{ 'z-50 fixed': isMobile }">
       <Tabs />
 
     </div>
-    <div class="flex-grow items-center content-center justify-center p-2">
-      <header>
+    <div class="flex-grow items-center content-center justify-center h-full">
+      <header class="sticky top-0 z-40">
         <AppHeader />
       </header>
-      <main class="flex shrink-0 max-w-full min-w-0 mx-auto pt-10 w-11/12 flex-col h-full">
+      <main class="flex shrink-0 max-w-full min-w-0 mx-auto mb-3 pt-10 p-2 w-11/12 flex-col overflow-auto h-full">
         <RouterView />
       </main>
       <notifications :position="'top center'" :duration="1000" :classes="'notification'" :clickToClose="false"

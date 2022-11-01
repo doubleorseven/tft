@@ -25,7 +25,11 @@ export function useTasksManager() {
   }
   const tasksForGameByQuery = async (formData: ChooseTaskStarterModelData): Promise<Collection<Task, string>> => {
     const range = HowHardArray.slice(0, HowMuchEnergyArray.indexOf(formData.howMuchEnergy) + 1);
-    return db.tasks.where('howHard').startsWithAnyOf(range).and(x => x.howLong <= formData.howLong);
+    return db.tasks
+      .where('howHard')
+      .startsWithAnyOf(range)
+      .and(x => x.howLong <= formData.howLong)
+      .filter(x => { return x.delayIt });
   }
   const getTasksIdsFromQuery = async (formData: ChooseTaskStarterModelData): Promise<string[]> => {
     const queryResults = await tasksForGameByQuery(formData);

@@ -17,6 +17,8 @@ export default class Task extends BaseClass implements ITask {
     public materialsListId?: string;
     public materialsListStats?: MaterialsListStats;
     public statistics: TaskStatistics;
+    public delay: boolean = false;
+    public delayForData: [number, number] = [1, 1];
     constructor(
         title: string,
         howHard: HowHard,
@@ -28,17 +30,24 @@ export default class Task extends BaseClass implements ITask {
         this.howLong = howLong;
         this.statistics = new TaskStatistics();
     }
+    public get delayIt(): boolean {
+        return (this.delay
+            && this.statistics.lastTimeSelected > 0
+            && this.statistics.lastTimeSelected + (1000 * 60 * 60 * 24 * (this.delayForData[0] * this.delayForData[1])) <= Date.now());
+    }
 }
 export class TaskStatistics {
     public succeed: number = 0;
     public failed: number = 0;
     public skipped: number = 0;
+    public lastTimeSelected: number = 0;
     public get views(): number {
         return this.started + this.skipped;
     }
     public get started(): number {
         return this.failed + this.succeed;
     }
+
 }
 
 export enum HowHard {

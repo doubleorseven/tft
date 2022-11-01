@@ -34,9 +34,30 @@
                         <FormSlider v-model="task.howLong" :label="task.howLong || 0" />
 
                 </div>
+                <div class="lg:w-3/12 mt-5 mb-5 sm:w-9/12 flex flex-col justify-start">
+                        <div class="flex flex-row  gap-2 items-center">
+                                <h4>Delay next cycle?</h4>
+                                <Checkbox v-model="task.delay" :name="'task-delay-in-days'">
+                                </Checkbox>
+
+                        </div>
+                        <div v-if="task.delay" class="flex flex-row gap-2 items-center">
+                                <label for="input-number-delay-by">delay for</label>
+                                <input type="number" id="input-number-delay-by" v-model="task.delayForData[0]" :min="1"
+                                        :step="1" :max="365" oninput="validity.valid||(value='');"
+                                        class="w-fit p-3 text-sm border-2 border-gray-200 rounded-lg  outline-none text-center flex-grow-0" />
+                                <select v-model="task.delayForData[1]"
+                                        class="w-fit p-3 text-sm border-2 border-gray-200 rounded-lg outline-none w-[100px]">
+                                        <option v-for="o in delayMultiplyOptions" :value="o.key">{{
+                                                        (task.delayForData[0] < 2) ? o.value : `${o.value}s`
+                                        }}</option>
+                                </select>
+                        </div>
+                </div>
+                <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">
+                        materials</h4>
                 <div v-if="task.materialsListId" class="w-9/12 mt-5 mb-5 sm:w-4/12">
-                        <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">
-                                materials</h4>
+
                         <ItemsList :items="materialsListItems" @updated-list="updatedList"></ItemsList>
                 </div>
                 <CreateButton v-else @clicked="addMaterialsList(task.id)">
@@ -52,10 +73,10 @@ import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager
 import type ITask from '@/entities/Task';
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
-import NumberInput from '@/components/shared/Forms/NumberInput.vue';
+import Checkbox from '@/components/shared/Forms/Checkbox.vue';
 import ItemsList from '@/components/shared/ItemsList.vue';
 import FormSlider from '../shared/Forms/FormSlider.vue';
-
+import type KeyValuePair from "@/entities/interfaces/KeyValuePair";
 import { HowHard } from '@/entities/Task';
 import type MaterialsList from '@/entities/MaterialsList.js';
 import type IListItem from '@/entities/interfaces/IListItem.js';
@@ -65,6 +86,8 @@ const ml = reactive({} as MaterialsList);
 const materialsListItems = ref<Array<IListItem>>([]);
 const { getTaskByUID, updateTask } = useTasksManager();
 const { createMaterialsList, getMeterialsListByID, updateMeterialsList } = useMaterialsListsManager();
+const delayMultiplyOptions: KeyValuePair[] = [{ key: 1, value: 'day' }, { key: 7, value: 'week' }, { key: 30, value: 'month' }, { key: 365, value: 'year' }];
+
 onMounted(() =>
         watch(
                 () => route.params.uid as string,
