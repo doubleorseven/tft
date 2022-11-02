@@ -41,7 +41,10 @@ export function useGamificationManager() {
         updateCurrentTask((GAME.value as Game).loadPreviousTask());
     }
     const selectTask = async (): Promise<void> => {
-        const estimatedEndDate = Date.now() + (GAMETask.value?.howLong as number * 60000); // minutes to miliseconds
+        const dn = Date.now();
+        const estimatedEndDate = dn + (GAMETask.value?.howLong as number * 60000); // minutes to miliseconds
+        (GAMETask.value as Task).statistics.lastTimeSelected = dn;
+        saveGameTask();
         GAME.value?.startTask(estimatedEndDate);
         saveGame();
 

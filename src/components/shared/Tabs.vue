@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-show="isMobile && isDrawerOpen" @click.prevent="() => changeDrawerState()"
-      class="inset-0 w-full h-full min-h-screen fixed" style="background-color: rgba(0,0,0,.4);"></div>
+      class="inset-0 w-full h-full min-h-screen fixed bg-stone-900/[.3]"></div>
 
     <aside :class="classObject">
       <section

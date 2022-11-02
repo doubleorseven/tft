@@ -8,7 +8,7 @@
             {
                 "name": "tasks",
                 "schema": "id,title,uid,howHard",
-                "rowCount": 8
+                "rowCount": 10
             },
             {
                 "name": "appSettings",
@@ -40,10 +40,16 @@
                         "howLong": 20,
                         "materialsListId": null,
                         "materialsListStats": null,
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
-                            "skipped": 0
+                            "skipped": 0,
+                            "lastTimeSelected": 0
                         },
                         "$types": {
                             "": "userObject",
@@ -60,10 +66,16 @@
                         "howLong": 30,
                         "materialsListId": null,
                         "materialsListStats": null,
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
-                            "skipped": 0
+                            "skipped": 0,
+                            "lastTimeSelected": 0
                         },
                         "$types": {
                             "": "userObject",
@@ -80,10 +92,16 @@
                         "howLong": 180,
                         "materialsListId": "6aa3a2f9-8e48-4536-b6fa-2fad524b001b",
                         "materialsListStats": null,
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
-                            "skipped": 0
+                            "skipped": 0,
+                            "lastTimeSelected": 0
                         },
                         "$types": {
                             "": "userObject",
@@ -99,10 +117,16 @@
                         "howLong": 5,
                         "materialsListId": null,
                         "materialsListStats": null,
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
-                            "skipped": 0
+                            "skipped": 0,
+                            "lastTimeSelected": 0
                         },
                         "$types": {
                             "": "userObject",
@@ -119,11 +143,43 @@
                         "howLong": 25,
                         "materialsListId": null,
                         "materialsListStats": null,
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
-                            "skipped": 0
+                            "skipped": 0,
+                            "lastTimeSelected": 0
                         },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListId": "undef",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1667383660136,
+                        "id": "aa067af4-bfe0-4484-92ee-5c8544add715",
+                        "uid": "11gvj5j",
+                        "title": "clean AC filters",
+                        "howHard": "Medium",
+                        "howLong": 20,
+                        "materialsListId": null,
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0,
+                            "lastTimeSelected": 0
+                        },
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -139,10 +195,16 @@
                         "howLong": 60,
                         "materialsListId": null,
                         "materialsListStats": null,
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
-                            "skipped": 0
+                            "skipped": 0,
+                            "lastTimeSelected": 0
                         },
                         "$types": {
                             "": "userObject",
@@ -159,11 +221,43 @@
                         "howLong": 180,
                         "materialsListId": null,
                         "materialsListStats": null,
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
-                            "skipped": 0
+                            "skipped": 0,
+                            "lastTimeSelected": 0
                         },
+                        "$types": {
+                            "": "userObject",
+                            "materialsListId": "undef",
+                            "materialsListStats": "undef"
+                        }
+                    },
+                    {
+                        "dateCreated": 1667383625968,
+                        "id": "f903f171-a45a-42f1-94b6-bc09903b70b9",
+                        "uid": "1qdbqra",
+                        "title": "wash mosquitoes nets",
+                        "howHard": "Medium",
+                        "howLong": 20,
+                        "materialsListId": null,
+                        "materialsListStats": null,
+                        "statistics": {
+                            "succeed": 0,
+                            "failed": 0,
+                            "skipped": 0,
+                            "lastTimeSelected": 0
+                        },
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -179,10 +273,16 @@
                         "howLong": 15,
                         "materialsListId": null,
                         "materialsListStats": null,
+                        "delay": false,
+                        "delayForData": [
+                            1,
+                            1
+                        ],
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
-                            "skipped": 0
+                            "skipped": 0,
+                            "lastTimeSelected": 0
                         },
                         "$types": {
                             "": "userObject",

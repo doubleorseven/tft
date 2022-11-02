@@ -1,12 +1,12 @@
 <template>
-  <div class="z-[100]">
+  <div class="z-[200]">
     <transition name="fade">
       <div v-if="props.isModalOpen" class="bg-stone-900/[.3] fixed inset-0"></div>
     </transition>
     <transition name="slide-fade">
-      <div v-if="isModalOpen" class="fixed z-10 flex items-center justify-center overflow-auto inset-0"
+      <div v-if="isModalOpen" class="fixed z-[201] flex items-center justify-center overflow-auto inset-0"
         @keyup.esc="$emit('close')">
-        <div :class="{ 'w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8': true, 'absolute top-8': $isMobile }"
+        <div :class="{ 'w-96 mx-auto my-0 p-8 z-10 bg-white ': true, 'absolute translate-y-8 h-screen': $isMobile }"
           role="dialog">
           <h1 class="mb-8 text-3xl select-none">{{ props.headerText }}</h1>
           <main>

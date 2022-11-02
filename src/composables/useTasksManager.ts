@@ -21,19 +21,16 @@ export function useTasksManager() {
   };
   const tasksCountByQuery = async (formData: ChooseTaskStarterModelData): Promise<number> => {
     const queryResults = await tasksForGameByQuery(formData);
-    return queryResults.count();
+    return queryResults.length;
   }
-  const tasksForGameByQuery = async (formData: ChooseTaskStarterModelData): Promise<Collection<Task, string>> => {
+  const tasksForGameByQuery = async (formData: ChooseTaskStarterModelData): Promise<Task[]> => {
     const range = HowHardArray.slice(0, HowMuchEnergyArray.indexOf(formData.howMuchEnergy) + 1);
-    return db.tasks
-      .where('howHard')
-      .startsWithAnyOf(range)
-      .and(x => x.howLong <= formData.howLong)
-      .filter(x => { return x.delayIt });
+    const tasks = await db.tasks.where('howHard').startsWithAnyOf(range).and(x => x.howLong <= formData.howLong).toArray();
+    return tasks.filter(x => !x.delayIt);
   }
   const getTasksIdsFromQuery = async (formData: ChooseTaskStarterModelData): Promise<string[]> => {
     const queryResults = await tasksForGameByQuery(formData);
-    return queryResults.primaryKeys();
+    return queryResults.map(x => x.id);
   }
   const deleteTask = async (id: string) => {
     await db.tasks.delete(id);
@@ -77,7 +74,7 @@ export function useTasksManager() {
     tasksObservable =
       liveQuery(() => db.table('tasks').toArray())
         .subscribe(items => {
-          tasks.value = items as Task[];
+          tasks.value = (items as Task[]).sort((a, b) => b.dateCreated - a.dateCreated);
         });
   };
   const unsubscribeToDB = async () => {

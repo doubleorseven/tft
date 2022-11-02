@@ -33,7 +33,7 @@ export default class Task extends BaseClass implements ITask {
     public get delayIt(): boolean {
         return (this.delay
             && this.statistics.lastTimeSelected > 0
-            && this.statistics.lastTimeSelected + (1000 * 60 * 60 * 24 * (this.delayForData[0] * this.delayForData[1])) <= Date.now());
+            && this.statistics.lastTimeSelected + (1000 * 60 * 60 * 24 * (this.delayForData[0] * this.delayForData[1])) > Date.now());
     }
 }
 export class TaskStatistics {

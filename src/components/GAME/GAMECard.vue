@@ -12,7 +12,6 @@
     </div>
 </template>
 <script setup lang="ts">
-import ITask from '@/entities/Task';
 import { numberToHumanClockText } from "@/lib/functions";
 defineProps({
     key: String,

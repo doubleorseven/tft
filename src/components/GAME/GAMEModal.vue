@@ -1,14 +1,15 @@
 <template>
-  <div ref="modal" @keyup="keyPress">
+  <div ref="modal" @keyup="keyPress" class="z-[200]">
     <transition name="fade">
       <div v-if="isModalOpen" class="bg-stone-900/[.3] fixed inset-0"></div>
     </transition>
     <transition name="slide-fade">
-      <div v-if="isModalOpen" class="inset-0 fixed z-10 flex items-center justify-center">
-        <div class="w-96 mx-auto my-0 p-8 z-10 bg-white -translate-y-8 " role="dialog">
+      <div v-if="isModalOpen" class="inset-0 absolute z-[201] flex items-center justify-center w-full h-full">
+        <div class="w-96 mx-auto my-0 p-8 z-10 bg-white" :class="{ 'absolute pt-32 h-screen': $isMobile }"
+          role="dialog">
           <header class="mb-8 text-3xl flex flex-col items-center uppercase">choose a task</header>
           <main class="">
-            <div class="space-y-4 min-h-[305px]" v-swipe="handleMove">
+            <div class="space-y-8 min-h-[305px]" v-swipe="handleMove">
               <transition name="switch-fade" mode="out-in" v-if="task">
                 <GAMECard :key="task?.id || '123'" :task="task"></GAMECard>
               </transition>
@@ -31,7 +32,6 @@
 </template>
   
 <script setup lang="ts">
-import ITask from '@/entities/Task';
 import { onMounted } from 'vue';
 import GAMECard from './GAMECard.vue';
 const emits = defineEmits(['end', 'previous', 'next', 'select']);

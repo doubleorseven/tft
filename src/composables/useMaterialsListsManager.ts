@@ -64,7 +64,7 @@ export function useMaterialsListsManager() {
         materialListsObservable =
             liveQuery(() => db.table('materialsLists').toArray())
                 .subscribe(items => {
-                    materialsLists.value = items as MaterialsList[];
+                    materialsLists.value = (items as MaterialsList[]).sort((a, b) => b.dateCreated - a.dateCreated);;
                 });
     };
     const unsubscribeToDB = async () => {
