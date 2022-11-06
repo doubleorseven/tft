@@ -20,7 +20,7 @@
             </div>
           </div>
 
-          <nav class="flex flex-col text-sm font-medium text-gray-500">
+          <nav class="flex flex-col text-sm mt-8 font-medium text-gray-500">
             <RouterLink v-for="link in links" @click.native="linkClicked" :to="link.to"
               :class="{ 'px-6 py-3': true, 'font-bold': link.name.startsWith(routeName as string) }"> {{ $t(link.text)
               }}

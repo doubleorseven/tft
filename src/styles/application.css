@@ -55,3 +55,6 @@ h4 {
     -webkit-tap-highlight-color: transparent;
     outline: 0px solid transparent;
 }
+p {
+    @apply break-words;
+}

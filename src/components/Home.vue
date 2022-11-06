@@ -1,29 +1,51 @@
 <template>
-    <div class="flex flex-wrap flex-col h-full" :class="{ 'place-items-center': $isMobile }">
+    <div class="flex flex-wrap flex-col h-full lg:w-1/3 w-full break-words "
+        :class="{ 'place-items-center': $isMobile }">
         <h2>Hey!</h2>
         <template v-if="isTaskStarted() && getTaskForGame">
+            <p>You've choosen to do a task!</p>
+
             <GAMETaskView :task="getTaskForGame" @end="endGame"></GAMETaskView>
         </template>
         <template v-else-if="hasTasks() && isTaskStarted() == false">
-            <p class="mb-4">looks like you've got some tasks to do.</p>
-            <CreateButton @clicked="isTaskStarterModalOpen = true">
+            <p>Are you here to do something for yourself?</p>
+            <p>Because it looks like you've got some tasks to do.</p>
+            <CreateButton @clicked="isTaskStarterModalOpen = true" class="mt-4">
                 Select a Task
             </CreateButton>
         </template>
         <template v-else>
-            <p>it seems you have'nt created any task yet.</p>
-            <p>let's go to the <RouterLink @click.native="$isMobile ? changeDrawerState : undefined" to="/tasks"
-                    class="underline font-semibold">tasks page</RouterLink>.
-            </p>
+            <div>
 
-            <p class="mt-6">just want to see how it goes?</p>
-            <p>
-                <CreateButton @clicked="importDB">
-                    Populate me with some data
-                </CreateButton>
-            </p>
+                <p><span class="font-bold">DTI</span> is a simple app to help you do the tasks that you postpone
+                    everyday.</p>
+                <p>You just create a task, set how much time you estimate it's gonna take and combine that with how much
+                    energy you'll need to do it.</p>
+                <p>A task can be a one time thing or it can be something you do on a regular basis.</p>
+                <p>Maybe you need things to get it done? no problem! Every task can have a materials list with
+                    checkboxes!
+                </p>
+                <p>Now every time that you feel it's a good time to do your tasks, just start the tasks selector, tell
+                    it
+                    how much energy and time you have, and go through the optional tasks and find the one you're going
+                    to
+                    do.</p>
+                <p>Easy right?</p>
+                <br>
+                <p>it seems you have'nt created any task yet.</p>
+                <p>let's go to the <RouterLink @click.native="$isMobile ? changeDrawerState : undefined" to="/tasks"
+                        class="underline font-semibold">tasks page</RouterLink>.
+                </p>
+
+                <p class="mt-6">just want to see how it goes?</p>
+                <p>
+                    <CreateButton @clicked="importDB">
+                        Populate me with some data
+                    </CreateButton>
+                </p>
+            </div>
         </template>
-        <FormModal :button-text="`Start Game`" :submit="startTaskSelector" :validate="validateChooseTaskStarter"
+        <FormModal :button-text="'I wanna choose!'" :submit="startTaskSelector" :validate="validateChooseTaskStarter"
             header-text="Let's set our goals" :isModalOpen="isTaskStarterModalOpen" :model="{}" :errors="chooseErrors"
             :component-name="chooseTaskStarterForm" @close="chooseTaskStarterModalClosed">
         </FormModal>

@@ -6,7 +6,8 @@ import Game from '@/entities/Game';
 import { useTasksManager } from './useTasksManager';
 import _default from '@kyvg/vue3-notification';
 import type Task from '@/entities/Task';
-const { getTaskForGame, updateTask } = useTasksManager();
+import { datetime } from '@intlify/core-base';
+const { getTaskForGame, updateTask, deleteTask } = useTasksManager();
 
 export function useGamificationManager() {
     let gameObservable: Subscription;
@@ -25,12 +26,18 @@ export function useGamificationManager() {
     };
     const endGame = async (result: Boolean = false): Promise<void> => {
         if (GAMETask.value?.title) {
-            if (result) {
-                (GAMETask.value as Task).statistics.succeed++;
+            const gt = (GAMETask.value as Task);
+            if (gt.oneTime) {
+                deleteTask(gt.id, true);
             } else {
-                (GAMETask.value as Task).statistics.failed++;
+                if (result) {
+                    gt.statistics.succeed++;
+                    gt.statistics.lastTimeSelected = Date.now();
+                } else {
+                    gt.statistics.failed++;
+                }
+                saveGameTask();
             }
-
         }
         db.GAME.clear();
     }
@@ -41,10 +48,7 @@ export function useGamificationManager() {
         updateCurrentTask((GAME.value as Game).loadPreviousTask());
     }
     const selectTask = async (): Promise<void> => {
-        const dn = Date.now();
-        const estimatedEndDate = dn + (GAMETask.value?.howLong as number * 60000); // minutes to miliseconds
-        (GAMETask.value as Task).statistics.lastTimeSelected = dn;
-        saveGameTask();
+        const estimatedEndDate = Date.now() + (GAMETask.value?.howLong as number * 60000);
         GAME.value?.startTask(estimatedEndDate);
         saveGame();
 

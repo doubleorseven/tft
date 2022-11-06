@@ -36,6 +36,13 @@
                 </div>
                 <div class="lg:w-3/12 mt-5 mb-5 sm:w-9/12 flex flex-col justify-start">
                         <div class="flex flex-row  gap-2 items-center">
+                                <h4>One time task?</h4>
+                                <Checkbox v-model="task.oneTime" :name="'task-one-time'">
+                                </Checkbox>
+
+                        </div>
+                        <div :style="{ visibility: !task.oneTime ? 'visible' : 'hidden' }"
+                                class="flex flex-row  gap-2 items-center">
                                 <h4>Delay next cycle?</h4>
                                 <Checkbox v-model="task.delay" :name="'task-delay-in-days'">
                                 </Checkbox>

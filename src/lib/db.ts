@@ -17,6 +17,10 @@ export class TFTDixie extends Dexie {
       appSettings: '',
       materialsLists: 'id,uid',
       GAME: 'id',
+      // }).upgrade(trans => {
+      //   return trans.db.table('tasks').toCollection().modify((task: Task) => {
+      //     task.oneTime = false;
+      //   });
     });
     this.tasks.mapToClass(Task);
     this.materialsLists.mapToClass(MaterialsList);

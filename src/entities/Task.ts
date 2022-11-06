@@ -18,6 +18,7 @@ export default class Task extends BaseClass implements ITask {
     public materialsListStats?: MaterialsListStats;
     public statistics: TaskStatistics;
     public delay: boolean = false;
+    public oneTime: boolean = false;
     public delayForData: [number, number] = [1, 1];
     constructor(
         title: string,
@@ -31,7 +32,8 @@ export default class Task extends BaseClass implements ITask {
         this.statistics = new TaskStatistics();
     }
     public get delayIt(): boolean {
-        return (this.delay
+        return (this.oneTime == false
+            && this.delay
             && this.statistics.lastTimeSelected > 0
             && this.statistics.lastTimeSelected + (1000 * 60 * 60 * 24 * (this.delayForData[0] * this.delayForData[1])) > Date.now());
     }

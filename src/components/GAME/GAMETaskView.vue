@@ -9,7 +9,7 @@
     </div>
     <div class="flex gap-3">
         <EndGameButton @clicked="$emit('end', true)" :yes="true">I DID IT!</EndGameButton>
-        <EndGameButton @clicked="$emit('end', false)">abortive attempt</EndGameButton>
+        <EndGameButton @clicked="$emit('end', false)">I Choose not to..</EndGameButton>
     </div>
 
 </template>

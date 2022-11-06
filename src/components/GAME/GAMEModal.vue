@@ -7,20 +7,21 @@
       <div v-if="isModalOpen" class="inset-0 absolute z-[201] flex items-center justify-center w-full h-full">
         <div class="w-96 mx-auto my-0 p-8 z-10 bg-white" :class="{ 'absolute pt-32 h-screen': $isMobile }"
           role="dialog">
-          <header class="mb-8 text-3xl flex flex-col items-center uppercase">choose a task</header>
+          <header class="mb-8 text-3xl flex flex-col items-center uppercase select-none">choose a task</header>
           <main class="">
             <div class="space-y-8 min-h-[305px]" v-swipe="handleMove">
               <transition name="switch-fade" mode="out-in" v-if="task">
                 <GAMECard :key="task?.id || '123'" :task="task"></GAMECard>
               </transition>
               <div class="flex items-center justify-between gap-4 w-full">
-                <button @click.prevent="$emit('previous')">Previous</button>
-                <button @click.prevent="$emit('select')" v-focus @keyup.enter="$emit('select')">YES!</button>
-                <button @click.prevent="$emit('next')">Next</button>
+                <button @click.prevent="$emit('previous')">&lt;</button>
+                <button @click.prevent="$emit('select')" v-focus @keyup.enter="$emit('select')">THIS ONE!</button>
+                <button @click.prevent="$emit('next')">&gt;</button>
 
               </div>
               <div class="flex items-center justify-center gap-4">
-                <button class="flex-1 items-center justify-center abort" @click.prevent="$emit('end')">End Game</button>
+                <button class="flex-1 items-center justify-center abort"
+                  @click.prevent="$emit('end')">Nevermind</button>
               </div>
 
             </div>

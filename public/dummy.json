@@ -3,7 +3,7 @@
     "formatVersion": 1,
     "data": {
         "databaseName": "tft-database",
-        "databaseVersion": 1,
+        "databaseVersion": 2,
         "tables": [
             {
                 "name": "tasks",
@@ -18,7 +18,7 @@
             {
                 "name": "materialsLists",
                 "schema": "id,uid",
-                "rowCount": 1
+                "rowCount": 2
             },
             {
                 "name": "GAME",
@@ -32,7 +32,7 @@
                 "inbound": true,
                 "rows": [
                     {
-                        "dateCreated": 1666816061784,
+                        "dateCreated": 946684800000,
                         "id": "0fd36402-c8be-4a36-a747-1a250c6d0180",
                         "uid": "rci701",
                         "title": "clean and replace vacuum's parts",
@@ -51,6 +51,7 @@
                             "skipped": 0,
                             "lastTimeSelected": 0
                         },
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -58,7 +59,7 @@
                         }
                     },
                     {
-                        "dateCreated": 1666816536936,
+                        "dateCreated": 946684800000,
                         "id": "69c2ca42-f10a-4379-9f04-be388cb12449",
                         "uid": "ntlcdn",
                         "title": "re-fold my closet and drawers",
@@ -77,6 +78,7 @@
                             "skipped": 0,
                             "lastTimeSelected": 0
                         },
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -84,14 +86,17 @@
                         }
                     },
                     {
-                        "dateCreated": 1666816122537,
+                        "dateCreated": 946684800000,
                         "id": "73370c84-e2d2-4164-96fd-d2bacda2c606",
                         "uid": "1gmfm3w",
                         "title": "repaint patio furniture",
                         "howHard": "Hard",
                         "howLong": 180,
                         "materialsListId": "6aa3a2f9-8e48-4536-b6fa-2fad524b001b",
-                        "materialsListStats": null,
+                        "materialsListStats": {
+                            "markedAsDone": 0,
+                            "totalItems": 5
+                        },
                         "delay": false,
                         "delayForData": [
                             1,
@@ -103,13 +108,13 @@
                             "skipped": 0,
                             "lastTimeSelected": 0
                         },
+                        "oneTime": false,
                         "$types": {
-                            "": "userObject",
-                            "materialsListStats": "undef"
+                            "": "userObject"
                         }
                     },
                     {
-                        "dateCreated": 1666815903929,
+                        "dateCreated": 946684800000,
                         "id": "930e2a94-bd0a-41bb-b9cd-50999a0dc889",
                         "uid": "1xys5fc",
                         "title": "water indoor plants",
@@ -128,6 +133,7 @@
                             "skipped": 0,
                             "lastTimeSelected": 0
                         },
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -135,7 +141,7 @@
                         }
                     },
                     {
-                        "dateCreated": 1666816270016,
+                        "dateCreated": 946684800000,
                         "id": "9ba38a2f-fc87-4860-ab05-1e46b794b2ea",
                         "uid": "1t06k9y",
                         "title": "maintain and clean kids bikes",
@@ -154,6 +160,7 @@
                             "skipped": 0,
                             "lastTimeSelected": 0
                         },
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -161,7 +168,7 @@
                         }
                     },
                     {
-                        "dateCreated": 1667383660136,
+                        "dateCreated": 946684800000,
                         "id": "aa067af4-bfe0-4484-92ee-5c8544add715",
                         "uid": "11gvj5j",
                         "title": "clean AC filters",
@@ -180,6 +187,7 @@
                             1,
                             1
                         ],
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -187,7 +195,7 @@
                         }
                     },
                     {
-                        "dateCreated": 1666815851793,
+                        "dateCreated": 946684800000,
                         "id": "adfc6e06-ff7b-41ef-aca4-2465c340c2f1",
                         "uid": "d5i9yy",
                         "title": "clean the refrigerator",
@@ -206,6 +214,7 @@
                             "skipped": 0,
                             "lastTimeSelected": 0
                         },
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -213,7 +222,7 @@
                         }
                     },
                     {
-                        "dateCreated": 1666816406440,
+                        "dateCreated": 946684800000,
                         "id": "ca9f5075-d411-4b05-a2fe-6a6f00c4a965",
                         "uid": "397mbe",
                         "title": "format and re-install my computer",
@@ -232,6 +241,7 @@
                             "skipped": 0,
                             "lastTimeSelected": 0
                         },
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -239,7 +249,7 @@
                         }
                     },
                     {
-                        "dateCreated": 1667383625968,
+                        "dateCreated": 946684800000,
                         "id": "f903f171-a45a-42f1-94b6-bc09903b70b9",
                         "uid": "1qdbqra",
                         "title": "wash mosquitoes nets",
@@ -258,6 +268,7 @@
                             1,
                             1
                         ],
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -265,7 +276,7 @@
                         }
                     },
                     {
-                        "dateCreated": 1666815754009,
+                        "dateCreated": 946684800000,
                         "id": "fffb44aa-a1de-4307-b194-261c31eacc30",
                         "uid": "12cgt6c",
                         "title": "water my garden",
@@ -284,6 +295,7 @@
                             "skipped": 0,
                             "lastTimeSelected": 0
                         },
+                        "oneTime": false,
                         "$types": {
                             "": "userObject",
                             "materialsListId": "undef",
@@ -309,7 +321,7 @@
                 "inbound": true,
                 "rows": [
                     {
-                        "dateCreated": 1666816787441,
+                        "dateCreated": 946684800000,
                         "id": "6aa3a2f9-8e48-4536-b6fa-2fad524b001b",
                         "uid": "1k1yjlk",
                         "taskId": "73370c84-e2d2-4164-96fd-d2bacda2c606",
@@ -338,6 +350,47 @@
                         ],
                         "$types": {
                             "": "userObject"
+                        }
+                    },
+                    {
+                        "dateCreated": 946684800000,
+                        "id": "d9b8d6ce-a616-4174-9ec9-aa5ffb18d9b6",
+                        "uid": "400cwq",
+                        "taskId": null,
+                        "title": "camping",
+                        "items": [
+                            {
+                                "title": "Tent",
+                                "done": false
+                            },
+                            {
+                                "title": "Sleeping bags",
+                                "done": false
+                            },
+                            {
+                                "title": "Headlights",
+                                "done": false
+                            },
+                            {
+                                "title": "Chairs",
+                                "done": false
+                            },
+                            {
+                                "title": "Toilet paper",
+                                "done": false
+                            },
+                            {
+                                "title": "Matches",
+                                "done": false
+                            },
+                            {
+                                "title": "Trash bags",
+                                "done": false
+                            }
+                        ],
+                        "$types": {
+                            "": "userObject",
+                            "taskId": "undef"
                         }
                     }
                 ]

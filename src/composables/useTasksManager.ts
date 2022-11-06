@@ -32,12 +32,14 @@ export function useTasksManager() {
     const queryResults = await tasksForGameByQuery(formData);
     return queryResults.map(x => x.id);
   }
-  const deleteTask = async (id: string) => {
+  const deleteTask = async (id: string, silent: boolean = false) => {
     await db.tasks.delete(id);
-    notify({
-      type: "notification-info",
-      title: `task deleted!`,
-    });
+    if (silent == false) {
+      notify({
+        type: "notification-info",
+        title: `task deleted!`,
+      });
+    }
   };
   const removeTaskMaterialsList = async (id: string) => {
     db.tasks.update(id, {
