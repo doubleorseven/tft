@@ -1,6 +1,6 @@
 <template>
         <form class="flex  flex-col justify-center" :class="{ 'items-center': $isMobile }">
-                <div contenteditable="true" @input="updateTitle" @paste.prevent @keydown.enter.prevent
+                <div contenteditable="true" @input.prevent="updateTitle" @paste.prevent @keydown.enter.prevent
                         class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
                         {{ task.title }}
                 </div>
@@ -48,7 +48,8 @@
                                 </Checkbox>
 
                         </div>
-                        <div v-if="task.delay" class="flex flex-row gap-2 items-center">
+                        <div :style="{ visibility: task.delay ? 'visible' : 'hidden' }"
+                                class="flex flex-row gap-2 items-center">
                                 <label for="input-number-delay-by">delay for</label>
                                 <input type="number" id="input-number-delay-by" v-model="task.delayForData[0]" :min="1"
                                         :step="1" :max="365" oninput="validity.valid||(value='');"
@@ -118,8 +119,8 @@ onMounted(() =>
 );
 
 const updateTitle = (e: Event) => {
-        var element = e.target as HTMLHeadElement;
-        task.title = element.innerHTML;
+        var element = e.target as HTMLDivElement;
+        task.title = element.innerText;
 }
 const addMaterialsList = async (taskId: string) => {
         Object.assign(ml, await createMaterialsList(taskId));

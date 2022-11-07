@@ -55,3 +55,14 @@ export const numberToHumanClockText = (num: number | undefined) => {
   }
   return '<span class="font-bold">0</span> minutes';
 }
+
+export const debounceEvent = (callback: Function, delay = 250) => {
+  let timeoutId: number | null;
+  return (...args: any[]) => {
+    clearTimeout(timeoutId as number)
+    timeoutId = setTimeout(() => {
+      timeoutId = null
+      callback(...args)
+    }, delay)
+  }
+}

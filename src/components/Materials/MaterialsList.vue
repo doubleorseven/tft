@@ -45,8 +45,8 @@ onMounted(() =>
 );
 
 const updateTitle = (e: Event) => {
-        var element = e.target as HTMLHeadElement;
-        ml.title = element.innerHTML;
+        var element = e.target as HTMLDivElement;
+        ml.title = element.innerText;
         beforeUpdate(true);
 }
 const updatedList = (list: Array<IListItem>) => {

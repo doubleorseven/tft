@@ -55,6 +55,7 @@ h4 {
     -webkit-tap-highlight-color: transparent;
     outline: 0px solid transparent;
 }
+[contenteditable="true"]:hover { text-shadow: 1in}
 p {
     @apply break-words;
 }

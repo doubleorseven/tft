@@ -14,7 +14,7 @@ const sidebarClass = computed(() => ({
 
 <template>
   <div class="flex flex-row ">
-    <div class="sticky top-0 h-screen" :class="{ 'z-50 fixed': isMobile }">
+    <div class="top-0 h-screen" :class="{ 'z-50 fixed': isMobile }">
       <Tabs />
 
     </div>

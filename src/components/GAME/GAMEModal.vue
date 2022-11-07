@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import GAMECard from './GAMECard.vue';
+import { debounceEvent } from '@/lib/functions';
 const emits = defineEmits(['end', 'previous', 'next', 'select']);
 const props = defineProps({
   isModalOpen: Boolean,
@@ -53,13 +54,16 @@ const keyPress = (e: KeyboardEvent): void => {
 }
 const handleMove = (direction: string): void => {
   console.log(direction);
+  let de: string = '';
   if ((direction) == 'RIGHT') {
-    emits('next');
+    debounceEvent(() => emits('next'), 150);
   }
   if ((direction) == 'LEFT') {
-    emits('previous');
+    debounceEvent(() => emits('previous'), 150);
   }
 }
+
+
 onMounted(() => {
   if (!props.task) {
     emits('next');
