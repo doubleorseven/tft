@@ -2,7 +2,7 @@
     "formatName": "dexie",
     "formatVersion": 1,
     "data": {
-        "databaseName": "tft-database",
+        "databaseName": "dti-database",
         "databaseVersion": 2,
         "tables": [
             {

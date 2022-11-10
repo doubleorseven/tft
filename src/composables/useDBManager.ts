@@ -39,7 +39,7 @@ export function useDBManager() {
         const blob = await db.export();
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href", URL.createObjectURL(blob));
-        downloadAnchorNode.setAttribute("download", `tft-${Date.now()}.json`);
+        downloadAnchorNode.setAttribute("download", `dtidb-${Date.now()}.json`);
         document.body.appendChild(downloadAnchorNode); // required for firefox
         downloadAnchorNode.click();
         downloadAnchorNode.remove();

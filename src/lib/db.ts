@@ -5,13 +5,13 @@ import Task from '@/entities/Task';
 import Game from '@/entities/Game';
 import MaterialsList from '@/entities/MaterialsList';
 import { APP_DB_VERSION } from './constants';
-export class TFTDixie extends Dexie {
+export class DTIDixie extends Dexie {
   tasks!: Table<Task, string>;
   appSettings!: Table<IApplicationSettings, string>;
   materialsLists!: Table<MaterialsList, string>;
   GAME!: Table<Game, string>;
   constructor() {
-    super('tft-database');
+    super('dti-database');
     this.version(APP_DB_VERSION).stores({
       tasks: 'id, title, uid, howHard',
       appSettings: '',
@@ -27,5 +27,5 @@ export class TFTDixie extends Dexie {
     this.GAME.mapToClass(Game);
   }
 }
-export const db = new TFTDixie();
+export const db = new DTIDixie();
 

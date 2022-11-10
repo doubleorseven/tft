@@ -30,7 +30,7 @@ interface RouteSlice {
 const route = useRoute();
 const crumbs = computed(() => {
   let paths = route.fullPath.split('/');
-  let routes: Array<RouteSlice> = [{ name: 'TFT', route: { path: '/' } }];
+  let routes: Array<RouteSlice> = [{ name: '🎪', route: { path: '/' } }];
   for (let i = 1; i < paths.length; i++) {
     if (!paths[i]) continue;
     let r = {
