@@ -1,5 +1,6 @@
 <template>
-        <form class="flex  flex-col justify-center" :class="{ 'items-center': $isMobile }">
+        <pre v-if="!task">........................</pre>
+        <form v-else class="flex  flex-col justify-center" :class="{ 'items-center': $isMobile }">
                 <div contenteditable="true" @input.prevent="updateTitle" @paste.prevent @keydown.enter.prevent
                         class="font-bold text-4xl cursor-text px-1 py-0.5 border-none">
                         {{ task.title }}
@@ -48,8 +49,7 @@
                                 </Checkbox>
 
                         </div>
-                        <div :style="{ visibility: task.delay ? 'visible' : 'hidden' }"
-                                class="flex flex-row gap-2 items-center">
+                        <div v-if="task.delay && !task.oneTime" class="flex flex-row gap-2 items-center">
                                 <label for="input-number-delay-by">delay for</label>
                                 <input type="number" id="input-number-delay-by" v-model="task.delayForData[0]" :min="1"
                                         :step="1" :max="365" oninput="validity.valid||(value='');"
@@ -65,7 +65,6 @@
                 <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">
                         materials</h4>
                 <div v-if="task.materialsListId" class="w-9/12 mt-5 mb-5 sm:w-4/12">
-
                         <ItemsList :items="materialsListItems" @updated-list="updatedList"></ItemsList>
                 </div>
                 <CreateButton v-else @clicked="addMaterialsList(task.id)">
