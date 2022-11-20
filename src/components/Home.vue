@@ -22,7 +22,7 @@
                 <p>You just create a task, set how much time you estimate it's gonna take and combine that with how much
                     energy you'll need to do it.</p>
                 <p>A task can be a one time thing or it can be something you do on a regular basis.</p>
-                <p>Maybe you need things to get it done? no problem! Every task can have a materials list with
+                <p>Maybe you need things to get it done? no problem! Every task can have a List list with
                     checkboxes!
                 </p>
                 <p>Now every time that you feel it's a good time to do your tasks, just start the tasks selector, tell

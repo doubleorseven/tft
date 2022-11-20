@@ -1,6 +1,6 @@
 
 import BaseClass from './BaseClass';
-import type MaterialsListStats from './interfaces/MaterialsListStats';
+import type ListStats from './interfaces/ListStats';
 
 
 export interface ITask {
@@ -14,8 +14,8 @@ export default class Task extends BaseClass implements ITask {
     public title: string;
     public howHard: HowHard;
     public howLong: number;
-    public materialsListId?: string;
-    public materialsListStats?: MaterialsListStats;
+    public ListId?: string;
+    public ListStats?: ListStats;
     public statistics: TaskStatistics;
     public delay: boolean = false;
     public oneTime: boolean = false;

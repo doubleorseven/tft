@@ -53,7 +53,6 @@ const keyPress = (e: KeyboardEvent): void => {
   }
 }
 const handleMove = (direction: string): void => {
-  console.log(direction);
   let de: string = '';
   if ((direction) == 'RIGHT') {
     debounceEvent(() => emits('next'), 150);

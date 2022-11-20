@@ -1,8 +1,8 @@
 {
   "menu": {
     "home": "Home",
+    "lists": "Lists",
     "tasks": "Tasks",
-    "materialsLists": "Materials Lists",
     "settings": "Settings"
   },
   "areas": {
@@ -11,10 +11,10 @@
       "created-tasks-appers-here": "Created tasks will appear here, try creating one!",
       "create-a-task": "Create a Task"
     },
-    "materialsLists": {
-      "no-materialsLists": "There's nothing here...",
-      "created-materialsLists-appers-here": "Created materials lists will appear here, try creating one!",
-      "create-a-materialsList": "Create a Materials List"
+    "Lists": {
+      "no-Lists": "There's nothing here...",
+      "created-Lists-appers-here": "Created List lists will appear here, try creating one!",
+      "create-a-List": "Create a List List"
     },
     "settings": {
       "general-settings": "General Settings",

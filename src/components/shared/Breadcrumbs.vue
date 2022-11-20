@@ -51,7 +51,6 @@ const crumbs = computed(() => {
         name: paths[i + 1],
         route: r
       });
-      console.log(routes);
       return routes;
 
     } else {

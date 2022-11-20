@@ -20,5 +20,4 @@ var props = defineProps({
   text: { type: String, required: false },
   checked: Boolean,
 });
-console.log(props.modelValue, props.checked)
 </script>

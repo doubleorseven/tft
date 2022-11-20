@@ -16,7 +16,7 @@
                 "rowCount": 1
             },
             {
-                "name": "materialsLists",
+                "name": "Lists",
                 "schema": "id,uid",
                 "rowCount": 2
             },
@@ -38,8 +38,8 @@
                         "title": "clean and replace vacuum's parts",
                         "howHard": "Medium",
                         "howLong": 20,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "delay": false,
                         "delayForData": [
                             1,
@@ -54,8 +54,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     },
                     {
@@ -65,8 +65,8 @@
                         "title": "re-fold my closet and drawers",
                         "howHard": "Medium",
                         "howLong": 30,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "delay": false,
                         "delayForData": [
                             1,
@@ -81,8 +81,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     },
                     {
@@ -92,8 +92,8 @@
                         "title": "repaint patio furniture",
                         "howHard": "Hard",
                         "howLong": 180,
-                        "materialsListId": "6aa3a2f9-8e48-4536-b6fa-2fad524b001b",
-                        "materialsListStats": {
+                        "ListId": "6aa3a2f9-8e48-4536-b6fa-2fad524b001b",
+                        "ListStats": {
                             "markedAsDone": 0,
                             "totalItems": 5
                         },
@@ -120,8 +120,8 @@
                         "title": "water indoor plants",
                         "howHard": "Easy",
                         "howLong": 5,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "delay": false,
                         "delayForData": [
                             1,
@@ -136,8 +136,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     },
                     {
@@ -147,8 +147,8 @@
                         "title": "maintain and clean kids bikes",
                         "howHard": "Medium",
                         "howLong": 25,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "delay": false,
                         "delayForData": [
                             1,
@@ -163,8 +163,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     },
                     {
@@ -174,8 +174,8 @@
                         "title": "clean AC filters",
                         "howHard": "Medium",
                         "howLong": 20,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
@@ -190,8 +190,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     },
                     {
@@ -201,8 +201,8 @@
                         "title": "clean the refrigerator",
                         "howHard": "Medium",
                         "howLong": 60,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "delay": false,
                         "delayForData": [
                             1,
@@ -217,8 +217,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     },
                     {
@@ -228,8 +228,8 @@
                         "title": "format and re-install my computer",
                         "howHard": "Easy",
                         "howLong": 180,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "delay": false,
                         "delayForData": [
                             1,
@@ -244,8 +244,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     },
                     {
@@ -255,8 +255,8 @@
                         "title": "wash mosquitoes nets",
                         "howHard": "Medium",
                         "howLong": 20,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "statistics": {
                             "succeed": 0,
                             "failed": 0,
@@ -271,8 +271,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     },
                     {
@@ -282,8 +282,8 @@
                         "title": "water my garden",
                         "howHard": "Easy",
                         "howLong": 15,
-                        "materialsListId": null,
-                        "materialsListStats": null,
+                        "ListId": null,
+                        "ListStats": null,
                         "delay": false,
                         "delayForData": [
                             1,
@@ -298,8 +298,8 @@
                         "oneTime": false,
                         "$types": {
                             "": "userObject",
-                            "materialsListId": "undef",
-                            "materialsListStats": "undef"
+                            "ListId": "undef",
+                            "ListStats": "undef"
                         }
                     }
                 ]
@@ -317,7 +317,7 @@
                 ]
             },
             {
-                "tableName": "materialsLists",
+                "tableName": "Lists",
                 "inbound": true,
                 "rows": [
                     {

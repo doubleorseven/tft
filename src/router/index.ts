@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import TasksPage from '@/components/Tasks/TasksPage.vue'
 import Task from '@/components/Tasks/Task.vue';
-import MaterialsListsPage from '@/components/Materials/MaterialsListsPage.vue';
-import MaterialsList from '@/components/Materials/MaterialsList.vue';
+import ListsPage from '@/components/Lists/ListsPage.vue';
+import List from '@/components/Lists/List.vue';
 import Home from '@/components/Home.vue';
 import Settings from '@/components/Settings/Settings.vue';
 const router = createRouter({
@@ -24,14 +24,14 @@ const router = createRouter({
       component: Task
     },
     {
-      path: '/materials-lists',
-      name: 'materials-lists',
-      component: MaterialsListsPage
+      path: '/lists',
+      name: 'lists',
+      component: ListsPage
     },
     {
-      path: '/materials-list/:uid',
-      name: 'materials-list',
-      component: MaterialsList,
+      path: '/list/:uid',
+      name: 'list',
+      component: List,
       props: true
     },
     {

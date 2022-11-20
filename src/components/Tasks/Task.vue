@@ -63,12 +63,12 @@
                         </div>
                 </div>
                 <h4 class="select-none mb-5 text-2xl underline decoration-1 underline-offset-2">
-                        materials</h4>
-                <div v-if="task.materialsListId" class="w-9/12 mt-5 mb-5 sm:w-4/12">
-                        <ItemsList :items="materialsListItems" @updated-list="updatedList"></ItemsList>
+                        List</h4>
+                <div v-if="task.ListId" class="w-9/12 mt-5 mb-5 sm:w-4/12">
+                        <ItemsList :items="ListItems" @updated-list="updatedList"></ItemsList>
                 </div>
-                <CreateButton v-else @clicked="addMaterialsList(task.id)">
-                        Add Materials List
+                <CreateButton v-else @clicked="addList(task.id)">
+                        Add Check List
                 </CreateButton>
         </form>
 </template>
@@ -76,7 +76,7 @@
 import { useRoute } from 'vue-router'
 import { reactive, watch, onMounted, toRaw, ref } from 'vue'
 import { useTasksManager } from '@/composables/useTasksManager';
-import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
+import { useListsManager } from '@/composables/useListsManager';
 import type ITask from '@/entities/Task';
 import CreateButton from '@/components/shared/Actions/CreateButton.vue';
 import RadioButton from '@/components/shared/Forms/RadioButton.vue';
@@ -85,14 +85,14 @@ import ItemsList from '@/components/shared/ItemsList.vue';
 import FormSlider from '../shared/Forms/FormSlider.vue';
 import type KeyValuePair from "@/entities/interfaces/KeyValuePair";
 import { HowHard } from '@/entities/Task';
-import type MaterialsList from '@/entities/MaterialsList.js';
+import type List from '@/entities/List.js';
 import type IListItem from '@/entities/interfaces/IListItem.js';
 const route = useRoute()
 const task = reactive({} as ITask);
-const ml = reactive({} as MaterialsList);
-const materialsListItems = ref<Array<IListItem>>([]);
+const ml = reactive({} as List);
+const ListItems = ref<Array<IListItem>>([]);
 const { getTaskByUID, updateTask } = useTasksManager();
-const { createMaterialsList, getMeterialsListByID, updateMeterialsList } = useMaterialsListsManager();
+const { createList, getMeterialsListByID, updateMeterialsList } = useListsManager();
 const delayMultiplyOptions: KeyValuePair[] = [{ key: 1, value: 'day' }, { key: 7, value: 'week' }, { key: 30, value: 'month' }, { key: 365, value: 'year' }];
 
 onMounted(() =>
@@ -103,11 +103,11 @@ onMounted(() =>
                                 var dbTask = await getTaskByUID(newId);
                                 if (dbTask) {
                                         Object.assign(task, dbTask);
-                                        if (dbTask.materialsListId) {
-                                                const localMl = await getMeterialsListByID(dbTask.materialsListId);
+                                        if (dbTask.ListId) {
+                                                const localMl = await getMeterialsListByID(dbTask.ListId);
                                                 if (ml) {
                                                         Object.assign(ml, localMl);
-                                                        materialsListItems.value = ml.items;
+                                                        ListItems.value = ml.items;
                                                 }
                                         }
                                 }
@@ -121,18 +121,18 @@ const updateTitle = (e: Event) => {
         var element = e.target as HTMLDivElement;
         task.title = element.innerText;
 }
-const addMaterialsList = async (taskId: string) => {
-        Object.assign(ml, await createMaterialsList(taskId));
-        task.materialsListId = ml.id;
-        materialsListItems.value = ml.items;
+const addList = async (taskId: string) => {
+        Object.assign(ml, await createList(taskId));
+        task.ListId = ml.id;
+        ListItems.value = ml.items;
 }
 const updatedList = (list: Array<IListItem>) => {
-        materialsListItems.value = list;
+        ListItems.value = list;
         beforeSave();
 }
 const beforeSave = () => {
-        if (task.materialsListId) {
-                ml.items = JSON.parse(JSON.stringify(materialsListItems.value));
+        if (task.ListId && ml.id) {
+                ml.items = JSON.parse(JSON.stringify(ListItems.value));
                 updateMeterialsList(toRaw(ml), true);
         }
         updateTask(toRaw(task), true);

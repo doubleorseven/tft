@@ -20,12 +20,12 @@
 <script setup lang="ts">
 import { stringifyQuery, useRoute } from 'vue-router'
 import { reactive, ref, watch, onMounted, toRaw, } from 'vue'
-import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
-import type MaterialsList from '@/entities/MaterialsList';
+import { useListsManager } from '@/composables/useListsManager';
+import type List from '@/entities/List';
 import ItemsList from '@/components/shared/ItemsList.vue';
 import type IListItem from '@/entities/interfaces/IListItem';
-const ml = reactive({} as MaterialsList);
-const { getMeterialsListByUID, updateMeterialsList } = useMaterialsListsManager();
+const ml = reactive({} as List);
+const { getMeterialsListByUID, updateMeterialsList } = useListsManager();
 const props = defineProps({
         uid: String
 })

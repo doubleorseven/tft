@@ -57,9 +57,9 @@ const links = [
     text: 'menu.tasks'
   },
   {
-    to: '/materials-lists',
-    name: 'materials-lists',
-    text: 'menu.materialsLists'
+    to: '/lists',
+    name: 'lists',
+    text: 'menu.lists'
   },
   {
     to: '/settings',

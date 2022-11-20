@@ -3,11 +3,10 @@
         <h4 class="text-bold"> {{ task.title }}</h4>
         <p>Should take: <span v-html="numberToHumanClockText(task.howLong)"></span>.</p>
         <p>Should be an <span class="font-bold">{{ task.howHard }}</span> task.</p>
-        <div v-if="task.materialsListStats && task.materialsListStats.totalItems > 0"
-            class="flex flex-col items-center">
-            <p>has <span class="font-bold">{{ task.materialsListStats.totalItems }}</span> items in it's materials list
+        <div v-if="task.ListStats && task.ListStats.totalItems > 0" class="flex flex-col items-center">
+            <p>has <span class="font-bold">{{ task.ListStats.totalItems }}</span> items in it's List list
             </p>
-            <p><span class="font-bold">{{ task.materialsListStats.markedAsDone }}</span> items are marked as done.</p>
+            <p><span class="font-bold">{{ task.ListStats.markedAsDone }}</span> items are marked as done.</p>
         </div>
     </div>
 </template>

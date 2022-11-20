@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import { db } from '@/lib/db';
 import { liveQuery, type Collection, type Subscription } from "dexie";
 import Task, { HowMuchEnergyArray, HowHardArray, type ChooseTaskStarterModelData, type CreateTaskModelData, type HowHard, type ITask } from '@/entities/Task';
-import { useMaterialsListsManager } from '@/composables/useMaterialsListsManager';
+import { useListsManager } from '@/composables/useListsManager';
 import { notify } from "@kyvg/vue3-notification";
 export function useTasksManager() {
   const tasks = ref<Task[]>([]);
@@ -41,9 +41,9 @@ export function useTasksManager() {
       });
     }
   };
-  const removeTaskMaterialsList = async (id: string) => {
+  const removeTaskList = async (id: string) => {
     db.tasks.update(id, {
-      "materialsListId": undefined
+      "ListId": undefined
     });
   }
   const updateTask = async (task: ITask, silent: boolean = false) => {
@@ -63,9 +63,9 @@ export function useTasksManager() {
   const getTaskForGame = async (idVal: string): Promise<Task | undefined> => {
     const task = await getTaskByID(idVal);
     if (task) {
-      if (task.materialsListId) {
-        const { getMeterialsListStats } = useMaterialsListsManager();
-        task.materialsListStats = await getMeterialsListStats(task.materialsListId);
+      if (task.ListId) {
+        const { getMeterialsListStats } = useListsManager();
+        task.ListStats = await getMeterialsListStats(task.ListId);
       }
       return task;
     }
@@ -93,7 +93,7 @@ export function useTasksManager() {
     createTask,
     deleteTask,
     updateTask,
-    removeTaskMaterialsList,
+    removeTaskList,
     getTaskByID,
     getTaskByUID,
     getTaskForGame,

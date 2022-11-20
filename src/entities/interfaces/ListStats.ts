@@ -1,4 +1,4 @@
-export default interface MaterialsListStats {
+export default interface ListStats {
     totalItems: number,
     markedAsDone: number,
 }

@@ -3,19 +3,19 @@ import type { Table } from 'dexie';
 import type IApplicationSettings from "@/entities/interfaces/IApplicationSettings"
 import Task from '@/entities/Task';
 import Game from '@/entities/Game';
-import MaterialsList from '@/entities/MaterialsList';
+import List from '@/entities/List';
 import { APP_DB_VERSION } from './constants';
 export class DTIDixie extends Dexie {
   tasks!: Table<Task, string>;
   appSettings!: Table<IApplicationSettings, string>;
-  materialsLists!: Table<MaterialsList, string>;
+  Lists!: Table<List, string>;
   GAME!: Table<Game, string>;
   constructor() {
     super('dti-database');
     this.version(APP_DB_VERSION).stores({
       tasks: 'id, title, uid, howHard',
       appSettings: '',
-      materialsLists: 'id,uid',
+      Lists: 'id,uid',
       GAME: 'id',
       // }).upgrade(trans => {
       //   return trans.db.table('tasks').toCollection().modify((task: Task) => {
@@ -23,7 +23,7 @@ export class DTIDixie extends Dexie {
       //   });
     });
     this.tasks.mapToClass(Task);
-    this.materialsLists.mapToClass(MaterialsList);
+    this.Lists.mapToClass(List);
     this.GAME.mapToClass(Game);
   }
 }

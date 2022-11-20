@@ -10,7 +10,7 @@ export function useDBManager() {
             .then(async (blob) => {
                 await db.tasks.clear();
                 await db.GAME.clear();
-                await db.materialsLists.clear();
+                await db.Lists.clear();
                 await db.appSettings.clear();
                 await db.import(blob);
                 notify({
